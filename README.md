@@ -3,7 +3,8 @@ General scripts, snippets, and tools. Files are meant to be lightweight, and abl
 Additional files will be added if the current file gets overwhelmed with functions.
 
 # Current Functions Are:
-// Removing Elements
+## Removing Elements
+
 function removeSpace(idWhereSpaceIs, changeCase) 
  1. idWhereSpaceIs: String - the element id.
  2. changeCase: String - either "u" (upper) or "l" (lower).
@@ -32,7 +33,8 @@ function removeHTMLTag(tag, parElement, parElementIdentifier, replace)
  4. replace: String - a tag to replace the removed tag with.
 
 
-// Replacing Elements
+## Replacing Elements
+
 function replaceWord(word, replaceWith,  parElement, parElementIdentifier) 
  1. word: String - word to remove.
  2. replaceWith: String - the word the will be inserted in place of word.
@@ -62,14 +64,16 @@ function replaceAttribute(attribute, replaceWith, curElement, curElementIdentifi
    c. "class[indexNumber]" e.g. "className1" gets the class at index 1 as if array.
    d. "data[indexNumber]" e.g. "name0" gets the data-name at index 0 as if array. 
 
-// Changing Case
+## Changing Case
+
 function changeToUpperCase(variableToChange)
  1. variableToChange: Primitive - the variable with value that will be changed.
  
 function changeToLowerCase(variableToChange) 
  1. variableToChange: Primitive - the variable with value that will be changed.
 
-// Miscellaneous
+## Miscellaneous
+
 function outputTextFile(textFilePath, parElement, parElementIdentifier)
  1. textFilePath: "String" - path to file that will be output as text.
  2. parElement: String - the parent element by name of id, tag, class, data-attribute, or self.
