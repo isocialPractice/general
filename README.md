@@ -97,13 +97,13 @@ function outputTextFile(textFilePath, parElement, parElementIdentifier)
 2. parElement: String - the parent element by name of id, tag, class, data-attribute, or self.
 3. parElementIdentifier: String - acceptable values are:
   
-  a. "id" - default
-  
-  b. "tag[indexNumber]" e.g. "tag2" gets the tag at index 2 as if array.
-  
-  c. "class[indexNumber]" e.g. "className1" gets the class at index 1 as if array.
-  
-  d. "data[indexNumber]" e.g. "name0" gets the data-name at index 0 as if array.
+   a. "id" - default
+   
+   b. "tag[indexNumber]" e.g. "tag2" gets the tag at index 2 as if array.
+   
+   c. "class[indexNumber]" e.g. "className1" gets the class at index 1 as if array.
+   
+   d. "data[indexNumber]" e.g. "name0" gets the data-name at index 0 as if array.
    
 function copyText(parElement, parElementIdentifier, copyWhat) 
 1. parElement: String - the parent element by name of id, tag, class, data-attribute, or self.
