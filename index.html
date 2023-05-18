@@ -1,0 +1,336 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>General Functions</title>
+<style>
+ div.row, div.col {
+  display: inline-block;
+  position: relative;
+  margin-left: 150px;
+ }
+ div.col div:first-child {
+  margin-left: 30px;
+ }
+ .item + *, .itemTwo + * {
+  margin-left: 30px;
+ }
+ div#ExampleSelection {
+  position: fixed;
+  top: 280px;
+  left: 10px;
+ }
+ div.col label {
+  position: relative;    
+  max-width: 350px;
+  /*top: 280px;*/
+  /*left: 30px; */
+ }
+ div.col select {
+  position: relative;    
+  max-width: 350px;
+  /*top: 300px;*/
+/*  left: 30px;*/
+ }
+ a {
+  margin: 10px;
+ }
+</style>
+</head>
+
+<body>
+
+
+<h1>Testing - Add Attribute Function</h1>
+<hr>
+<button onclick="
+ var showVar = document.getElementById('showVar');
+ var btnData = this.dataset;
+ if (this.dataset.showhide == 0) {
+  btnData.showhide = 1;
+  showVar.style.display = '';  
+  print.style.display = 'none';  
+  ExampleSelection.style.top = '380px';  
+ } else {  
+  btnData.showhide = 0;
+  showVar.style.display = 'none';
+  print.style.display = '';  
+  ExampleSelection.style.top = '280px';
+ }
+" data-showhide="0">Show Variables Used</button><br>
+<div id="showVar" style="display:none">
+<pre id="showVarUsed"
+ style="background-color: whitesmoke">
+ 
+</pre>
+</div>
+
+<p>The output of the selected example used, or the function used will be shown below.</p>
+<p id="print">Attribute changes shown here</p>
+
+ <div class="row">
+  <div class="col">
+   <div id="ExampleSelection">
+    <label for="SelectExample">Select Example Function</label>
+    <br>
+    <select name="SelectExample" id="SelectExample"
+     value="Select Example to Run" data-show="0"        
+     onchange="
+     resetHTML(this.dataset.show, this.dataset);
+     showGeneralExample(this.value);">
+     <option value="let skip;" name="blankOption" id="blankOption" selected> </option>
+ <!-- Remove Element -->    
+     <optgroup label="Remove Elements">
+      <option id="removeSpace" 
+       name="removeSpace"
+       value="
+       removeSpace('removesSpaceInText', 'u');
+       document.getElementById('print').innerHTML = 'removeSpace(\'removesSpaceInText\', \'u\')';">
+       removeSpace('removesSpaceInText', 'u');
+      </option>    
+
+      <option id="removeSpaceInVariable" name="removeSpaceInVariable"
+       value="
+       var withoutSpace = removeSpaceInVariable(withSpace, 'l');
+       document.getElementById('print').innerHTML = withoutSpace;">
+      removeSpaceInVariable(withSpace, 'l');
+      </option>
+
+      <option id="removeWord" name="removeWord"
+       value="
+       removeWord('removeTheWord', 'removeTheWord');
+       document.getElementById('print').innerHTML = 'removeWord(\'removeTheWord\', \'removeTheWord\')';">
+      removeWord('removeTheWord', 'removeTheWord');
+      </option>    
+
+      <option id="removeWordInVariable" name="removeWordInVariable"
+       value="
+       var withoutWord = removeWordInVariable('remove', withWord);
+       document.getElementById('print').innerHTML = withoutWord;">
+      removeWordInVariable(remove, variableWithWord);
+      </option>   
+
+      <option id="removeHTMLTag" name="removeHTMLTag" 
+       value="
+       removeHTMLTag('p', 'col', 'class1');
+       document.getElementById('print').innerHTML = 'removeHTMLTag(\'p\', \'col\', \'class1\')';">
+      removeHTMLTag('p', 'col', 'class1')
+      </option>    
+     </optgroup>
+ <!-- Replace Element -->    
+     <optgroup label="Replace Elements">
+      <option id="replaceWord" name="replaceWord"
+       value="
+       replaceWord('---', '!-', 'col', 'class1');
+       document.getElementById('print').innerHTML = 'replaceWord(\'---\', \'!-\', \'col\', \'class1\')';">
+      replaceWord('---', '!-', 'col', 'class1');
+      </option>
+
+      <option id="replaceInnerHTML" name="replaceInnerHTML"
+       value="
+       replaceInnerHTML('Ariticle HTML replaced', 'article', 'tag0');
+       document.getElementById('print').innerHTML = 'replaceInnerHTML(\'Ariticle HTML replaced\', \'article\', \'tag0\')';">
+      replaceInnerHTML('Ariticle HTML replaced', 'article', 'tag0');
+      </option>    
+
+      <option id="replaceAttribute" name="replaceAttribute"
+       value="replaceAttribute('href', 'https://practicing.xyz/Exercises.html', 'link', 'class0');
+       document.getElementById('print').innerHTML = 'replaceAttribute(\'href\', \'https://practicing.xyz/Exercises.html\', \'link\', \'class0\')';">
+      replaceAttribute('href', 'https://practicing.xyz/Exercises.html', 'link', 'class0');
+      </option>        
+     </optgroup>
+ <!-- Append/Prepend -->    
+     <optgroup label="Append/Prepend Elements">
+      <option id="addToAttribute" 
+       name="addToAttribute"
+       value="
+       addToAttribute('data-name', '-a', 'after', 'name', 'data', 1);
+       nowShowWhat('data-name', '[data-name]', 1);
+       document.getElementById('print').innerHTML = showWhat">
+       addToAttribute('data-name', '-a', 'after', 'name', 'data', 1);
+      </option>
+     </optgroup>
+ <!-- Change Case -->        
+     <optgroup label="Change Case">
+      <option id="changeToUpperCase" name="changeToUpperCase"
+      value="
+      var changedToUpperCase = changeToUpperCase(toChangeToUpperCase);
+      document.getElementById('print').innerHTML = changedToUpperCase;
+      ">
+      changeToUpperCase(toChangeToUpperCase);
+      </option>       
+
+      <option id="changeToLowerCase" name="changeToLowerCase"
+      value="
+      var changedToLowerCase = changeToLowerCase(toChangeToLowerCase);
+      document.getElementById('print').innerHTML = changedToLowerCase;
+      ">     
+      changeToLowerCase(toChangeToLowerCase);
+      </option>    
+     </optgroup> 
+ <!-- Miscellaneous -->    
+     <optgroup label="Miscellaneous">
+      <option id="outputTextFile" name="outputTextFile"
+      value="
+      outputTextFile('support/TextFile.txt', 'print', 'id', 'html');     
+      ">
+      outputTextFile('support/TextFile.txt', 'print', 'id', 'html');
+      </option>    
+
+      <option id="copyText" name="copyText"
+      value="
+      copyText('copiedText', 'id', 'html');     
+      print.innerHTML = 'copyText(\'copiedText\', \'id\', \'html\')';
+      print.innerHTML += '<br><strong>Paste below text below:</strong><br>';
+      printTextArea = document.createElement('textarea');
+      printTextArea.width = '300px';
+      printTextArea.height = '300px';
+      print.appendChild(printTextArea);
+      ">
+      copyText('copiedText', 'id', 'html');
+      </option>     
+     </optgroup>    
+    </select>
+   </div>
+  </div>
+  <div class="col">
+   <h3>The Elements Below Will Be Changed</h3>
+   <div id="boxWithExample">
+    <div>    
+    This is a div with no attributes but two a tags with the following attributes: <br>
+    --- class="link" <br>
+    --- 1. href="https://practicing.xyz" (<em>changed in a example</em>)<br>
+    --- 2. href="https://gitHub.com" <br>
+    --- target="_blank" <br>
+    <a class="link" href="https://practicing.xyz" target="_blank">Practicing.XYZ Site</a>
+    <a class="link" href="https://gitHub.com" target="_blank">GitHub Home Page</a>
+    </div>
+    <br><br>
+    <div class="item" id="removesSpaceInText"
+     style="display:block; margin-left: 30px"
+     data-name="Value in Attribute data-name index 0" 
+     value="text in value attribute">
+    This is a div element with following attributes: <br>
+    --- class="item" <br>
+    --- id="removesSpaceInText" <br>
+    --- style="display:block; margin-left: 30px" <br>
+    --- data-name="Value in Attribute data-name index 0"  <br>
+    --- value="text in value attribute" <br>
+    </div>
+    <div id="removeTheWord">This is a div element with id attribute removeTheWord.</div>
+    <br><br> 
+    <p class="item" id="removeHTML"
+     style="display:block; margin-left: 30px"
+     data-name="Value in Attribute data-name index 1" 
+     value="text in value attribute">
+    This is a paragraph element with following attributes: <br>
+    --- class="item"  <br>
+    --- id="removeHTML" <br>
+    --- style="display:block; margin-left: 30px" <br>
+    --- data-name="Value in Attribute data-name index 1"  <br>
+    --- value="text in value attribute" <br>
+    </p>
+    <p>This is a paragraph element with no attributes.</p>
+    <br><br>
+    <article class="itemTwo" 
+     style="display:block; margin-left: 30px"
+     data-href="Value in Attribute data-href index 0" 
+     value="text in value attribute">
+    This is an article with the following attributes: <br> 
+    --- class="itemTwo"  <br>
+    --- style="display:block; margin-left: 30px" <br>
+    --- data-href="Value in Attribute data-href index 0"  <br>
+    --- value="text in value attribute"  <br>
+    </article> 
+    <article id="copiedText">This is an article with an id attibutes copiedText.</article>
+    <br><br>
+    <div class="itemTwo" 
+     style="display:block; margin-left: 30px"
+     data-href="Value in Attribute data-href index 1" 
+     value="text in value attribute">
+    This is a div with the following attribute:<br>
+    --- class="itemTwo" <br>
+    --- style="display:block; margin-left: 30px"<br>
+    --- data-href="Value in Attribute data-href index 1" <br>
+    --- value="text in value attribute"<br>
+    </div> 
+   </div>
+ </div>
+</div>
+
+
+<script src="reusableJavascriptFunctions.js"></script>
+
+
+<script id="varUsed">
+
+var withSpace = "This variables SPACE will be removed";
+
+var withWord = "The word remove is removed when removes used.";
+
+var toChangeToUpperCase = "the words in this variable will be changed to upper case.";
+
+var toChangeToLowerCase = "THE WORDS IN THIS VARIABLE WILL BE CHANGED TO LOWER CASE.";
+
+</script>
+<script>
+var print = document.getElementById('print');
+var ExampleSelection = document.getElementById("ExampleSelection");
+var printTextArea;
+var showVarUsed = document.getElementById("showVarUsed");
+var varUsed = document.getElementById("varUsed");
+showVarUsed.innerHTML = varUsed.innerHTML;
+function resetHTML(reset, resetData) {
+ if (reset == 0) {
+  resetData.show = 1;
+ } else {
+  //resetData.show = 0;
+  var boxWithExample = document.getElementById("boxWithExample");
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+   if (this.readyState == 4 && this.status == 200) {
+    boxWithExample.innerHTML = this.responseText;
+   }
+  };
+  xhttp.open("GET", "support/exampleHTML.txt", true);
+  xhttp.send();
+ }
+}
+
+var showWhat = '';
+function nowShowWhat(sel, attr, useAll) {
+ if (useAll == 1) {
+  showWhat = "";
+  let curAttribute = document.querySelectorAll(attr);
+  let curAttributeLen = curAttribute.length; 
+  for (i = 0; i < curAttributeLen; i++) {
+   if (i == 0) {
+    showWhat += curAttribute[i].getAttribute(sel);
+   } else {
+    showWhat += "<br>" + curAttribute[i].getAttribute(sel);
+   }
+  }
+ } else {
+  showWhat = "";
+  let curAttributeIndex = attr.lastIndexOf([0-9]);  
+  let curAttribute = document.querySelector(attr.replace(attr.substr(curAttributeIndex), ""))[curAttributeIndex];
+  showWhat = curAttribute;
+ }
+}
+var firstRun = 0;
+function showGeneralExample(genFunc) {
+ if (firstRun == 0) {
+  firstRun = 1;
+ } else {
+  removeHTMLTag("script", "script", "tagl", "self");
+ }
+ setTimeout(function() {
+  var addScript = document.createElement("script");
+  addScript.innerHTML = genFunc;
+  document.body.appendChild(addScript);
+ }, 50);
+}
+
+</script>
+</body>
+</html>

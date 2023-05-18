@@ -1,0 +1,58 @@
+    <div>    
+    This is a div with no attributes but two a tags with the following attributes: <br>
+    --- class="link" <br>
+    --- 1. href="https://practicing.xyz" (<em>changed in a example</em>)<br>
+    --- 2. href="https://gitHub.com" <br>
+    --- target="_blank" <br>
+    <a class="link" href="https://practicing.xyz" target="_blank">Practicing.XYZ Site</a>
+    <a class="link" href="https://gitHub.com" target="_blank">GitHub Home Page</a>
+    </div>
+    <br><br>
+    <div class="item" id="removesSpaceInText"
+     style="display:block; margin-left: 30px"
+     data-name="Value in Attribute data-name index 0" 
+     value="text in value attribute">
+    This is a div element with following attributes: <br>
+    --- class="item" <br>
+    --- id="removesSpaceInText" <br>
+    --- style="display:block; margin-left: 30px" <br>
+    --- data-name="Value in Attribute data-name index 0"  <br>
+    --- value="text in value attribute" <br>
+    </div>
+    <div id="removeTheWord">This is a div element with id attribute removeTheWord.</div>
+    <br><br> 
+    <p class="item" id="removeHTML"
+     style="display:block; margin-left: 30px"
+     data-name="Value in Attribute data-name index 1" 
+     value="text in value attribute">
+    This is a paragraph element with following attributes: <br>
+    --- class="item"  <br>
+    --- id="removeHTML" <br>
+    --- style="display:block; margin-left: 30px" <br>
+    --- data-name="Value in Attribute data-name index 1"  <br>
+    --- value="text in value attribute" <br>
+    </p>
+    <p>This is a paragraph element with no attributes.</p>
+    <br><br>
+    <article class="itemTwo" 
+     style="display:block; margin-left: 30px"
+     data-href="Value in Attribute data-href index 0" 
+     value="text in value attribute">
+    This is an article with the following attributes: <br> 
+    --- class="itemTwo"  <br>
+    --- style="display:block; margin-left: 30px" <br>
+    --- data-href="Value in Attribute data-href index 0"  <br>
+    --- value="text in value attribute"  <br>
+    </article> 
+    <article id="copiedText">This is an article with an id attibutes copiedText.</article>
+    <br><br>
+    <div class="itemTwo" 
+     style="display:block; margin-left: 30px"
+     data-href="Value in Attribute data-href index 1" 
+     value="text in value attribute">
+    This is a div with the following attribute:<br>
+    --- class="itemTwo" <br>
+    --- style="display:block; margin-left: 30px"<br>
+    --- data-href="Value in Attribute data-href index 1" <br>
+    --- value="text in value attribute"<br>
+    </div>    

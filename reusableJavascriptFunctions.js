@@ -80,17 +80,19 @@ function removeWordInVariable(word, variableWithWord) {
 }
 
 function removeHTMLTag(tag, parElement, parElementIdentifier, replace) {
+ if (replace == undefined) replace = "";
  var useID=0, useClass=0, useData=0, useTag=0, useSelf=0, replaceTag=0, remove = 0;
- var theParElement, theParElementIndex = 0;
+ var theParElements, theParElementsLen, theParElement, theParElementIndex = 0;
  
  if (parElementIdentifier == undefined) {
   if (tag == "self" || tag == "this") {
    useSelf = 1;
    parElementIdentifier = "SELF";
-  } else {
-   parElementIdentifier = "ID";
    replace = "";
+  } else {
    useID = 1;  
+   parElementIdentifier = "ID";
+   replace = "";   
   }
  } else {
   let parElementIdentifierLowCase = parElementIdentifier.toLowerCase();
@@ -149,19 +151,58 @@ function removeHTMLTag(tag, parElement, parElementIdentifier, replace) {
   theParElement.remove();
  } 
  if (useClass == 1) {
-  theParElement = document.getElementsByClassName(parElement)[theParElementIndex];
-  replaceTheHTMLTag();
-  removeTheHTMLTag();
+  if (replace == "self") {
+   if (theParElementIndex == "l") {
+    theParElements = document.getElementsByClassName(parElement);
+    theParElementsLen = Number(theParElements.length - 1);
+    theParElement = theParElements[theParElementsLen];
+    theParElement.remove();
+   } else {
+    theParElements = document.getElementsByClassName(parElement);
+    theParElement = theParElements[theParElementIndex];
+    theParElement.remove();    
+   }
+  } else {
+   theParElement = document.getElementsByClassName(parElement)[theParElementIndex];  
+   replaceTheHTMLTag();
+   removeTheHTMLTag();
+  }
  }
- if (useData == 1) {
-  theParElement = document.querySelectorAll("[data-" + parElement + "]")[theParElementIndex];
-  replaceTheHTMLTag();
-  removeTheHTMLTag();
+ if (useData == 1) {  
+  if (replace == "self") {
+   if (theParElementIndex == "l") {
+    theParElements = document.querySelectorAll("[data-" + parElement + "]");
+    theParElementsLen = Number(theParElements.length - 1);
+    theParElement = theParElements[theParElementsLen];
+    theParElement.remove();
+   } else {
+    theParElements = document.querySelectorAll("[data-" + parElement + "]"); 
+    theParElement = theParElements[theParElementIndex];
+    theParElement.remove();    
+   }
+  } else {
+   theParElement = document.querySelectorAll("[data-" + parElement + "]")[theParElementIndex]; 
+   replaceTheHTMLTag();
+   removeTheHTMLTag();
+  }
  }
  if (useTag == 1) {
-  theParElement = document.getElementsByTagName(parElement)[theParElementIndex];
-  replaceTheHTMLTag();
-  removeTheHTMLTag();
+  if (replace == "self") {
+   if (theParElementIndex == "l") {
+    theParElements = document.getElementsByTagName(parElement);
+    theParElementsLen = Number(theParElements.length - 1);
+    theParElement = theParElements[theParElementsLen];
+    theParElement.remove();
+   } else {
+    theParElements = document.getElementsByTagName(parElement);    
+    theParElement = theParElements[theParElementIndex];
+    theParElement.remove();    
+   }
+  } else {
+   theParElement = document.getElementsByTagName(parElement)[theParElementIndex];
+   replaceTheHTMLTag();
+   removeTheHTMLTag();
+  }   
  } 
 }
 
@@ -316,6 +357,156 @@ function replaceAttribute(attribute, replaceWith, curElement, curElementIdentifi
 }
 
 
+// Appending/Prepending Elements
+function addToAttribute(attribute, addWhat, addWhere, curElement, curElementIdentifier, usingAll) {
+ if (addWhere == undefined) addWhere = "before";
+ 
+ var useID=0, useClass=0, useData=0, useTag=0;
+ var runClass = 0, useAll=0;
+ var theCurElement, theCurElements, theCurElementsLen, theAddContent, usingAll, theCurElementIndex = 0; 
+ var theCurElementAttribute, theCurElementAttributeValue;
+ if (curElementIdentifier == undefined) {
+  curElementIdentifier = "ID";
+  usingAll = 0;
+  useID = 1;
+ } else {
+  if (usingAll == undefined) usingAll = 0;
+  var curElementIdentifierLowCase = curElementIdentifier.toLowerCase(); 
+  
+  if (curElementIdentifierLowCase == "id") {
+   useID = 1;
+   usingAll = 0;
+  }
+  if (curElementIdentifierLowCase.indexOf("class") > -1) {  
+   useClass = 1;
+   if (usingAll == 0) {
+    theCurElementIndex = curElementIdentifierLowCase.replace("class", "");
+   } else {
+    theCurElementIndex = "false";
+   }
+  }
+  if (curElementIdentifierLowCase.indexOf("data") > -1) {
+   useData = 1;
+   if (usingAll == 0) {
+    theCurElementIndex = curElementIdentifierLowCase.replace("data", "");
+   } else {
+    theCurElementIndex = "false";
+   }
+  }
+  if (curElementIdentifierLowCase.indexOf("tag") > -1) {
+   useTag = 1;
+   if (usingAll == 0) {
+    theCurElementIndex = curElementIdentifierLowCase.replace("tag", "");
+   } else {
+    theCurElementIndex = "false";
+   } 
+  }
+ }
+ 
+  var addToTheAttribute = function() {
+   if (theCurElement) {
+    theCurElement.setAttribute(attribute, theAddContent);
+   }   
+  };
+
+ if (useID == 1) {
+  theCurElement = document.getElementById(curElement);
+ }
+ if (useClass == 1) {
+  if (theCurElementIndex == "false") {
+   theCurElements = document.getElementsByClassName(curElement);
+   theCurElementsLen = theCurElements.length;
+  } else {
+   theCurElement = document.getElementsByClassName(curElement)[theCurElementIndex];
+  }
+ }
+ if (useData == 1) {
+  if (theCurElementIndex == "false") {
+   theCurElements = document.querySelectorAll("[data-" + curElement + "]");
+   theCurElementsLen = theCurElements.length;
+  } else {
+   theCurElement = document.querySelectorAll("[data-" + curElement + "]")[theCurElementIndex];
+  }
+ }
+ if (useTag == 1) {
+  if (theCurElementIndex == "false") {
+   theCurElements = document.getElementsByTagName(curElement);
+   theCurElementsLen = theCurElements.length;
+  } else {
+   theCurElement = document.getElementsByTagName(curElement)[theCurElementIndex];
+  }
+ }
+ 
+ if (addWhere == "before") {
+  if (usingAll == 1) {
+   if (attribute == "class") {runClass = 1;}
+   for (i = 0; i < theCurElementsLen; i++) {
+    if (theCurElements[i].hasAttribute(attribute)) {      
+     theCurElementAttributeValue = theCurElements[i].getAttribute(attribute);  
+     if (attribute == "class") {
+      let theCurElementsData = theCurElements[i].dataset;
+      theCurElementsData.tempunlikelyaddtoattributewillbedataset = "1";      
+      //theAddContent = addWhat + " " + theCurElementAttributeValue;  
+     } else {
+      theAddContent = addWhat + theCurElementAttributeValue;
+      theCurElement = theCurElements[i];
+      addToTheAttribute();      
+     }      
+    } else {
+     let skip;
+     }
+    }
+   } else {
+   theCurElementAttributeValue = theCurElement.getAttribute(attribute);  
+   theAddContent = addWhat + theCurElementAttributeValue;  
+   addToTheAttribute();
+  }
+ } else {
+  if (usingAll == 1) {
+   if (attribute == "class") {runClass = 1;}
+   for (i = 0; i < theCurElementsLen; i++) {
+    if (theCurElements[i].hasAttribute(attribute)) {
+     theCurElementAttributeValue = theCurElements[i].getAttribute(attribute);  
+     if (attribute == "class") {
+      let theCurElementsData = theCurElements[i].dataset;
+      theCurElementsData.tempunlikelyaddtoattributewillbedataset = "1";     
+      // theAddContent = theCurElementAttributeValue + " " + addWhat;  
+     } else {
+      theAddContent = theCurElementAttributeValue + addWhat;
+      theCurElement = theCurElements[i];
+      addToTheAttribute();            
+     }      
+    } else {
+     let skip;
+     }
+    }
+   } else { 
+   theCurElementAttributeValue = theCurElement.getAttribute(attribute);  
+   theAddContent = theCurElementAttributeValue + addWhat;
+   addToTheAttribute();
+  }
+ }
+ if (runClass == 1) {
+  theCurElements = document.querySelectorAll("[data-tempunlikelyaddtoattributewillbedataset]");
+  theCurElementsLen = theCurElements.length;  
+  if (addWhere == "before") {
+   for (i = 0; i < theCurElementsLen; i++) {
+    theAddContent = addWhat + theCurElementAttributeValue;
+    theCurElement = theCurElements[i];
+    addToTheAttribute();
+    theCurElement.removeAttribute("data-tempunlikelyaddtoattributewillbedataset");
+   }
+  } else {
+   for (i = 0; i < theCurElementsLen; i++) {
+    theAddContent = theCurElementAttributeValue + addWhat;
+    theCurElement = theCurElements[i];
+    addToTheAttribute();
+    theCurElement.removeAttribute("data-tempunlikelyaddtoattributewillbedataset");
+   }
+  }
+ }
+}
+
 // Changing Case
 function changeToUpperCase(variableToChange) {
  let theVariableToUpperCase = variableToChange.toUpperCase();
@@ -327,7 +518,7 @@ function changeToLowerCase(variableToChange) {
 }
 
 // Miscellaneous
-function outputTextFile(textFilePath, parElement, parElementIdentifier) {
+function outputTextFile(textFilePath, parElement, parElementIdentifier, asWhat) {
  var useID=0, useClass=0, useData=0, useTag=0;
  var theParElement, theParElementIndex = 0;
  
@@ -335,7 +526,9 @@ function outputTextFile(textFilePath, parElement, parElementIdentifier) {
   parElementIdentifier = "ID";
   replace = "";
   useID = 1;
+  asWhat = "text";
  } else {
+  if (asWhat == undefined) asWhat = "text";
   let parElementIdentifierLowCase = parElementIdentifier.toLowerCase();
   if (parElementIdentifierLowCase == "id") useID = 1;
   if (parElementIdentifierLowCase.indexOf("class") > -1) {
@@ -359,7 +552,11 @@ function outputTextFile(textFilePath, parElement, parElementIdentifier) {
   xmlhttp.onreadystatechange = function() {
    if (this.readyState == 4 && this.status == 200) {
     if (par) {
-     par.innerText = this.responseText;
+     if (asWhat == "text") {
+      par.innerText = this.responseText;
+     } else {
+      par.innerHTML = this.responseText;
+     }     
     } else {
      let skip;
     }
