@@ -6,6 +6,9 @@
     --- target="_blank" <br>
     <a class="link" href="https://practicing.xyz" target="_blank">Practicing.XYZ Site</a>
     <a class="link" href="https://gitHub.com" target="_blank">GitHub Home Page</a>
+    <br>
+   <strong> Hover for more about <span style="text-decoration:underline" id="showtermtitlewithlink" title="Use showTermTitleWithLink example to see function use. <br>Git is used to store the source code for a project and track the complete history of all changes to that code. It lets developers collaborate on a project more ::https://gitHub.com">gitHub</span>.
+   </strong>
     </div>
     <br><br>
     <div class="item" id="removesSpaceInText"

@@ -109,3 +109,14 @@ function <strong>copyText</strong>(<em>parElement</em>, <em>parElementIdentifier
    a. "text" - default | gets the parent elements "innerText" value.   
    b. "html" - gets the parent elements "innerHTML" value.
    
+function <strong>showTermTitleWithLink</strong>(<em>cur</em>, <em>curData</em>, <em>curTitle</em>) <br>
+     **TO USE** - Paste example as is into HTML tag, then modify: <br>
+```markdown
+onmouseover="showTermTitleWithLink(this, this.dataset, this.dataset.title)" title="Change the definition. ::https://change_source_linke.com"
+```
+1. <strong>this</strong>: Required
+2. <strong>curData</strong>: Required
+3. <strong>curTitle</strong>: Required.
+   For best results set arguments as such - (this, this.dataset, this.dataset.title). Example:
+   showTermTitleWithLink(this, this.dataset, this.dataset.title)
+   And place in a "onmouseover" attribute of HTML element, ensuring there is also a "title" attribute. 

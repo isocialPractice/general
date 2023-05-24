@@ -647,3 +647,119 @@ function copyText(parElement, parElementIdentifier, copyWhat) {
  
  copyTheText();
 }
+
+function showTermTitleWithLink(cur, curData, curTitle) { 
+ if (!cur.hasAttribute("data-termtitle")) {
+  cur.setAttribute("data-termtitle", "0");
+ }
+ if (!cur.hasAttribute("data-title") && cur.hasAttribute("title")) {
+  cur.setAttribute("data-title", cur.title);
+  cur.removeAttribute("title");  
+ }
+ if (!cur.hasAttribute("onmouseout")) {
+  cur.setAttribute("onmouseout", cur.getAttribute("onmouseover"));
+ } 
+ if (curData == 1) {
+  curTitle = 0;
+  setTimeout(function() {
+  if (cur.getElementsByTagName("a")[0].getAttribute('data-keepdefinitionbox') == 0) {
+    cur.remove();     
+   }
+  }, 200);
+  return;
+ }
+ // Tools to make unique id for created html.
+ var setCurTermTitleStorage = function() {
+  if (sessionStorage.termTitleStorage) {   
+   if (sessionStorage.termTitleStorage == "NaN") {        
+    sessionStorage.termTitleStorage = 0;
+   } else {
+    sessionStorage.termTitleStorage = Number(sessionStorage.termTitleStorage) + 1;   
+   }    
+   } else {   
+    sessionStorage.termTitleStorage = 1;    
+   }
+  };  
+ // FUnctio Variables
+ var termTitleWithLinkData, termTitleWithLinkDefinition, termTitleWithLinkTerm,
+     termBox, termBoxid, termBoxHTML, termLink, termLinkBox, termBoxTop, termBoxPos, termLinkTag;
+ termTitleWithLinkData = curData;
+ termTitleWithLinkTerm = cur.innerHTML;
+ termTitleWithLinkDefinition = curData.title;
+ if (curData.termtitle == 0) {
+  termTitleWithLinkData.termtitle = 1;
+  termBox = document.createElement("span");
+  // Function in file.
+  termBoxid = removeSpaceInVariable(termTitleWithLinkTerm);
+  termBoxid += sessionStorage.termTitleStorage;
+  setCurTermTitleStorage();  
+  termBox.id = termBoxid;
+  termBox.setAttribute("data-keepdefinitionbox", 0);
+  termBox.setAttribute("onmouseover", "this.dataset.keepdefinitionbox = 1");
+  termBox.setAttribute("onmouseleave", "showTermTitleWithLink(this, 1)");
+  
+  if (termTitleWithLinkDefinition.indexOf("::") > -1) {
+   termLink = termTitleWithLinkDefinition
+    .substr(termTitleWithLinkDefinition
+    .lastIndexOf("::") + 2);
+
+   termLinkBox = ' ' +
+    '<a style="color: black; width: auto" href="' + termLink + 
+     '" target="_blank" rel="external" ' +
+     'data-keepdefinitionbox="0" ' +
+     'onmouseover="this.dataset.keepdefinitionbox = 1;" ' +
+     'onmouseout="this.dataset.keepdefinitionbox = 0;">Source Page</a>';
+    } else {
+   termLinkBox = ' ' +
+    '<a style="display: none" href="javascript:void(0)" ' +
+     'target="_blank" rel="external" ' +
+     'data-keepdefinitionbox="0">Source Page</a>';   
+    }
+  if (cur.offsetTop > 50) {
+   if (cur.parentElement.nodeName != "BODY") {    
+    termBoxPos = "absolute;";
+    termBoxTop = (cur.offsetTop - 30) + "px;";
+   } else {
+    termBoxPos = "relative;";
+    termBoxTop = "15px;";
+   }   
+  }
+  else {
+   termBoxPos = "absolute;";
+   termBoxTop = (cur.offsetTop + 15) + "px;";
+  }
+  
+ termBox.setAttribute("style", 
+  "display: inline;" +
+  "position: " + termBoxPos +
+  "top:" + termBoxTop +
+  "left: 0px;" +
+  "padding: 5px;" +   
+  "border: 1px solid black;" +
+  "background: lightyellow;" +
+  "color: black;" +
+  "margin-bottom: 20px;" +   
+  "height: auto;" +
+  "width: auto;");  
+ if (termTitleWithLinkDefinition.indexOf("::") > -1) {
+  termBox.innerHTML = 
+   termTitleWithLinkDefinition
+   .replace(termTitleWithLinkDefinition
+   .substr(termTitleWithLinkDefinition
+   .lastIndexOf("::") - 1), termLinkBox);
+  } else {
+  termBox.innerHTML = termTitleWithLinkDefinition + termLinkBox;
+  }
+  cur.insertAdjacentElement("afterend", termBox);
+ } else {
+  termTitleWithLinkData.termtitle = 0;
+  if (cur.nextElementSibling) {
+   termBoxHTML =  document.getElementById(cur.nextElementSibling.id);
+   setTimeout(function() {
+    if (termBoxHTML.dataset.keepdefinitionbox == 0) {
+     termBoxHTML.remove();
+    }
+   }, 500);
+  }
+ }
+}
