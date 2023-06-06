@@ -169,7 +169,7 @@ General scripts, snippets, and tools. The functions are meant to be lightweight,
 8. <strong>relocateElementIdentifier</strong>: <em><strong>WIP**</strong> String - currently only works with id. <strong>**WIP</strong></em>
 9. <strong>addHTML</strong>: <em><strong>WIP**</strong> String; String = html element, add items, adding where. <strong>**WIP</strong> </em>
    - Example use:
-   a. "a-:-href-:-https://site.com-:-target-:-_blank-:-rel-:-external::append-:-href-:-anchor-:-innerHTML-:-lc::td0"
+   a. "a-:-href-:-https ://site.com-:-target-:-_blank-:-rel-:-external::append-:-href-:-anchor-:-innerHTML-:-lc::td0"
       - Here "&lt;a&gt;" tag added with "href", "target", and "rel" attribute with values followed by "-:-" characters. Then appendsed to the href is an anchor link with value of the innerHTML of "&lt;td&gt;"  at index 0.
       
 <hr>
@@ -185,14 +185,14 @@ The <strong>changeToTable</strong> function is best explained with an example. B
 
  <strong>&lt;span&gt;</strong>
  
- Word
+ Word <br>
  A sentence or two describing the word.
  
  <strong>&lt;/span&gt;</strong>
  
  <strong>&lt;span&gt;</strong>
  
- Another Word
+ Another Word <br>
  And this pattern continues for however many span tags that are in table with two columns and rows equals number of span tags.
  
  <strong>&lt;/span&gt;</strong>
@@ -204,7 +204,7 @@ The <strong>changeToTable</strong> function is best explained with an example. B
 
 // <em> 2 columns, Term and Definition as headers, "span" tags nested in parent element, select id "demo" as parent, selecting id, relocating, select id "tableHere", selecting id, and adding "a" tag with attributes appending to "href" an anchor link that is the value of each 0 index "td" created.</em>
 
-<strong>changeToTable</strong>(2, "Term, Definition", "span: ", "demo", "id", 1, "tableHere", "id", "a-:-href-:-https://site.com-:-target-:-_blank-:-rel-:-external::append-:-href-:-anchor-:-innerHTML-:-lc::td0");
+<strong>changeToTable</strong>(2, "Term, Definition", "span: ", "demo", "id", 1, "tableHere", "id", "a-:-href-:-https ://site.com-:-target-:-_blank-:-rel-:-external::append-:-href-:-anchor-:-innerHTML-:-lc::td0");
 
 &lt;/script&gt;
 
@@ -212,10 +212,10 @@ The <strong>changeToTable</strong> function is best explained with an example. B
 
 &lt;div id="<strong>demo</strong>"&gt; 
 
- Word
+ Word <br>
  A sentence or two describing the word.
  
- Another Word
+ Another Word <br>
  And this pattern continues for however many span tags that are in table with two columns and rows equals number of span tags.
  
 &lt;/div&gt;
@@ -223,7 +223,7 @@ The <strong>changeToTable</strong> function is best explained with an example. B
 &lt;script&gt;
 // <em>2 columns, Term and Definition as headers, selecting words by new lines minding two words, select id "demo" as parent, selecting id, not relocating, overwriting "demo" innerHTML with table, writing to id, and adding "a" tag with attributes appending to "href" an anchor link that is the value of each 0 index "td" created.</em>
 
-<strong>changeToTable</strong>(2, "Term, Definition", "_w2:n", "demo", "id", 0, "self", "id", "a-:-href-:-https://site.com-:-target-:-_blank-:-rel-:-external::append-:-href-:-anchor-:-innerHTML-:-lc::td0");
+<strong>changeToTable</strong>(2, "Term, Definition", "_w2:n", "demo", "id", 0, "self", "id", "a-:-href-:-https ://site.com-:-target-:-_blank-:-rel-:-external::append-:-href-:-anchor-:-innerHTML-:-lc::td0");
 &lt;/script&gt;
 
 <strong>NOTE</strong> - using only <strong>changeToTable()</strong> with no arguments will also work, but additionally; <em><strong>NOTE</strong></em> that the parent element with highest length will be converted to table.
@@ -255,7 +255,7 @@ The <strong>changeToTable</strong> function is best explained with an example. B
 <strong>showTermTitleWithLink</strong>(<em>cur</em>, <em>curData</em>, <em>curTitle</em>) <br>
      **TO USE** - Paste below example as is into HTML tag, then modify: <br>
 ```markdown
-onmouseover="showTermTitleWithLink(this, this.dataset, this.dataset.title)" title="Change the definition. ::https://change_source_linke.com"
+onmouseover="showTermTitleWithLink(this, this.dataset, this.dataset.title)" title="Change the definition. ::https ://change_source_linke.com"
 ```
 1. <strong>this</strong>: Required
 2. <strong>curData</strong>: Required
