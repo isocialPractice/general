@@ -1,10 +1,5 @@
 // JavaScript Document
 
-// TO ADD:
-// ******
-// showHide()
-// addShowHideButton()
-
 // REUSABLE FUNCTIONS
 // ****************** 
 
@@ -390,6 +385,57 @@ function removeLastWordInVariable(variableWithWord, word) {
  return theVariableWhereWordIs;
 }
 
+function removeAttribute(attribute, parElement, parElementIdentifier) {
+  var useID=0, useClass=0, useData=0, useTag=0;
+  var theParElement, theParElementInnerHTML, theParElementIndex = 0; 
+  
+  var removeTheAttribute = function() {
+   theParElement.removeAttribute(attribute);
+  };   
+  
+  var parElementConfigI = function() {
+   if (parElementIdentifierLowCase == "id") useID = 1;
+
+   if (parElementIdentifierLowCase.indexOf("class") > -1) {
+    useClass = 1;
+    theParElementIndex = parElementIdentifierLowCase.replace("class", "");
+   }
+   if (parElementIdentifierLowCase.indexOf("data") > -1) {
+    useData = 1;
+    theParElementIndex = parElementIdentifierLowCase.replace("data", "");
+   }
+   if (parElementIdentifierLowCase.indexOf("tag") > -1) {
+    useTag = 1;
+    theParElementIndex = parElementIdentifierLowCase.replace("tag", "");
+   }
+  };
+  var parElementConfigII = function() {
+   if (useID == 1) {
+     theParElement = document.getElementById(parElement);
+    }
+    if (useClass == 1) {
+     theParElement = document.getElementsByClassName(parElement)[theParElementIndex];
+    }
+    if (useData == 1) {
+     theParElement = document.querySelectorAll("[data-" + parElement + "]")[theParElementIndex];
+    }
+    if (useTag == 1) {
+     theParElement = document.getElementsByTagName(parElement)[theParElementIndex];
+    }    
+    removeTheAttribute();
+  };  
+  
+  if (parElementIdentifier == undefined) {
+   parElementIdentifier = "id";
+   useID = 1;
+   parElementConfigI();
+   parElementConfigII();   
+  } else {
+   var parElementIdentifierLowCase = parElementIdentifier.toLowerCase();
+   parElementConfigI();
+   parElementConfigII();  
+ }
+}
 
 // Replacing Elements
 function replaceWord(word, replaceWith,  parElement, parElementIdentifier) {
@@ -567,22 +613,25 @@ function replaceNewLines(word, parElement, parElementIdentifier, removeExcessSpa
     let recurseCount = 0;
     let tempMindArr = theParElementInnerHTML.split(word);    
     var mindRecurseA = function(mindVarA, mindIndexA) {
-     for (i = mindIndexA; i < mindVarA.length - 1; i++) {
+     for (i = mindIndexA; i < mindVarA.length; i++) {
       mindArrA = mindVarA[i].split(" ");
-      if (mindArrA.length > mindElement && mindArrA[0].indexOf("<") == -1 && mindArrA[0].indexOf("</") == -1) {       
+      if (mindArrA.length > mindElement && mindArrA[0].indexOf("<") == -1 && mindArrA[0].indexOf("</") == -1) {
+       if (mindVarA[i+1]) {
         mindArrB = mindVarA[i+1].split(" ");        
-        if (mindArrB.length > mindElement && mindArrB[0].indexOf("<") == -1 && mindArrB[0].indexOf("</") == -1) {         
+        if (mindArrB.length > mindElement && mindArrB[0].indexOf("<") == -1 && mindArrB[0].indexOf("</") == -1) {
          activeRecurse = 1;
          mindVarA[i] = mindVarA[i] + " " + mindVarA[i+1];        
          mindArr.splice(i, 1);
          mindArr[i] = mindVarA[i]; 
-         mindVarA.splice(i+1, 1);
-         //i++;
+         mindVarA.splice(i+1, 1);         
          mindRecurseB(mindVarA, i);
         } else {        
         activeRecurse = 0;
         continue;
-        }
+        }       
+       } else {
+        break;
+       }
       } else {   
        activeRecurse = 0;
        continue;
@@ -590,24 +639,26 @@ function replaceNewLines(word, parElement, parElementIdentifier, removeExcessSpa
      }     
     };
     var mindRecurseB = function(mindVarB, mindIndexB) {
-     for (i = mindIndexB; i < mindVarB.length - 1; i++) {
+     for (i = mindIndexB; i < mindVarB.length; i++) {
       mindArrA = mindVarB[i].split(" ");      
-      if (mindArrA.length > mindElement && mindArrA[0].indexOf("<") == -1 && mindArrA[0].indexOf("</") == -1) {       
+      if (mindArrA.length > mindElement && mindArrA[0].indexOf("<") == -1 && mindArrA[0].indexOf("</") == -1) {
         recurseCount = 1;
-        mindArrB = mindVarB[i+1].split(" ");        
-        if (mindArrB.length > mindElement && mindArrB[0].indexOf("<") == -1 && mindArrB[0].indexOf("</") == -1) {                  
-         activeRecurse = 1;
-         mindVarB[i] = mindVarB[i] + " " + mindVarB[i+1];
-         mindArr.splice(i, 1);
-         mindArr[i] = mindVarB[i]; 
-         mindVarB.splice(i+1, 1);
-         //i++;
-         mindRecurseA(mindVarB, i);
-        } else {          
-         activeRecurse = 0;
-         continue;
-        }       
-       
+        if (mindVarB[i+1]) {
+         mindArrB = mindVarB[i+1].split(" ");
+         if (mindArrB.length > mindElement && mindArrB[0].indexOf("<") == -1 && mindArrB[0].indexOf("</") == -1) {
+          activeRecurse = 1;
+          mindVarB[i] = mindVarB[i] + " " + mindVarB[i+1];
+          mindArr.splice(i, 1);
+          mindArr[i] = mindVarB[i]; 
+          mindVarB.splice(i+1, 1);          
+          mindRecurseA(mindVarB, i);
+         } else {          
+          activeRecurse = 0;
+          continue;
+         }
+       } else {
+        break;
+       }
       } else {             
        activeRecurse = 0;
        continue;
@@ -630,6 +681,7 @@ function replaceNewLines(word, parElement, parElementIdentifier, removeExcessSpa
    }
   };
   var prepForArray = function() {// PREP FOR ARRAY USE
+   let checkLastMark = 0;
    theParElementInnerHTML = theParElement.innerHTML;
    let excessMarks = 1;
    while (excessMarks == 1) {
@@ -638,8 +690,18 @@ function replaceNewLines(word, parElement, parElementIdentifier, removeExcessSpa
     } else {
      let negWordLen = word.length * -1;
      if (theParElementInnerHTML.substr(negWordLen, word.length) == word) {
-      let tempParElementInnerHTML = removeLastWordInVariable(theParElementInnerHTML, word);
-      theParElementInnerHTML = tempParElementInnerHTML;
+      if (checkLastMark == 0) {
+       checkLastMark+=2;
+      } else {
+       if (theParElementInnerHTML.substr(negWordLen*checkLastMark, word.length) == word) {
+        let tempParElementInnerHTML = removeLastWordInVariable(theParElementInnerHTML, word);
+        theParElementInnerHTML = tempParElementInnerHTML;       
+        checkLastMark+=2;
+       } else {
+        checkLastMark = 0;
+        excessMarks = 0;
+       }  
+      }
      } else {
       excessMarks = 0;
      }
@@ -1120,18 +1182,23 @@ function changeToLowerCase(variableToChange) {
 }
 
 function changeToTable(colNumber, colTitles, extractTags, parElement, parElementIdentifier, relocate, relocateElement, relocateElementIdentifier, addHTML) {
- var useID=0, useClass=0, useData=0, useTag=0, addingClass = 0, addingHTML = 0;
- var theParElement, theParElementInnerHTML, theParElementInnerHTMLLen, theParElementIndex = 0;  
- var theColTitles, theColTitlesLen, theColTitle, useColMark = 0, colMarkCount = 0, balanceColumns = 0, columnsUnbalanced;
+ var useID=0, useClass=0, useData=0, useTag=0, addingClass = 0, addingHTML = 0,
+     relocateID=0, relocateClass=0, relocateData=0, relocateTag=0;
+ var theParElement, theParElementInnerHTML, theParElementInnerHTMLLen, theParElementIndex = 0, theCurParElementInnerHTML,
+     theRelocateElement, theRelocateElementIndex;  
+ var theColTitles, theColTitlesLen, theColTitle, useColMark = 0, colMarkCount = 0, balanceColumns = 0, columnsUnbalanced, 
+     columnValueToAddedHTML = 0, columnValueToAddedHTMLIsRemoved = 0, columnValueRemovedWillBe, columnValueRemovedArray = [], columnValueRemovedArrayLen, columnValueRemovedIndex;
  var extractTagsArr, extractTagsArrLen, theExtractTag, theExtractTags, theExtractTagsLen, useCharacterMark = 0, characterMarkCount = 0, extractMark = "", extractMarkLen, maxCol, firstRunMaxCol = 0, lessThanMax, colDiff;
- var usingText = 0, usingWhatText = 0, splittingHow = 0, isUsingWords = 0, splitWordCount = 0, isUsingSplitCharacter = 0, theSplitCharacter = 0,
-     splitCharacterCount, splitTableDataCount;
+ var usingText = 0, usingWhatText = 0, splittingHow = 0, isUsingWords = 0, splitWordCount = 0, isUsingSplitCharacter = 0, theSplitCharacter = 0, theTempSplitCharacter,
+     splitCharacterCount, splitTableDataCount; 
  var curMarkCount = 0, curExtractTag, curExtractData, tempCurExtractData, curData;
- var theAddedHTML, curAddedHTML, addHTMLArray = [], addHTMLArrayLen, isAddingTag = 0, addingTag, addingCloseTag, addingWhere, addingWhatIndex, isRelocateElementIdentifierDefined = 1;
- var addHTMLAltering, addHTMLAlterArray, addHTMLAlterArrayLen, 
+ var theAddedHTML, curAddedHTML, addHTMLArray = [], addHTMLArrayLen, isAddingTag = 0, addingTag, addingCloseTag, addingWhere, addingWith, addingWhatIndex, addingWithWhatIndex, addingTableWithDataValue = 0, 
+     addingTableWithDataValueArray, addingTableWithDataValueArrayLen, isRelocateElementIdentifierDefined = 1, hasSubstituteValue = 0, substituteValue, substitutePlaceHolderText, textValueAsAddedHTML = 0, textValueToAddToHTML;
+ var addHTMLAltering, addHTMLAlterArray, addHTMLAlterArrayLen, addingHTMLAlteringByText,
      addHTMLAlterHow, addHTMLAlterWhat, addHTMLAlterAs, addHTMLAlterWithWhat, addHTMLAlterCaseHow,
      curAlterValue, curAlterText, curAlterIndexA, curAlterIndexB, curStorage, 
      curAlterInsert, curAlterCase, usedDoubleQuotes;
+ var makeRowsUsingTextElements, makeRowsUsingHTMLElements;     
  var theTableCols = "", theTableRows = "", theTable = "";
  { // OUTPUT
  var outPutTable = function() {
@@ -1139,7 +1206,7 @@ function changeToTable(colNumber, colTitles, extractTags, parElement, parElement
    if (relocateElementIdentifier == "id") {
     document.getElementById(relocateElement).innerHTML = theTable;
    } else {
-    let updateNeeded;
+    theRelocateElement.innerHTML = theTable;        
    }   
   } else {
    if (relocateElement == "self") {
@@ -1219,11 +1286,13 @@ function changeToTable(colNumber, colTitles, extractTags, parElement, parElement
    checkText(1);
   }
  };
- var checkText = function(curIndex) {  
+ var checkText = function(curIndex) { 
   if ((curIndex == 0 || curIndex == 1) && extractMarkLen > 2) {
    if (characterMarkCount >= colNumber) {    
     // UPDATE MAY BE NEEDED
-    removeLastWord(extractMark, theExtractTag, "tag" + i);
+    theExtractTags[i].id = "tag" + i;
+    removeLastWord(extractMark, "tag" + i, "id");
+    removeAttribute("id", "tag"+i, "id");
     curExtractData = theExtractTags[i].innerHTML;
     countCharacterMarks(1);
    }
@@ -1254,28 +1323,30 @@ function changeToTable(colNumber, colTitles, extractTags, parElement, parElement
   if (addingClass == 0) {
    if (useCharacterMark == 1) {
     if (usingText == 1) {
-     if (theSplitCharacter == "n") {
+     var splitTextToArrayByNewLines = function() {      
+      theTempSplitCharacter = "--COL_MARK_iS_unLikELY_tO2_BE_in_the_TExT_thHat_isConVERteD_To_A_TaBlE--";      
       if (splitWordCount <= 1) {
        if (colNumber <= 2) {
         splitWordCount = 0;
-        replaceNewLines("--COL_MARK_iS_unLikELY_tO2_BE_in_the_TExT_thHat_isConVERteD_To_A_TaBlE--", parElement, parElementIdentifier, 1, 1, 2);
+        replaceNewLines(theTempSplitCharacter, parElement, parElementIdentifier, 1, 1, 2);
        } else {
         splitWordCount = -1;
-        replaceNewLines("--COL_MARK_iS_unLikELY_tO2_BE_in_the_TExT_thHat_isConVERteD_To_A_TaBlE--", parElement, parElementIdentifier, 1, 1, 0);
+        replaceNewLines(theTempSplitCharacter, parElement, parElementIdentifier, 1, 1, 0);
        }
       } else {
-       replaceNewLines("--COL_MARK_iS_unLikELY_tO2_BE_in_the_TExT_thHat_isConVERteD_To_A_TaBlE--", parElement, parElementIdentifier, 1, 1, Number(splitWordCount));      
-      }
-      {// TEXT IS NESTED IN ANOTHER HTML ELEMENT
-      let tempParElementInnerHTML = theParElement.innerHTML;       
-      tempParElementInnerHTML = tempParElementInnerHTML.split("--COL_MARK_iS_unLikELY_tO2_BE_in_the_TExT_thHat_isConVERteD_To_A_TaBlE--");
+       replaceNewLines(theTempSplitCharacter, parElement, parElementIdentifier, 1, 1, Number(splitWordCount));      
+      }    
+     };
+     makeRowsUsingTextElements = function() {// TEXT IS NESTED IN ANOTHER HTML ELEMENT
+      let tempParElementInnerHTML = theParElement.innerHTML;         
+      tempParElementInnerHTML = tempParElementInnerHTML.split(theTempSplitCharacter);
       if (tempParElementInnerHTML[0].indexOf("<") > -1 && tempParElementInnerHTML[0].indexOf("</") == -1) {
        theParElementInnerHTML = theParElement.innerText;
       } else {
        theParElementInnerHTML = theParElement.innerHTML;
       }
-      }
-      theParElementInnerHTML = theParElementInnerHTML.split("--COL_MARK_iS_unLikELY_tO2_BE_in_the_TExT_thHat_isConVERteD_To_A_TaBlE--");
+
+      theParElementInnerHTML = theParElementInnerHTML.split(theTempSplitCharacter);
       theParElementInnerHTMLLen = splitCharacterCount = theParElementInnerHTML.length;      
       if (splitWordCount == 0) {
        if (splitCharacterCount%2 != 0) { splitCharacterCount++; }
@@ -1283,196 +1354,144 @@ function changeToTable(colNumber, colTitles, extractTags, parElement, parElement
       } else {       
        splitTableDataCount = Math.round(splitCharacterCount/splitWordCount);
       }
-// START MAKING ROWS
+ // START MAKING ROWS
       let textBasedTableRowsAreMade = 0;
+      addingHTMLAlteringByText = function(theColCount, theCase, theQuote, addingATag, addingAClosingTag, theCurAlteringValue, theCurAlteringText) {
+       if (theColCount == 2) theCurParElementInnerHTML = theParElementInnerHTML[i]; else theCurParElementInnerHTML = theParElementInnerHTML[i+ii];
+       if (theCase == undefined) {
+        theCase = "";
+        theQuote = "";
+        addingATag = ""; 
+        addingAClosingTag = "";
+        theCurAlteringValue = "";
+        theCurAlteringText = "";
+       } else {
+        if (theCurAlteringValue == undefined) {
+         theCurAlteringValue = "";
+         theCurAlteringText = "";
+        } else {
+         if (theCurAlteringText.indexOf(">") == -1) {
+          theCurAlteringText += ">";
+         }
+        }
+        if (columnValueToAddedHTML == 1) {
+         if (columnValueToAddedHTMLIsRemoved >= 1) {
+          if (columnValueToAddedHTMLIsRemoved == 1) {
+           if (addingWhatIndex == ii && theParElementInnerHTML[Number(i+addingWithWhatIndex)] && addingWhatIndex < addingWithWhatIndex) {                
+            addingATag = addingATag.replace(substitutePlaceHolderText, theParElementInnerHTML[Number(i+addingWithWhatIndex)]); 
+            theParElementInnerHTML.splice(i+addingWithWhatIndex,1);
+            theParElementInnerHTMLLen = theParElementInnerHTML.length;
+           }
+          } else {
+           let updateNeeded;
+          }                             
+         } else {
+          if (addingWhatIndex == ii && theParElementInnerHTML[Number(i+addingWithWhatIndex)] && addingWhatIndex < addingWithWhatIndex) {
+           if (columnValueRemovedArrayLen == 1) {
+            addingATag = addingATag.replace(substitutePlaceHolderText, theParElementInnerHTML[Number(i+addingWithWhatIndex)]);
+           } else {
+            let updateNeeded;
+           }                              
+          }
+         }
+        }            
+       }
+       let curQuote = ""; let curCase = "";
+       if (theCurParElementInnerHTML) {
+        if (theCase == "l") curCase = changeToLowerCase(theCurParElementInnerHTML); else if (theCase == "u") curCase = changeToUpperCase(theCurParElementInnerHTML); else curCase = theCase;
+        if (theQuote == 1) curQuote = '"'; else if (theQuote === 0) curQuote = "'"; else curQuote = "";
+       }
+       if (theColCount == 2) {
+        if (addingWhatIndex == i-i) {
+         theTableRows += "<tr><td>" + addingATag + theCurAlteringValue + curCase + curQuote + theCurAlteringText + theCurParElementInnerHTML + addingAClosingTag + "</td><td>"; 
+         theCurParElementInnerHTML = theParElementInnerHTML[i+1];
+         theTableRows += theCurParElementInnerHTML + "</td></tr>";
+        } else {
+         if (addingWhatIndex == i+1) {
+          theTableRows += "<tr><td>" + theCurParElementInnerHTML + "</td><td>"; 
+          theCurParElementInnerHTML = theParElementInnerHTML[i+1];
+          theTableRows += addingATag + theCurAlteringValue + curCase + curQuote + theCurAlteringText + theCurParElementInnerHTML + addingAClosingTag + "</td></tr>";
+         } else {
+          theTableRows += "<tr><td>" + theCurParElementInnerHTML + "</td><td>"; 
+          theCurParElementInnerHTML = theParElementInnerHTML[i+1];
+          theTableRows += theCurParElementInnerHTML + "</td></tr>"; 
+         }
+        }       
+       } else {
+        if (ii == 0) {
+         if (addingWhatIndex == ii) theTableRows += "<tr><td>" + addingATag + theCurAlteringValue + curCase + curQuote + theCurAlteringText + theCurParElementInnerHTML + addingAClosingTag + "</td><td>";                      
+         else theTableRows += "<tr><td>" + theCurParElementInnerHTML + "</td><td>";
+        } else if (ii == colNumber-1) {
+         if (addingWhatIndex == ii) {
+          if (theCurParElementInnerHTML) theTableRows += addingATag + theCurAlteringValue + curCase + curQuote + theCurAlteringText + theCurParElementInnerHTML + addingAClosingTag + "</td></tr>";
+          else theTableRows += " " + "</td></tr>";             
+         } else {
+          if (theCurParElementInnerHTML) theTableRows += theCurParElementInnerHTML + "</td></tr>";
+          else theTableRows += " " + "</td></tr>";             
+         }
+        } else {
+         if (addingWhatIndex == ii) {
+          if (theCurParElementInnerHTML) theTableRows += addingATag + theCurAlteringValue + curCase + curQuote + theCurAlteringText + theCurParElementInnerHTML + addingAClosingTag + "</td><td>";           
+          else theTableRows += " " + "</td><td>";             
+         } else {
+          if (theCurParElementInnerHTML) theTableRows += theCurParElementInnerHTML + "</td><td>";           
+          else theTableRows += " " + "</td><td>";             
+         }
+        }       
+       }
+      };           
       while (textBasedTableRowsAreMade == 0) {
        for (i = 0; i < theParElementInnerHTMLLen; i+=colNumber) {
-        if (splitWordCount == 0 || splitWordCount == 2 && colNumber == 2) {
+        if (splitWordCount == 0 || splitWordCount == 2 && colNumber == 2) 
+        {// TWO COLUMNS        
          if (i >= theParElementInnerHTMLLen-1 || i+1 >= theParElementInnerHTMLLen-1) {
           textBasedTableRowsAreMade = 1;
          }                  
          if (addingWhatIndex >= 0) {
           if (addHTMLAltering == 1) {
-           if (curAlterCase == "l") {
-            if (usedDoubleQuotes == 1) {
-             if (addingWhatIndex == i-i) {
-              theTableRows += "<tr><td>" + addingTag + curAlterValue + changeToLowerCase(theParElementInnerHTML[i]) + '"' + curAlterText + ">" + theParElementInnerHTML[i] + addingCloseTag + "</td><td>";                      
-              theTableRows += theParElementInnerHTML[i+1] + "</td></tr>";                              
-             } else {
-              if (addingWhatIndex == i+1) {
-               theTableRows += "<tr><td>" + theParElementInnerHTML[i] + "</td><td>";                      
-               theTableRows += addingTag + curAlterValue + changeToLowerCase(theParElementInnerHTML[i+1]) + '"' + curAlterText + ">" + theParElementInnerHTML[i+1] + addingCloseTag + "</td></tr>";                                                       
-              } else {
-               theTableRows += "<tr><td>" + theParElementInnerHTML[i] + "</td><td>";
-               theTableRows += theParElementInnerHTML[i+1] + "</td></tr>";                      
-              }
-             }
-            } else {
-             if (addingWhatIndex == i-i) {
-              theTableRows += "<tr><td>" + addingTag + curAlterValue + changeToLowerCase(theParElementInnerHTML[i]) + "'" + curAlterText + ">" + theParElementInnerHTML[i] + addingCloseTag + "</td><td>";                      
-              theTableRows += theParElementInnerHTML[i+1] + "</td></tr>";                              
-             } else {
-              if (addingWhatIndex == i+1) {
-               theTableRows += "<tr><td>" + theParElementInnerHTML[i] + "</td><td>";                      
-               theTableRows += addingTag + curAlterValue + changeToLowerCase(theParElementInnerHTML[i+1]) + "'" + curAlterText + ">" + theParElementInnerHTML[i+1] + addingCloseTag + "</td></tr>";                                                       
-              } else {
-               theTableRows += "<tr><td>" + theParElementInnerHTML[i] + "</td><td>";                      
-               theTableRows += theParElementInnerHTML[i+1] + addingCloseTag + "</td></tr>";                      
-              }
-             }
-            }
-           } else if (curAlterCase == "u") {
-            if (usedDoubleQuotes == 1) {
-             if (addingWhatIndex == i-i) {
-              theTableRows += "<tr><td>" + addingTag + curAlterValue + changeToUpperCase(theParElementInnerHTML[i]) + '"' + curAlterText + ">" + theParElementInnerHTML[i] + addingCloseTag + "</td><td>";                      
-              theTableRows += theParElementInnerHTML[i+1] + "</td></tr>";                              
-             } else {
-              if (addingWhatIndex == i+1) {
-               theTableRows += "<tr><td>" + theParElementInnerHTML[i] + "</td><td>";                      
-               theTableRows += addingTag + curAlterValue + changeToUpperCase(theParElementInnerHTML[i+1]) + '"' + curAlterText + ">" + theParElementInnerHTML[i+1] + addingCloseTag + "</td></tr>";                                                       
-              } else {
-               theTableRows += "<tr><td>" + theParElementInnerHTML[i] + "</td><td>";
-               theTableRows += theParElementInnerHTML[i+1] + "</td></tr>";                      
-              }
-             }
-            } else {
-             if (addingWhatIndex == i-i) {
-              theTableRows += "<tr><td>" + addingTag + curAlterValue + changeToUpperCase(theParElementInnerHTML[i]) + "'" + curAlterText + ">" + theParElementInnerHTML[i] + addingCloseTag + "</td><td>";                      
-              theTableRows += theParElementInnerHTML[i+1] + "</td></tr>";                              
-             } else {
-              if (addingWhatIndex == i+1) {
-               theTableRows += "<tr><td>" + theParElementInnerHTML[i] + "</td><td>";                      
-               theTableRows += addingTag + curAlterValue + changeToUpperCase(theParElementInnerHTML[i+1]) + "'" + curAlterText + ">" + theParElementInnerHTML[i+1] + addingCloseTag + "</td></tr>";                                                       
-              } else {
-               theTableRows += "<tr><td>" + theParElementInnerHTML[i] + "</td><td>";                      
-               theTableRows += theParElementInnerHTML[i+1] + addingCloseTag + "</td></tr>";                      
-              }
-             }
-            }
+           addingHTMLAlteringByText(2, curAlterCase, usedDoubleQuotes, addingTag, addingCloseTag, curAlterValue, curAlterText);
            } else {
-            if (usedDoubleQuotes == 1) {
-             if (addingWhatIndex == i-i) {
-              theTableRows += "<tr><td>" + addingTag + curAlterValue + '"' + curAlterText + ">" + theParElementInnerHTML[i] + addingCloseTag + "</td><td>";                      
-              theTableRows += theParElementInnerHTML[i+1] + "</td></tr>";                              
-             } else {
-              if (addingWhatIndex == i+1) {
-               theTableRows += "<tr><td>" + theParElementInnerHTML[i] + "</td><td>";                      
-               theTableRows += addingTag + curAlterValue + '"' + curAlterText + ">" + theParElementInnerHTML[i+1] + addingCloseTag + "</td></tr>";                                                       
-              } else {
-               theTableRows += "<tr><td>" + theParElementInnerHTML[i] + "</td><td>";
-               theTableRows += theParElementInnerHTML[i+1] + "</td></tr>";                      
-              }
-             }
-            } else {
-             if (addingWhatIndex == i-i) {
-              theTableRows += "<tr><td>" + addingTag + curAlterValue + "'" + curAlterText + ">" + theParElementInnerHTML[i] + addingCloseTag + "</td><td>";                      
-              theTableRows += theParElementInnerHTML[i+1] + "</td></tr>";                              
-             } else {
-              if (addingWhatIndex == i+1) {
-               theTableRows += "<tr><td>" + theParElementInnerHTML[i] + "</td><td>";                      
-               theTableRows += addingTag + curAlterValue + "'" + curAlterText + ">" + theParElementInnerHTML[i+1] + addingCloseTag + "</td></tr>";                                                       
-              } else {
-               theTableRows += "<tr><td>" + theParElementInnerHTML[i] + "</td><td>";                      
-               theTableRows += theParElementInnerHTML[i+1] + addingCloseTag + "</td></tr>";                      
-              }
-             }
-            }           
+           addingHTMLAlteringByText(2, "", "", addingTag, addingCloseTag);
            }
           } else {
-           if (addingWhatIndex == i-i) {
-            theTableRows += "<tr><td>" + addingTag + theParElementInnerHTML[i] + addingCloseTag + "</td><td>";
-            theTableRows += theParElementInnerHTML[i+1] + "</td></tr>";                  
-           } else {
-            if (addingWhatIndex == i+1) {
-             theTableRows += "<tr><td>" + theParElementInnerHTML[i] + "</td><td>";
-             theTableRows += addingTag + theParElementInnerHTML[i+1] + addingCloseTag + "</td></tr>";                             
-            } else {
-             theTableRows += "<tr><td>" + theParElementInnerHTML[i] + "</td><td>";
-             theTableRows += theParElementInnerHTML[i+1] + "</td></tr>";                   
-            }
-           }
-          }         
-         } else {
-          theTableRows += "<tr><td>" + theParElementInnerHTML[i] + "</td><td>";
-          theTableRows += theParElementInnerHTML[i+1] + "</td></tr>";                
-         }
-        } else {        
+          addingHTMLAlteringByText(2);
+          }
+        } else 
+        { // OVER TWO COLUMNS        
          if (i >= theParElementInnerHTMLLen || i+colNumber >= theParElementInnerHTMLLen-1) {
           textBasedTableRowsAreMade = 1;
          }          
          for (ii = 0; ii < colNumber; ii++) {
-          if (addingWhatIndex >= 0) {
-           if (addHTMLAltering == 1) {           
-            var addingHTMLAlteringByText = function(theCase, theQuote) {
-             let curQuote = ""; let curCase = "";             
-             if (theCase == "l") curCase = changeToLowerCase(theParElementInnerHTML[i+ii]); else if (theCase == "u") curCase = changeToUpperCase(theParElementInnerHTML[i+ii]); else curCase = "";
-             if (theQuote == 1) curQuote = '"'; else if (theQuote == 0) curQuote = "'"; else curQuote = "'";
-            // addingTag + curAlterValue + curCase + curQuote + curAlterText + ">" + theParElementInnerHTML[i] + addingCloseTag + 
-            
-             if (ii == 0) {
-              if (addingWhatIndex == ii) theTableRows += "<tr><td>" + addingTag + curAlterValue + curCase + curQuote + curAlterText + ">" + theParElementInnerHTML[i+ii] + addingCloseTag + "</td><td>";                      
-              else theTableRows += "<tr><td>" + theParElementInnerHTML[i+ii] + "</td><td>";
-             } else if (ii == colNumber-1) {
-              if (addingWhatIndex == ii) {
-               if (theParElementInnerHTML[i+ii]) theTableRows += addingTag + curAlterValue + curCase + curQuote + curAlterText + ">" + theParElementInnerHTML[i+ii] + addingCloseTag + "</td></tr>";
-               else theTableRows += " " + "</td></tr>";             
-              } else {
-               if (theParElementInnerHTML[i+ii]) theTableRows += theParElementInnerHTML[i+ii] + "</td></tr>";
-               else theTableRows += " " + "</td></tr>";             
-              }
-             } else {
-              if (addingWhatIndex == ii) {
-               if (theParElementInnerHTML[i+ii]) theTableRows += addingTag + curAlterValue + curCase + curQuote + curAlterText + ">" + theParElementInnerHTML[i+ii] + addingCloseTag + "</td><td>";           
-               else theTableRows += " " + "</td><td>";             
-              } else {
-               if (theParElementInnerHTML[i+ii]) theTableRows += theParElementInnerHTML[i+ii] + "</td><td>";           
-               else theTableRows += " " + "</td><td>";             
-              }
-             }
-            };
-            // USING ABOVE GUNCTION           
-            addingHTMLAlteringByText(curAlterCase, usedDoubleQuotes);     
+          // MAKE THE TABLE DATA FUNCTION          
+          if (addingWhatIndex >= 0) {          
+           if (addHTMLAltering == 1) {
+            addingHTMLAlteringByText("over", curAlterCase, usedDoubleQuotes, addingTag, addingCloseTag, curAlterValue, curAlterText);
            } else {
-            if (ii == 0) {
-             if (addingWhatIndex == ii) theTableRows += "<tr><td>" + addingTag + theParElementInnerHTML[i] + addingCloseTag + "</td><td>";                      
-             else theTableRows += "<tr><td>" + theParElementInnerHTML[i+ii] + "</td><td>";
-            } else if (ii == colNumber-1) {
-             if (addingWhatIndex == ii) {
-              if (theParElementInnerHTML[i+ii]) theTableRows += addingTag + theParElementInnerHTML[i+ii] + addingCloseTag + "</td></tr>";
-              else theTableRows += " " + "</td></tr>";             
-             } else {
-              if (theParElementInnerHTML[i+ii]) theTableRows += theParElementInnerHTML[i+ii] + "</td></tr>";
-              else theTableRows += " " + "</td></tr>";             
-             }
-            } else {
-             if (addingWhatIndex == ii) {
-              if (theParElementInnerHTML[i+ii]) theTableRows += addingTag + theParElementInnerHTML[i+ii] + addingCloseTag + "</td><td>";           
-              else theTableRows += " " + "</td><td>";             
-             } else {
-              if (theParElementInnerHTML[i+ii]) theTableRows += theParElementInnerHTML[i+ii] + "</td><td>";           
-              else theTableRows += " " + "</td><td>";             
-             }
-            } 
+            //console.log(addingTag);
+            addingHTMLAlteringByText("over", "", "", addingTag, addingCloseTag);
            }
           } else {
-           if (ii == 0) {
-            theTableRows += "<tr><td>" + theParElementInnerHTML[i+ii] + "</td><td>";
-           } else if (ii == colNumber-1) {
-            if (theParElementInnerHTML[i+ii]) theTableRows += theParElementInnerHTML[i+ii] + "</td></tr>";
-            else theTableRows += " " + "</td></tr>";
-           } else {
-            if (theParElementInnerHTML[i+ii]) theTableRows += theParElementInnerHTML[i+ii] + "</td><td>";           
-            else theTableRows += " " + "</td><td>";
-           }          
-          }
+           addingHTMLAlteringByText("over");            
+          }          
          }
         }
        }
       }
-     } else {
-      let updateNeeded;
+     };
+     if (theSplitCharacter == "n") 
+     {// NEW LINES MARK COL. DATA
+      splitTextToArrayByNewLines();
+      makeRowsUsingTextElements(); 
+     } 
+     else {      
+      theTempSplitCharacter = theSplitCharacter;
+      removeNewLines(parElement, parElementIdentifier, 1);
+      replaceWord(theTempSplitCharacter, "\n",  parElement, parElementIdentifier);      
+      splitTextToArrayByNewLines();
+      makeRowsUsingTextElements();       
      }
-    } else {
+    } else 
+    {// USING HTML TAGS
      for (i = 0; i < theExtractTagsLen; i++) {
       curExtractData = theExtractTags[i].innerHTML;
       countCharacterMarks("findMax");
@@ -1652,7 +1671,37 @@ function changeToTable(colNumber, colTitles, extractTags, parElement, parElement
    theColTitles = replaceWordInVariable(", ", ",", colTitles);
    theColTitles = replaceWordInVariable(" ,", ",", colTitles);
    theColTitles = colTitles.split(",");
-   theColTitlesLen = theColTitles.length;
+   theColTitlesLen = theColTitles.length;   
+   for (i = 0; i < theColTitlesLen; i++) {
+    if (theColTitles[i].indexOf("_") == 0 && theColTitles[i].lastIndexOf("_") == theColTitles[i].length-1) {
+     columnValueRemovedIndex = 0;
+     columnValueToAddedHTML = 1; 
+     if (theColTitles[i][1] == ":") {
+      columnValueToAddedHTMLIsRemoved += 1;      
+      columnValueRemovedArray[columnValueRemovedIndex] = i;
+      columnValueRemovedIndex++;
+      columnValueRemovedWillBe = theColTitles[i].substring(2, theColTitles[i].length - 1);
+     } else {
+      let tempColValue = theColTitles[i].substr(1);
+      tempColValue = tempColValue.replace("_", "");
+      columnValueRemovedArray[columnValueRemovedIndex] = i;
+      columnValueRemovedIndex++;
+      if (tempColValue == "href") {
+       theColTitles[i] = substituteValue = "Link";
+       hasSubstituteValue = 1; 
+      } else {
+       let updateNeeded;
+      }
+     }
+    } else {    
+     let skip;
+    }
+   }
+   if (columnValueToAddedHTML == 1) columnValueRemovedArrayLen = columnValueRemovedArray.length; else columnValueRemovedArrayLen = 0;   
+   if (columnValueToAddedHTMLIsRemoved == 1) {
+    theColTitlesLen -= columnValueToAddedHTMLIsRemoved;
+    colNumber -= columnValueToAddedHTMLIsRemoved;
+    }
    if (theColTitlesLen < colNumber) balanceColumns = 1;
    if (addingClass == 0) {
     makeColumns();
@@ -1896,8 +1945,26 @@ function changeToTable(colNumber, colTitles, extractTags, parElement, parElement
  var configAddedHTML = function() { // CONFIG
   var setAddHTMLPlacement = function() {
    if (addHTMLArray[addHTMLArrayLen - 1].indexOf("td") > -1) {
-    addingWhere = "td";
-    addingWhatIndex = addHTMLArray[addHTMLArrayLen - 1].replace("td","");
+    if (addHTMLArray[addHTMLArrayLen - 1].indexOf("_:_") == -1) {
+     addingWhere = "td";
+     addingWhatIndex = addHTMLArray[addHTMLArrayLen - 1].replace("td","");    
+    } else {
+     addingTableWithDataValue = 1;
+     addingTableWithDataValueArray = addHTMLArray[addHTMLArrayLen - 1].split("_:_");
+     addingTableWithDataValueArrayLen = addingTableWithDataValueArray.length;
+     if (addingTableWithDataValueArrayLen == 2) {
+      addingWhere = "td"; 
+      if (addingTableWithDataValueArray[1].indexOf("td") > -1) {
+       addingWith = "td";
+       addingWithWhatIndex = Number(addingTableWithDataValueArray[1].replace("td",""));       
+      } else {
+       let updateNeeded;
+      }
+      addingWhatIndex = addingTableWithDataValueArray[0].replace("td","");    
+     } else {
+      let updateNeeded;
+     }
+    }
    } else {
     let updateNeeded;
    }   
@@ -1912,10 +1979,23 @@ function changeToTable(colNumber, colTitles, extractTags, parElement, parElement
     theAddedHTML = addHTML;
     addHTMLArray = theAddedHTML.split("::");
     addHTMLArrayLen = addHTMLArray.length;
+    substitutePlaceHolderText = "|--__Value_TO_be_REPLAced_wItH_taBLE_DaTa_Is_uNlIkEly_tO_BE_HERE__--|";
     if (addHTMLArray[0].indexOf("<") == 0) {
      isAddingTag = 1;
      addingTag = addHTMLArray[0];
+     if (addingTag.indexOf("'") > -1) usedDoubleQuotes = 0; else  usedDoubleQuotes = 1;
      if (addingTag.indexOf(" ") > -1) {
+      if (addingTableWithDataValue == 1) {
+       if (addingTag.indexOf("href='append'") > -1 || addingTag.indexOf('href="append"') > -1 ) {
+        if (addingTag.indexOf("append") == addingTag.lastIndexOf("append") && columnValueRemovedArrayLen <= 1) {
+         addingTag = addingTag.replace("append", substitutePlaceHolderText ); 
+        } else {
+         let updateNeeded;
+        }
+       } else {
+        let updateNeeded;
+       }
+      }
       addingCloseTag = addHTMLArray[0].substr(0, addingTag.indexOf(" ")) + ">";
       addingCloseTag = addingCloseTag.replace("<", "</");
       setAddHTMLPlacement();
@@ -1925,7 +2005,7 @@ function changeToTable(colNumber, colTitles, extractTags, parElement, parElement
      }      
     } else if (addHTMLArray[0].indexOf("-:-") > -1) { 
     // ADD AS IF ARRAY HTML TAG AND ATTRIBUTES
-     isAddingTag = 1;
+     isAddingTag = 1;    
      let addHTMLArrayOne = addHTMLArray[0].split("-:-");
      let addHTMLArrayOneLen = addHTMLArrayOne.length;
      addingTag = "";
@@ -1939,11 +2019,16 @@ function changeToTable(colNumber, colTitles, extractTags, parElement, parElement
         // ex: href(i) = "        
         addingTag += " " + addHTMLArrayOne[i] + "='";
        } else {
-        // ex: href = "(i)"
-        addingTag += addHTMLArrayOne[i] + "'";
+        // ex: href = "(i)"        
+        if (addHTMLArrayOne[i] == "append") {                       
+         addingTag += substitutePlaceHolderText + "'";
+        } else {
+         let updateNeeded;
+         addingTag += addHTMLArrayOne[i] + "'";
+        }        
        }        
       }       
-     }
+     }     
      addingCloseTag = "</" + addHTMLArrayOne[0] + ">";      
      setAddHTMLPlacement();
     } else {
@@ -1981,6 +2066,22 @@ function changeToTable(colNumber, colTitles, extractTags, parElement, parElement
    useTag = 1;
    theParElementIndex = parElementIdentifierLowCase.replace("tag", "");
   }
+  if (relocate == 1) {
+   if (relocateIdentifierLowCase == "id") relocateID = 1;
+
+   if (relocateIdentifierLowCase.indexOf("class") > -1) {
+    relocateClass = 1;
+    theRelocateElementIndex = relocateIdentifierLowCase.replace("class", "");
+   }
+   if (relocateIdentifierLowCase.indexOf("data") > -1) {
+    relocateData = 1;
+    theRelocateElementIndex = relocateIdentifierLowCase.replace("data", "");
+   }
+   if (relocateIdentifierLowCase.indexOf("tag") > -1) {
+    relocateTag = 1;
+    theRelocateElementIndex = relocateIdentifierLowCase.replace("tag", "");
+   }  
+  }
  };
  var parElementConfigII = function() {
   if (useID == 1) {
@@ -1994,7 +2095,21 @@ function changeToTable(colNumber, colTitles, extractTags, parElement, parElement
    }
    if (useTag == 1) {
     theParElement = document.getElementsByTagName(parElement)[theParElementIndex];
-   }    
+   } 
+   if (relocate == 1) {
+    if (relocateID == 1) {
+      theRelocateElement = document.getElementById(relocateElement);
+     }
+     if (relocateClass == 1) {
+      theRelocateElement = document.getElementsByClassName(relocateElement)[theRelocateElementIndex];
+     }
+     if (relocateData == 1) {
+      theRelocateElement = document.querySelectorAll("[data-" + relocateElement + "]")[theRelocateElementIndex];
+     }
+     if (relocateTag == 1) {
+      theRelocateElement = document.getElementsByTagName(relocateElement)[theRelocateElementIndex];
+     }
+   }
    extractTagConfig(); 
  };  
  }
@@ -2106,12 +2221,46 @@ function changeToTable(colNumber, colTitles, extractTags, parElement, parElement
    parElementConfigII();
  } else {
   var parElementIdentifierLowCase = parElementIdentifier.toLowerCase();
+  var relocateIdentifierLowCase = relocateElementIdentifier.toLowerCase();
   if (extractTags[0] != "_") {removeNewLines(parElement, parElementIdentifier, 1);}
   parElementConfigI();
   parElementConfigII();
  }
  }
 } 
+
+function changeNextElementDisplay(cur, curEl) {
+ if (curEl.nodeName == "BR") curEl = curEl.nextElementSibling;
+ var toText = function(parEl, tags) {
+  if (tags == undefined) tags = "";
+  let hasEl = 1;
+  let curText = parEl.innerHTML;
+  while (hasEl == 1) {
+   if (tags == "<>") {
+    if (curText.indexOf("<") > -1 && curText.indexOf(">") > -1) {
+     curText = curText.replace("<", "&lt;");
+     curText = curText.replace(">", "&gt;");
+    } else {
+     hasEl = 0;
+    }
+   } else {
+    hasEl = 0;
+   }
+  }
+  parEl.innerHTML = curText;
+ };
+ if (cur.dataset.totext == 1) toText(curEl, "<>");
+ if (cur.dataset.showhide == 0) {
+  cur.dataset.showhide = 1;
+  cur.innerHTML = cur.innerHTML.replace("Show", "Hide");
+  curEl.style.display = ""; 
+ } else {
+  cur.dataset.showhide = 0;
+  cur.innerHTML = cur.innerHTML.replace("Hide", "Show");
+  curEl.style.display = "none";
+ }
+}
+
 
 // Miscellaneous
 function outputTextFile(textFilePath, parElement, parElementIdentifier, asWhat) {

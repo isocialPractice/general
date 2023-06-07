@@ -1,0 +1,920 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Change To Table Example</title>
+ <style>
+  table, tr, th, td {
+   border: 1px solid black;
+  }
+  .tableClass {
+   color: green;
+  }
+  .curExample {
+   display: block;
+  }
+  .hideExample {
+   display: none;
+  }
+ </style>
+<script src="reusableJavascriptFunctions.js"></script>
+</head>
+
+<body>
+
+<div id="byHTMLTag" data-tag="byHTMLTag" style="display:none">
+<span>
+DICT DICT is a dictionary network protocol, it allows clients to ask dictionary servers about a meaning or explanation for words. See RFC 2229. Dict servers and clients use TCP port 2628.
+</span>
+<span>
+FILE FILE is not actually a "network" protocol. It is a URL scheme that allows you to tell curl to get a file from the local file system instead of getting it over the network from a remote server. See RFC 1738.
+</span>
+<span>
+FTP FTP stands for File Transfer Protocol and is an old (originates in the early 1970s) way to transfer files back and forth between a client and a server. See RFC 959. It has been extended greatly over the years. FTP servers and clients use TCP port 21 plus one more port, though the second one is usually dynamically established during communication.
+See the external page FTP vs HTTP for how it differs to HTTP.
+</span>
+<span>
+FTPS FTPS stands for Secure File Transfer Protocol. It follows the tradition of appending an 'S' to the protocol name to signify that the protocol is done like normal FTP but with an added SSL/TLS security layer. See RFC 4217.
+This protocol is problematic to use through firewalls and other network equipment.
+</span>   
+<span>
+GOPHER Designed for "distributing, searching, and retrieving documents over the Internet", Gopher is somewhat of the grand father to HTTP as HTTP has mostly taken over completely for the same use cases. See RFC 1436. Gopher servers and clients use TCP port 70.
+</span>
+<span>
+GOPHERS Gopher over TLS. A recent extension to the old protocol.
+</span>
+<span>
+HTTP The Hypertext Transfer Protocol, HTTP, is the most widely used protocol for transferring data on the web and over the Internet. See RFC 7230 for HTTP/1.1 and RFC 7540 for HTTP/2. HTTP servers and clients use TCP port 80.
+</span>
+<span>
+HTTPS Secure HTTP is HTTP done over an SSL/TLS connection. See RFC 2818. HTTPS servers and clients use TCP port 443, unless they speak HTTP/3 which then uses QUIC and is done over UDP.
+</span>
+<span>
+IMAP The Internet Message Access Protocol, IMAP, is a protocol for accessing, controlling and "reading" email. See RFC 3501. IMAP servers and clients use TCP port 143. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 2595.
+</span>
+<span>
+IMAPS Secure IMAP is IMAP done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 993 to communicate with each other. See RFC 8314.
+</span>
+<span>
+LDAP The Lightweight Directory Access Protocol, LDAP, is a protocol for accessing and maintaining distributed directory information. Basically a database lookup. See RFC 4511. LDAP servers and clients use TCP port 389.
+</span>
+<span>
+LDAPS Secure LDAP is LDAP done over an SSL/TLS connection.
+</span>
+<span>
+MQTT Message Queuing Telemetry Transport, MQTT, is a protocol commonly used in IoT systems for interchanging data mostly involving smaller devices. It is a so called "publish-subscribe" protocol.
+</span>
+<span>
+POP3 The Post Office Protocol version 3 (POP3) is a protocol for retrieving email from a server. See RFC 1939. POP3 servers and clients use TCP port 110. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STLS command. See RFC 2595.
+</span>
+<span>
+POP3S Secure POP3 is POP3 done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 995 to communicate with each other. See RFC 8314.
+</span>
+<span>
+RTMP The Real-Time Messaging Protocol (RTMP) is a protocol for streaming audio, video and data. RTMP servers and clients use TCP port 1935.
+</span>
+<span>
+RTSP The Real Time Streaming Protocol (RTSP) is a network control protocol to control streaming media servers. See RFC 2326. RTSP servers and clients use TCP and UDP port 554.
+</span>
+<span>
+SCP The Secure Copy (SCP) protocol is designed to copy files to and from a remote SSH server. SCP servers and clients use TCP port 22.
+</span>
+<span>
+SFTP The SSH File Transfer Protocol (SFTP) that provides file access, file transfer, and file management over a reliable data stream. SFTP servers and clients use TCP port 22.
+</span>
+<span>
+SMB The Server Message Block (SMB) protocol is also known as CIFS. It is an application-layer network protocol mainly used for providing shared access to files, printers, and serial ports and miscellaneous communications between nodes on a network. SMB servers and clients use TCP port 445.
+</span>
+<span>
+SMBS SMB done over TLS.
+</span>
+<span>
+SMTP The Simple Mail Transfer Protocol (SMTP) is a protocol for email transmission. See RFC 5321. SMTP servers and clients use TCP port 25. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 3207.
+</span>
+<span>
+SMTPS Secure SMTP, is SMTP done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 465 to communicate with each other. See RFC 8314.
+</span>
+<span>
+TELNET TELNET is an application layer protocol used over networks to provide a bidirectional interactive text-oriented communication facility using a virtual terminal connection. See RFC 854. TELNET servers and clients use TCP port 23.
+</span>
+<span>
+TFTP The Trivial File Transfer Protocol (TFTP) is a protocol for doing simple file transfers over UDP to get a file from or put a file onto a remote host. TFTP servers and clients use UDP port 69.
+</span>
+<span>
+WS WebSocket is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WS is the scheme for the clear text version done over plain HTTP. Experimental support for this was added to curl 7.86.0.
+</span>
+<span>
+WSS WebSocket is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WSS is the scheme for the secure version done over HTTPS. Experimental support for this was added to curl 7.86.0.
+</span>
+
+</div>
+<div id="byHTMLTagWithSplitCharacter" data-tag="byHTMLTag" style="display:none">
+<span>
+DICT DICT --SPLIT_COL-- is a dictionary network protocol, --SPLIT_COL-- it allows clients to ask dictionary servers about a meaning or explanation for words. --SPLIT_COL-- See RFC 2229. Dict servers and clients use TCP port 2628.
+</span>
+<span>
+FILE FILE --SPLIT_COL-- is not actually a "network" protocol. --SPLIT_COL-- It is a URL scheme that allows you to tell curl to get a file from the local file system instead of getting it over the network from a remote server. --SPLIT_COL--See RFC 1738.
+</span>
+<span>
+FTP FTP --SPLIT_COL-- stands for File Transfer Protocol and is an old (originates in the early 1970s) way to transfer files back and forth between a client and a server. --SPLIT_COL-- See RFC 959. It has been extended greatly over the years. FTP servers and clients use TCP port 21 plus one more port, though the second one is usually dynamically established during communication.
+--SPLIT_COL-- See the external page FTP vs HTTP for how it differs to HTTP.
+</span>
+<span>
+FTPS FTPS --SPLIT_COL-- stands for Secure File Transfer Protocol. --SPLIT_COL-- It follows the tradition of appending an 'S' to the protocol name to signify that the protocol is done like normal FTP but with an added SSL/TLS security layer. --SPLIT_COL-- See RFC 4217.
+This protocol is problematic to use through firewalls and other network equipment.
+</span>   
+<span>
+GOPHER --SPLIT_COL-- Designed for "distributing, searching, and retrieving documents over the Internet", --SPLIT_COL-- Gopher is somewhat of the grand father to HTTP as HTTP has mostly taken over completely for the same use cases. See RFC 1436. --SPLIT_COL-- Gopher servers and clients use TCP port 70.
+</span>
+<span>
+GOPHERS--SPLIT_COL--  Gopher over TLS.--SPLIT_COL--  A recent extension to the old protocol.--SPLIT_COL-- 
+</span>
+<span>
+HTTP--SPLIT_COL--  The Hypertext Transfer Protocol,--SPLIT_COL--  HTTP, is the most widely used protocol for transferring data on the web and over the Internet. See RFC 7230 for HTTP/1.1 and RFC 7540 for HTTP/2. --SPLIT_COL-- HTTP servers and clients use TCP port 80.
+</span>
+<span>
+HTTPS --SPLIT_COL-- Secure HTTP is HTTP done over an SSL/TLS connection. --SPLIT_COL-- See RFC 2818. --SPLIT_COL-- HTTPS servers and clients use TCP port 443, unless they speak HTTP/3 which then uses QUIC and is done over UDP.
+</span>
+<span>
+IMAP --SPLIT_COL-- The Internet Message Access Protocol, --SPLIT_COL-- IMAP, is a protocol for accessing, controlling and "reading" email. See RFC 3501. IMAP servers and clients use TCP port 143. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. --SPLIT_COL-- See RFC 2595.
+</span>
+<span>
+IMAPS --SPLIT_COL-- Secure IMAP is IMAP done over an SSL/TLS connection. --SPLIT_COL-- Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 993 to communicate with each other. --SPLIT_COL-- See RFC 8314.
+</span>
+<span>
+LDAP --SPLIT_COL-- The Lightweight Directory Access Protocol, LDAP, is a protocol for accessing and maintaining distributed directory information. --SPLIT_COL-- Basically a database lookup. See RFC 4511. --SPLIT_COL-- LDAP servers and clients use TCP port 389.
+</span>
+<span>
+LDAPS --SPLIT_COL-- Secure LDAP--SPLIT_COL--  is LDAP done over an --SPLIT_COL-- SSL/TLS connection.
+</span>
+<span>
+MQTT --SPLIT_COL-- Message Queuing Telemetry Transport,--SPLIT_COL--  MQTT, is a protocol commonly used in IoT systems for interchanging data mostly involving smaller devices. --SPLIT_COL-- It is a so called "publish-subscribe" protocol.
+</span>
+<span>
+POP3 --SPLIT_COL-- The Post Office Protocol version 3 (POP3)--SPLIT_COL--  is a protocol for retrieving email from a server. --SPLIT_COL-- See RFC 1939. POP3 servers and clients use TCP port 110. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STLS command. See RFC 2595.
+</span>
+<span>
+POP3S--SPLIT_COL--  Secure POP3 is POP3 done over an SSL/TLS connection.--SPLIT_COL--  Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 995 to communicate with each other.--SPLIT_COL--  See RFC 8314.
+</span>
+<span>
+RTMP --SPLIT_COL-- The Real-Time Messaging Protocol (RTMP) --SPLIT_COL-- is a protocol for streaming audio, video and data. --SPLIT_COL-- RTMP servers and clients use TCP port 1935.
+</span>
+<span>
+RTSP--SPLIT_COL--  The Real Time Streaming Protocol (RTSP) --SPLIT_COL-- is a network control protocol to control streaming media servers. --SPLIT_COL-- See RFC 2326. RTSP servers and clients use TCP and UDP port 554.
+</span>
+<span>
+SCP--SPLIT_COL--  The Secure Copy (SCP) protocol --SPLIT_COL-- is designed to copy files to and from a remote SSH server. --SPLIT_COL-- SCP servers and clients use TCP port 22.
+</span>
+<span>
+SFTP --SPLIT_COL-- The SSH File Transfer Protocol (SFTP) --SPLIT_COL-- that provides file access, file transfer, and file management over a reliable data stream. --SPLIT_COL-- SFTP servers and clients use TCP port 22.
+</span>
+<span>
+SMB --SPLIT_COL-- The Server Message Block (SMB) --SPLIT_COL-- protocol is also known as CIFS. It is an application-layer network protocol mainly used for providing shared access to files, printers, and serial ports and miscellaneous communications between nodes on a network. --SPLIT_COL-- SMB servers and clients use TCP port 445.
+</span>
+<span>
+SMBS --SPLIT_COL-- SMB done over --SPLIT_COL-- TLS.--SPLIT_COL-- 
+</span>
+<span>
+SMTP --SPLIT_COL-- The Simple Mail Transfer Protocol (SMTP) --SPLIT_COL-- is a protocol for email transmission. --SPLIT_COL-- See RFC 5321. SMTP servers and clients use TCP port 25. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 3207.
+</span>
+<span>
+SMTPS --SPLIT_COL-- Secure SMTP, --SPLIT_COL-- is SMTP done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 465 to communicate with each other. --SPLIT_COL-- See RFC 8314.
+</span>
+<span>
+TELNET--SPLIT_COL--  TELNET --SPLIT_COL-- is an application layer protocol used over networks to provide a bidirectional interactive text-oriented communication facility using a virtual terminal connection. See RFC 854. --SPLIT_COL-- TELNET servers and clients use TCP port 23.
+</span>
+<span>
+TFTP --SPLIT_COL-- The Trivial File Transfer Protocol (TFTP)--SPLIT_COL--  is a protocol for doing simple file transfers over UDP to get a file from or put a file onto a remote host.--SPLIT_COL--  TFTP servers and clients use UDP port 69.
+</span>
+<span>
+WS --SPLIT_COL-- WebSocket--SPLIT_COL--  is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WS is the scheme for the clear text version done over plain HTTP. --SPLIT_COL-- Experimental support for this was added to curl 7.86.0.
+</span>
+<span>
+WSS --SPLIT_COL-- WebSocket --SPLIT_COL-- is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WSS is the scheme for the secure version done over HTTPS.--SPLIT_COL--  Experimental support for this was added to curl 7.86.0.
+</span>
+</div>
+<div class="byText" id="byText" style="display:none">
+DICT
+DICT is a dictionary network protocol, it allows clients to ask dictionary servers about a meaning or explanation for words. See RFC 2229. Dict servers and clients use TCP port 2628.
+FILE
+FILE is not actually a "network" protocol. It is a URL scheme that allows you to tell curl to get a file from the local file system instead of getting it over the network from a remote server. See RFC 1738.
+FTP
+FTP stands for File Transfer Protocol and is an old (originates in the early 1970s) way to transfer files back and forth between a client and a server. See RFC 959. It has been extended greatly over the years. FTP servers and clients use TCP port 21 plus one more port, though the second one is usually dynamically established during communication.See the external page FTP vs HTTP for how it differs to HTTP.
+FTPS
+FTPS stands for Secure File Transfer Protocol. It follows the tradition of appending an 'S' to the protocol name to signify that the protocol is done like normal FTP but with an added SSL/TLS security layer. See RFC 4217.This protocol is problematic to use through firewalls and other network equipment.
+GOPHER
+Designed for "distributing, searching, and retrieving documents over the Internet", Gopher is somewhat of the grand father to HTTP as HTTP has mostly taken over completely for the same use cases. See RFC 1436. Gopher servers and clients use TCP port 70.
+GOPHERS
+Gopher over TLS. A recent extension to the old protocol.
+HTTP
+The Hypertext Transfer Protocol, HTTP, is the most widely used protocol for transferring data on the web and over the Internet. See RFC 7230 for HTTP/1.1 and RFC 7540 for HTTP/2. HTTP servers and clients use TCP port 80.
+HTTPS
+Secure HTTP is HTTP done over an SSL/TLS connection. See RFC 2818. HTTPS servers and clients use TCP port 443, unless they speak HTTP/3 which then uses QUIC and is done over UDP.
+IMAP
+The Internet Message Access Protocol, IMAP, is a protocol for accessing, controlling and "reading" email. See RFC 3501. IMAP servers and clients use TCP port 143. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 2595.
+IMAPS
+Secure IMAP is IMAP done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 993 to communicate with each other. See RFC 8314.
+LDAP
+The Lightweight Directory Access Protocol, LDAP, is a protocol for accessing and maintaining distributed directory information. Basically a database lookup. See RFC 4511. LDAP servers and clients use TCP port 389.
+LDAPS
+Secure LDAP is LDAP done over an SSL/TLS connection.
+MQTT
+Message Queuing Telemetry Transport, MQTT, is a protocol commonly used in IoT systems for interchanging data mostly involving smaller devices. It is a so called "publish-subscribe" protocol.
+POP3
+The Post Office Protocol version 3 (POP3) is a protocol for retrieving email from a server. See RFC 1939. POP3 servers and clients use TCP port 110. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STLS command. See RFC 2595.
+POP3S
+Secure POP3 is POP3 done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 995 to communicate with each other. See RFC 8314.
+RTMP
+The Real-Time Messaging Protocol (RTMP) is a protocol for streaming audio, video and data. RTMP servers and clients use TCP port 1935.
+RTSP
+The Real Time Streaming Protocol (RTSP) is a network control protocol to control streaming media servers. See RFC 2326. RTSP servers and clients use TCP and UDP port 554.
+SCP
+The Secure Copy (SCP) protocol is designed to copy files to and from a remote SSH server. SCP servers and clients use TCP port 22.
+SFTP
+The SSH File Transfer Protocol (SFTP) that provides file access, file transfer, and file management over a reliable data stream. SFTP servers and clients use TCP port 22.
+SMB
+The Server Message Block (SMB) protocol is also known as CIFS. It is an application-layer network protocol mainly used for providing shared access to files, printers, and serial ports and miscellaneous communications between nodes on a network. SMB servers and clients use TCP port 445.
+SMBS
+SMB done over TLS.
+SMTP
+The Simple Mail Transfer Protocol (SMTP) is a protocol for email transmission. See RFC 5321. SMTP servers and clients use TCP port 25. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 3207.
+SMTPS
+Secure SMTP, is SMTP done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 465 to communicate with each other. See RFC 8314.
+TELNET
+TELNET is an application layer protocol used over networks to provide a bidirectional interactive text-oriented communication facility using a virtual terminal connection. See RFC 854. TELNET servers and clients use TCP port 23.
+TFTP
+The Trivial File Transfer Protocol (TFTP) is a protocol for doing simple file transfers over UDP to get a file from or put a file onto a remote host. TFTP servers and clients use UDP port 69.
+WS
+WebSocket is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WS is the scheme for the clear text version done over plain HTTP. Experimental support for this was added to curl 7.86.0.
+WSS
+WebSocket is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WSS is the scheme for the secure version done over HTTPS. Experimental support for this was added to curl 7.86.0.
+</div>
+<div class="byText" id="byTextWithSPlitCharacter" style="display:none">
+DICT --|--
+DICT is a dictionary network protocol, it allows clients to ask dictionary servers about a meaning or explanation for words. See RFC 2229.  --|--
+Dict servers and clients use TCP port 2628. --|--
+
+FILE --|--
+FILE is not actually a "network" protocol. It is a URL scheme that allows you to tell curl to get a file from the local file system instead of getting it over the network from a remote server. See RFC 1738. --|--
+*Not listed. --|--
+
+FTP --|--
+FTP stands for File Transfer Protocol and is an old (originates in the early 1970s) way to transfer files back and forth between a client and a server. See RFC 959. It has been extended greatly over the years.  --|--
+FTP servers and clients use TCP port 21 plus one more port, though the second one is usually dynamically established during communication. See the external page FTP vs HTTP for how it differs to HTTP. --|--
+
+FTPS --|--
+FTPS stands for Secure File Transfer Protocol. It follows the tradition of appending an 'S' to the protocol name to signify that the protocol is done like normal FTP but with an added SSL/TLS security layer.  --|--
+See RFC 4217.This protocol is problematic to use through firewalls and other network equipment. --|--
+
+GOPHER --|--
+Designed for "distributing, searching, and retrieving documents over the Internet", Gopher is somewhat of the grand father to HTTP as HTTP has mostly taken over completely for the same use cases.  --|--
+See RFC 1436. Gopher servers and clients use TCP port 70. --|--
+
+GOPHERS --|--
+Gopher over TLS.  --|--
+A recent extension to the old protocol. --|--
+
+HTTP --|--
+The Hypertext Transfer Protocol, HTTP, is the most widely used protocol for transferring data on the web and over the Internet. See RFC 7230 for HTTP/1.1 and RFC 7540 for HTTP/2.  --|--
+HTTP servers and clients use TCP port 80. --|--
+
+HTTPS --|--
+Secure HTTP is HTTP done over an SSL/TLS connection. See RFC 2818.  --|--
+HTTPS servers and clients use TCP port 443, unless they speak HTTP/3 which then uses QUIC and is done over UDP. --|--
+
+IMAP --|--
+The Internet Message Access Protocol, IMAP, is a protocol for accessing, controlling and "reading" email. See RFC 3501.  --|--
+IMAP servers and clients use TCP port 143. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 2595. --|--
+
+IMAPS --|--
+Secure IMAP is IMAP done over an SSL/TLS connection.--|--
+Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 993 to communicate with each other. See RFC 8314. --|--
+
+LDAP --|--
+The Lightweight Directory Access Protocol, LDAP, is a protocol for accessing andmaintaining distributed directory information. Basically a database lookup. See RFC 4511.  --|--
+LDAP servers and clients use TCP port 389. --|--
+
+LDAPS --|--
+Secure LDAP is LDAP done over an SSL/TLS connection. --|--
+*Not listed. --|--
+
+MQTT --|--
+Message Queuing Telemetry Transport, MQTT, is a protocol commonly used in IoT systems for interchanging data mostly involving smaller devices. It is a so called "publish-subscribe" protocol. --|--
+*Not listed. --|--
+
+POP3 --|--
+The Post Office Protocol version 3 (POP3) is a protocol for retrieving email from a server. See RFC 1939. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STLS command. See RFC 2595. --|--
+POP3 servers and clients use TCP port 110.  --|--
+
+POP3S --|--
+Secure POP3 is POP3 done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use  --|--
+TCP port 995 to communicate with each other. See RFC 8314. --|--
+
+RTMP --|--
+The Real-Time Messaging Protocol (RTMP) is a protocol for streaming audio, video and data.  --|--
+RTMP servers and clients use TCP port 1935. --|--
+
+RTSP --|--
+The Real Time Streaming Protocol (RTSP) is a network control protocol to control streaming media servers. See RFC 2326.  --|--
+RTSP servers and clients use TCP and UDP port 554. --|--
+
+SCP --|--
+The Secure Copy (SCP) protocol is designed to copy files to and from a remote SSH server.  --|--
+SCP servers and clients use TCP port 22. --|--
+
+SFTP --|--
+The SSH 
+File Transfer Protocol (SFTP) that provides file access, file transfer, and file management over a reliable data stream.  --|--
+SFTP servers and clients use TCP port 22. --|--
+
+SMB --|--
+The Server Message Block (SMB) protocol is also known as CIFS. It is an application-layer network protocol mainly used for providing shared access to files, printers, and serial ports and miscellaneous communications between nodes on a network.  --|--
+SMB servers and clients use TCP port 445. --|--
+
+SMBS --|--
+SMB done over TLS. --|--
+*Not listed. --|--
+
+SMTP --|--
+The Simple 
+Mail Transfer Protocol (SMTP) is a protocol for email transmission. See RFC 5321. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 3207. --|--
+SMTP servers and clients use TCP port 25. --|--
+
+SMTPS --|--
+Secure SMTP, is SMTP done over an SSL/TLS connection.  --|--
+Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 465 to communicate with each other.See RFC 8314. --|--
+
+TELNET --|--
+TELNET is an application layer protocol used over networks to provide a bidirectional interactive text-oriented communication facility using a virtual terminal connection. See RFC 854. --|--
+TELNET servers and clients use TCP port 23. --|--
+
+TFTP --|--
+The Trivial File Transfer Protocol (TFTP) is a protocol for doing simple file transfersover UDP to get a file from or put a file onto a remote host.  --|--
+TFTP servers and clients use UDP port 69. --|--
+
+WS --|--
+WebSocket 
+is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WS is the scheme for the clear text version done over plain HTTP. Experimental support for this was added to curl 7.86.0. --|--
+*Not listed. (80?) --|--
+
+WSS --|--
+WebSocket isa bidirectional TCP-like protocol, setup over an HTTP(S) request. WSS is the scheme for the secure version done over HTTPS. Experimental support for this was added to curl 7.86.0. --|--
+*Not listed. (80?)
+
+</div>
+<div id="byTextUsingTextSettingAttribute" style="display:none">
+HTTP proxy
+An HTTP proxy is a proxy that the client speaks HTTP with to get the transfer done. curl will, by default, assume that a host you point out with -x or --proxy is an HTTP proxy, and unless you also specify a port number it will default to port 1080 (and the reason for that particular port number is purely historical).
+https://everything.curl.dev/usingcurl/proxies/http
+
+Proxy
+A proxy is a machine or software that does something on behalf of you, the client. Proxies are like a middle man between you and the target server, connecting to and communicating with the target server on your behalf.
+https://everything.curl.dev/usingcurl/proxies#proxies
+
+SOCKS proxy
+SOCKS is a protocol used for proxies and curl supports it. curl supports both SOCKS version 4 as well as version 5, and both versions come in two flavors.
+https://everything.curl.dev/usingcurl/proxies/socks#socks-proxy
+</div>
+
+<h1>Change To Table Example</h1><hr>
+<p>Select the dropdown below to run example of "changeToTable()" function.</p>
+<br>
+<label for="selectTest">Select Which Test</label>
+<select name="selectTest" id="selectTest"
+ onchange="  
+  copyTable.innerHTML = '';
+  let selectedTest = removeSpaceInVariable(this.value, 'l');
+  let nestedExamples = document.getElementById('nestedExamples');
+  let nestedExamplesDiv = nestedExamples.getElementsByTagName('div');
+  for (i = 0; i < nestedExamplesDiv.length; i++) {
+   nestedExamplesDiv[i].style.display = 'none';
+  }
+  if (document.getElementById(selectedTest)) document.getElementById(selectedTest).style.display = '';
+ "
+>
+ <option value=" " selected> </option>
+ <option value="Select By HTML Tag">Select By HTML Tag</option>
+ <option value="Select By HTML Tag Using Split Character">Select By HTML Tag Using Split Character</option>
+ <option value="Select By Text">Select By Text</option>
+ <option value="Select By Text Using Split Character">Select By Text Using Split Character</option>
+ <option value="Select By Text Using Text">Select By Text Using Text</option>
+</select>
+<br>
+<div id="nestedExamples">
+<div id="selectbyhtmltag" style="display:none">
+<h3>Select By HTML Tag</h3>
+<label for="changeselectbyhtmltagExamples">Select Example</label><br>
+<select name="changeselectbyhtmltagExamples" id="changeselectbyhtmltagExamples"
+ onchange="showTableExample(this.value);">
+ <option value='copyTable.innerHTML = "";' selcted></option>  
+ <optgroup label="By HTML Tag">  
+  <option value='changeToTable(2, "Term,Definition", "span: ", "byHTMLTag", "id", 1, "copyTable", "id");'>
+   changeToTable(2, "Term,Definition", "span: ", "byHTMLTag", "id", 1, "copyTable", "id")
+  </option>
+  
+  <option value='changeToTable(2, "Term,Definition", "span: ", "div", "tag0", 1, "copyTable", "id", "&lt;a href=&apos;https://everything.curl.dev/protocols/curl&apos; target=&apos;_blank&apos; rel=&apos;external&apos;&gt;::td0");'>
+   changeToTable(2, "Term,Definition", "span: ", "div", "tag0", 1, "copyTable", "id", "&lt;a href=&apos;https://everything.curl.dev/protocols/curl&apos; target=&apos;_blank&apos; rel=&apos;external&apos;&gt;::td0")
+  </option>
+  
+  <option value='changeToTable(2, "Term,Definition", "span: ", "tag", "data0", 1, "div", "tag" + (document.getElementsByTagName("div").length - 1), "a-:-href-:-https://everything.curl.dev/protocols/curl-:-target-:-_blank-:-rel-:-external::append-:-href-:-anchor-:-innerHTML-:-uc::td0");'>
+   changeToTable(2, "Term,Definition", "span: ", "tag", "data0", 1, "div", "tag" + (document.getElementsByTagName("div").length - 1), "a-:-href-:-https://everything.curl.dev/protocols/curl-:-target-:-_blank-:-rel-:-external::append-:-href-:-anchor-:-innerHTML-:-uc::td0")
+  </option>  
+ </optgroup>
+</select>
+<br>
+<button data-showhide="0" data-totext="1"
+onclick="changeNextElementDisplay(this, this.nextElementSibling)">Show HTML Used</button><br>
+<pre style="display:none">
+&lt;div id="copyTable" class="copyTable" data-tag="copyTable"&gt; &lt;/div&gt;
+&lt;div id="byHTMLTag" data-tag="byHTMLTag"&gt;
+<span>
+DICT DICT is a dictionary network protocol, it allows clients to ask dictionary servers about a meaning or explanation for words. See RFC 2229. Dict servers and clients use TCP port 2628.
+</span>
+<span>
+FILE FILE is not actually a "network" protocol. It is a URL scheme that allows you to tell curl to get a file from the local file system instead of getting it over the network from a remote server. See RFC 1738.
+</span>
+<span>
+FTP FTP stands for File Transfer Protocol and is an old (originates in the early 1970s) way to transfer files back and forth between a client and a server. See RFC 959. It has been extended greatly over the years. FTP servers and clients use TCP port 21 plus one more port, though the second one is usually dynamically established during communication.
+See the external page FTP vs HTTP for how it differs to HTTP.
+</span>
+<span>
+FTPS FTPS stands for Secure File Transfer Protocol. It follows the tradition of appending an 'S' to the protocol name to signify that the protocol is done like normal FTP but with an added SSL/TLS security layer. See RFC 4217.
+This protocol is problematic to use through firewalls and other network equipment.
+</span>   
+<span>
+GOPHER Designed for "distributing, searching, and retrieving documents over the Internet", Gopher is somewhat of the grand father to HTTP as HTTP has mostly taken over completely for the same use cases. See RFC 1436. Gopher servers and clients use TCP port 70.
+</span>
+<span>
+GOPHERS Gopher over TLS. A recent extension to the old protocol.
+</span>
+<span>
+HTTP The Hypertext Transfer Protocol, HTTP, is the most widely used protocol for transferring data on the web and over the Internet. See RFC 7230 for HTTP/1.1 and RFC 7540 for HTTP/2. HTTP servers and clients use TCP port 80.
+</span>
+<span>
+HTTPS Secure HTTP is HTTP done over an SSL/TLS connection. See RFC 2818. HTTPS servers and clients use TCP port 443, unless they speak HTTP/3 which then uses QUIC and is done over UDP.
+</span>
+<span>
+IMAP The Internet Message Access Protocol, IMAP, is a protocol for accessing, controlling and "reading" email. See RFC 3501. IMAP servers and clients use TCP port 143. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 2595.
+</span>
+<span>
+IMAPS Secure IMAP is IMAP done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 993 to communicate with each other. See RFC 8314.
+</span>
+<span>
+LDAP The Lightweight Directory Access Protocol, LDAP, is a protocol for accessing and maintaining distributed directory information. Basically a database lookup. See RFC 4511. LDAP servers and clients use TCP port 389.
+</span>
+<span>
+LDAPS Secure LDAP is LDAP done over an SSL/TLS connection.
+</span>
+<span>
+MQTT Message Queuing Telemetry Transport, MQTT, is a protocol commonly used in IoT systems for interchanging data mostly involving smaller devices. It is a so called "publish-subscribe" protocol.
+</span>
+<span>
+POP3 The Post Office Protocol version 3 (POP3) is a protocol for retrieving email from a server. See RFC 1939. POP3 servers and clients use TCP port 110. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STLS command. See RFC 2595.
+</span>
+<span>
+POP3S Secure POP3 is POP3 done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 995 to communicate with each other. See RFC 8314.
+</span>
+<span>
+RTMP The Real-Time Messaging Protocol (RTMP) is a protocol for streaming audio, video and data. RTMP servers and clients use TCP port 1935.
+</span>
+<span>
+RTSP The Real Time Streaming Protocol (RTSP) is a network control protocol to control streaming media servers. See RFC 2326. RTSP servers and clients use TCP and UDP port 554.
+</span>
+<span>
+SCP The Secure Copy (SCP) protocol is designed to copy files to and from a remote SSH server. SCP servers and clients use TCP port 22.
+</span>
+<span>
+SFTP The SSH File Transfer Protocol (SFTP) that provides file access, file transfer, and file management over a reliable data stream. SFTP servers and clients use TCP port 22.
+</span>
+<span>
+SMB The Server Message Block (SMB) protocol is also known as CIFS. It is an application-layer network protocol mainly used for providing shared access to files, printers, and serial ports and miscellaneous communications between nodes on a network. SMB servers and clients use TCP port 445.
+</span>
+<span>
+SMBS SMB done over TLS.
+</span>
+<span>
+SMTP The Simple Mail Transfer Protocol (SMTP) is a protocol for email transmission. See RFC 5321. SMTP servers and clients use TCP port 25. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 3207.
+</span>
+<span>
+SMTPS Secure SMTP, is SMTP done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 465 to communicate with each other. See RFC 8314.
+</span>
+<span>
+TELNET TELNET is an application layer protocol used over networks to provide a bidirectional interactive text-oriented communication facility using a virtual terminal connection. See RFC 854. TELNET servers and clients use TCP port 23.
+</span>
+<span>
+TFTP The Trivial File Transfer Protocol (TFTP) is a protocol for doing simple file transfers over UDP to get a file from or put a file onto a remote host. TFTP servers and clients use UDP port 69.
+</span>
+<span>
+WS WebSocket is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WS is the scheme for the clear text version done over plain HTTP. Experimental support for this was added to curl 7.86.0.
+</span>
+<span>
+WSS WebSocket is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WSS is the scheme for the secure version done over HTTPS. Experimental support for this was added to curl 7.86.0.
+</span>
+&lt;/div&gt;
+</pre>
+</div>
+
+<div id="selectbyhtmltagusingsplitcharacter" style="display:none">
+<h3>Select By HTML Tag Using Split Characters</h3>
+<label for="changeselectbyhtmltagusingsplitcharacterExamples">Select Example</label><br>
+<select name="changeselectbyhtmltagusingsplitcharacterExamples" id="changeselectbyhtmltagusingsplitcharacterExamples"
+ onchange="showTableExample(this.value);">
+ <option value='copyTable.innerHTML = "";' selcted></option>  
+ <optgroup label="By HTML Tag with Split Character">
+  <option value="changeToTable(3, 'Protocol,Expanded', 'span:--SPLIT_COL--', 'byHTMLTagWithSplitCharacter', 'id', 1, 'copyTable', 'id', 0);">
+  changeToTable(3, "Protocol,Expanded", "span:--SPLIT_COL--", "byHTMLTagWithSplitCharacter", "id", 1, "copyTable", "id", 0)
+  </option>
+  
+  <option value='changeToTable(5, "Term,Definition,Port", "span:--SPLIT_COL--", "div", "tag1", 1, "copyTable", "class0", "&lt;a href=&apos;https://everything.curl.dev/protocols/curl&apos; target=&apos;_blank&apos; rel=&apos;external&apos;&gt;::td0");'>
+   changeToTable(5, "Term,Definition,Port", "span:--SPLIT_COL--", "div", "tag1", 1, "copyTable", "class0", "&lt;a href=&apos;https://everything.curl.dev/protocols/curl&apos; target=&apos;_blank&apos; rel=&apos;external&apos;&gt;::td0")
+  </option>
+  
+  <option value='changeToTable(4, "Protocol,Expanded, Definition,Port Info", "span:--SPLIT_COL--", "tag", "data1", 1, "tag", "data2",  "a-:-href-:-https://everything.curl.dev/protocols/curl-:-target-:-_blank-:-rel-:-external::append-:-href-:-anchor-:-innerHTML-:-lc::td0");'>
+   changeToTable(4, "Protocol,Expanded, Definition,Port Info", "span:--SPLIT_COL--", "tag", "data1", 1, "tag", "data2",  "a-:-href-:-https://everything.curl.dev/protocols/curl-:-target-:-_blank-:-rel-:-external::append-:-href-:-anchor-:-innerHTML-:-lc::td0")
+  </option>  
+  
+ </optgroup>
+</select>
+<br>
+<button data-showhide="0" data-totext="1"
+onclick="changeNextElementDisplay(this, this.nextElementSibling)">Show HTML Used</button><br>
+<pre style="display:none">
+&lt;div id="copyTable" class="copyTable" data-tag="copyTable"&gt; &lt;/div&gt;
+&lt;div id="byHTMLTagWithSplitCharacter" data-tag="byHTMLTag"&gt;
+<span>
+DICT DICT --SPLIT_COL-- is a dictionary network protocol, --SPLIT_COL-- it allows clients to ask dictionary servers about a meaning or explanation for words. --SPLIT_COL-- See RFC 2229. Dict servers and clients use TCP port 2628.
+</span>
+<span>
+FILE FILE --SPLIT_COL-- is not actually a "network" protocol. --SPLIT_COL-- It is a URL scheme that allows you to tell curl to get a file from the local file system instead of getting it over the network from a remote server. --SPLIT_COL--See RFC 1738.
+</span>
+<span>
+FTP FTP --SPLIT_COL-- stands for File Transfer Protocol and is an old (originates in the early 1970s) way to transfer files back and forth between a client and a server. --SPLIT_COL-- See RFC 959. It has been extended greatly over the years. FTP servers and clients use TCP port 21 plus one more port, though the second one is usually dynamically established during communication.
+--SPLIT_COL-- See the external page FTP vs HTTP for how it differs to HTTP.
+</span>
+<span>
+FTPS FTPS --SPLIT_COL-- stands for Secure File Transfer Protocol. --SPLIT_COL-- It follows the tradition of appending an 'S' to the protocol name to signify that the protocol is done like normal FTP but with an added SSL/TLS security layer. --SPLIT_COL-- See RFC 4217.
+This protocol is problematic to use through firewalls and other network equipment.
+</span>   
+<span>
+GOPHER --SPLIT_COL-- Designed for "distributing, searching, and retrieving documents over the Internet", --SPLIT_COL-- Gopher is somewhat of the grand father to HTTP as HTTP has mostly taken over completely for the same use cases. See RFC 1436. --SPLIT_COL-- Gopher servers and clients use TCP port 70.
+</span>
+<span>
+GOPHERS--SPLIT_COL--  Gopher over TLS.--SPLIT_COL--  A recent extension to the old protocol.--SPLIT_COL-- 
+</span>
+<span>
+HTTP--SPLIT_COL--  The Hypertext Transfer Protocol,--SPLIT_COL--  HTTP, is the most widely used protocol for transferring data on the web and over the Internet. See RFC 7230 for HTTP/1.1 and RFC 7540 for HTTP/2. --SPLIT_COL-- HTTP servers and clients use TCP port 80.
+</span>
+<span>
+HTTPS --SPLIT_COL-- Secure HTTP is HTTP done over an SSL/TLS connection. --SPLIT_COL-- See RFC 2818. --SPLIT_COL-- HTTPS servers and clients use TCP port 443, unless they speak HTTP/3 which then uses QUIC and is done over UDP.
+</span>
+<span>
+IMAP --SPLIT_COL-- The Internet Message Access Protocol, --SPLIT_COL-- IMAP, is a protocol for accessing, controlling and "reading" email. See RFC 3501. IMAP servers and clients use TCP port 143. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. --SPLIT_COL-- See RFC 2595.
+</span>
+<span>
+IMAPS --SPLIT_COL-- Secure IMAP is IMAP done over an SSL/TLS connection. --SPLIT_COL-- Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 993 to communicate with each other. --SPLIT_COL-- See RFC 8314.
+</span>
+<span>
+LDAP --SPLIT_COL-- The Lightweight Directory Access Protocol, LDAP, is a protocol for accessing and maintaining distributed directory information. --SPLIT_COL-- Basically a database lookup. See RFC 4511. --SPLIT_COL-- LDAP servers and clients use TCP port 389.
+</span>
+<span>
+LDAPS --SPLIT_COL-- Secure LDAP--SPLIT_COL--  is LDAP done over an --SPLIT_COL-- SSL/TLS connection.
+</span>
+<span>
+MQTT --SPLIT_COL-- Message Queuing Telemetry Transport,--SPLIT_COL--  MQTT, is a protocol commonly used in IoT systems for interchanging data mostly involving smaller devices. --SPLIT_COL-- It is a so called "publish-subscribe" protocol.
+</span>
+<span>
+POP3 --SPLIT_COL-- The Post Office Protocol version 3 (POP3)--SPLIT_COL--  is a protocol for retrieving email from a server. --SPLIT_COL-- See RFC 1939. POP3 servers and clients use TCP port 110. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STLS command. See RFC 2595.
+</span>
+<span>
+POP3S--SPLIT_COL--  Secure POP3 is POP3 done over an SSL/TLS connection.--SPLIT_COL--  Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 995 to communicate with each other.--SPLIT_COL--  See RFC 8314.
+</span>
+<span>
+RTMP --SPLIT_COL-- The Real-Time Messaging Protocol (RTMP) --SPLIT_COL-- is a protocol for streaming audio, video and data. --SPLIT_COL-- RTMP servers and clients use TCP port 1935.
+</span>
+<span>
+RTSP--SPLIT_COL--  The Real Time Streaming Protocol (RTSP) --SPLIT_COL-- is a network control protocol to control streaming media servers. --SPLIT_COL-- See RFC 2326. RTSP servers and clients use TCP and UDP port 554.
+</span>
+<span>
+SCP--SPLIT_COL--  The Secure Copy (SCP) protocol --SPLIT_COL-- is designed to copy files to and from a remote SSH server. --SPLIT_COL-- SCP servers and clients use TCP port 22.
+</span>
+<span>
+SFTP --SPLIT_COL-- The SSH File Transfer Protocol (SFTP) --SPLIT_COL-- that provides file access, file transfer, and file management over a reliable data stream. --SPLIT_COL-- SFTP servers and clients use TCP port 22.
+</span>
+<span>
+SMB --SPLIT_COL-- The Server Message Block (SMB) --SPLIT_COL-- protocol is also known as CIFS. It is an application-layer network protocol mainly used for providing shared access to files, printers, and serial ports and miscellaneous communications between nodes on a network. --SPLIT_COL-- SMB servers and clients use TCP port 445.
+</span>
+<span>
+SMBS --SPLIT_COL-- SMB done over --SPLIT_COL-- TLS.--SPLIT_COL-- 
+</span>
+<span>
+SMTP --SPLIT_COL-- The Simple Mail Transfer Protocol (SMTP) --SPLIT_COL-- is a protocol for email transmission. --SPLIT_COL-- See RFC 5321. SMTP servers and clients use TCP port 25. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 3207.
+</span>
+<span>
+SMTPS --SPLIT_COL-- Secure SMTP, --SPLIT_COL-- is SMTP done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 465 to communicate with each other. --SPLIT_COL-- See RFC 8314.
+</span>
+<span>
+TELNET--SPLIT_COL--  TELNET --SPLIT_COL-- is an application layer protocol used over networks to provide a bidirectional interactive text-oriented communication facility using a virtual terminal connection. See RFC 854. --SPLIT_COL-- TELNET servers and clients use TCP port 23.
+</span>
+<span>
+TFTP --SPLIT_COL-- The Trivial File Transfer Protocol (TFTP)--SPLIT_COL--  is a protocol for doing simple file transfers over UDP to get a file from or put a file onto a remote host.--SPLIT_COL--  TFTP servers and clients use UDP port 69.
+</span>
+<span>
+WS --SPLIT_COL-- WebSocket--SPLIT_COL--  is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WS is the scheme for the clear text version done over plain HTTP. --SPLIT_COL-- Experimental support for this was added to curl 7.86.0.
+</span>
+<span>
+WSS --SPLIT_COL-- WebSocket --SPLIT_COL-- is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WSS is the scheme for the secure version done over HTTPS.--SPLIT_COL--  Experimental support for this was added to curl 7.86.0.
+</span>
+&lt;/div&gt;
+</pre>
+</div>
+
+<div id="selectbytext" style="display:none">
+<h3>Select By Text</h3>
+<label for="changeselectbytextExamples">Select Example</label><br>
+<select name="changeselectbytextExamples" id="changeselectbytextExamples"
+ onchange="showTableExample(this.value);">
+ <option value='copyTable.innerHTML = "";' selcted></option>  
+ <optgroup label="By Text">
+  <option value='changeToTable(2, "Term,Definition", "_w2:n", "byText", "id", 1, "copyTable", "id");'>
+   changeToTable(3, "Protocol,Expanded", "span:--SPLIT_COL--", "byText", "id", 1, "copyTable", "id", 0)
+  </option>
+  
+  <option value='changeToTable(2, "Term,Definition", "_w:n", "byText", "class0", 1, "copyTable", "class0", "&lt;a href=&apos;https://everything.curl.dev/protocols/curl&apos; target=&apos;_blank&apos; rel=&apos;external&apos;&gt;::td0");'>
+   changeToTable(2, "Term,Definition", "_w:n", "byText", "class0", 1, "copyTable", "class0", "&lt;a href=&apos;https://everything.curl.dev/protocols/curl&apos; target=&apos;_blank&apos; rel=&apos;external&apos;&gt;::td0")
+  </option>
+  
+  <option value='changeToTable(2, "Term,Definition", "_w2:n", "div", "tag2", 1, "tag", "data2", "a-:-href-:-https://everything.curl.dev/protocols/curl-:-target-:-_blank-:-rel-:-external::append-:-href-:-anchor-:-innerHTML-:-lc::td0");'>
+   changeToTable(2, "Term,Definition", "_w2:n", "div", "tag2", 1, "tag", "data2", "a-:-href-:-https://everything.curl.dev/protocols/curl-:-target-:-_blank-:-rel-:-external::append-:-href-:-anchor-:-innerHTML-:-lc::td0")
+  </option>  
+ </optgroup> 
+</select>
+<br>
+<button data-showhide="0" data-totext="1"
+onclick="changeNextElementDisplay(this, this.nextElementSibling)">Show HTML Used</button><br>
+<pre style="display:none">
+&lt;div id="copyTable" class="copyTable" data-tag="copyTable"&gt; &lt;/div&gt;
+&lt;div id="byText" class="byText"&gt;
+DICT
+DICT is a dictionary network protocol, it allows clients to ask dictionary servers about a meaning or explanation for words. See RFC 2229. Dict servers and clients use TCP port 2628.
+FILE
+FILE is not actually a "network" protocol. It is a URL scheme that allows you to tell curl to get a file from the local file system instead of getting it over the network from a remote server. See RFC 1738.
+FTP
+FTP stands for File Transfer Protocol and is an old (originates in the early 1970s) way to transfer files back and forth between a client and a server. See RFC 959. It has been extended greatly over the years. FTP servers and clients use TCP port 21 plus one more port, though the second one is usually dynamically established during communication.See the external page FTP vs HTTP for how it differs to HTTP.
+FTPS
+FTPS stands for Secure File Transfer Protocol. It follows the tradition of appending an 'S' to the protocol name to signify that the protocol is done like normal FTP but with an added SSL/TLS security layer. See RFC 4217.This protocol is problematic to use through firewalls and other network equipment.
+GOPHER
+Designed for "distributing, searching, and retrieving documents over the Internet", Gopher is somewhat of the grand father to HTTP as HTTP has mostly taken over completely for the same use cases. See RFC 1436. Gopher servers and clients use TCP port 70.
+GOPHERS
+Gopher over TLS. A recent extension to the old protocol.
+HTTP
+The Hypertext Transfer Protocol, HTTP, is the most widely used protocol for transferring data on the web and over the Internet. See RFC 7230 for HTTP/1.1 and RFC 7540 for HTTP/2. HTTP servers and clients use TCP port 80.
+HTTPS
+Secure HTTP is HTTP done over an SSL/TLS connection. See RFC 2818. HTTPS servers and clients use TCP port 443, unless they speak HTTP/3 which then uses QUIC and is done over UDP.
+IMAP
+The Internet Message Access Protocol, IMAP, is a protocol for accessing, controlling and "reading" email. See RFC 3501. IMAP servers and clients use TCP port 143. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 2595.
+IMAPS
+Secure IMAP is IMAP done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 993 to communicate with each other. See RFC 8314.
+LDAP
+The Lightweight Directory Access Protocol, LDAP, is a protocol for accessing and maintaining distributed directory information. Basically a database lookup. See RFC 4511. LDAP servers and clients use TCP port 389.
+LDAPS
+Secure LDAP is LDAP done over an SSL/TLS connection.
+MQTT
+Message Queuing Telemetry Transport, MQTT, is a protocol commonly used in IoT systems for interchanging data mostly involving smaller devices. It is a so called "publish-subscribe" protocol.
+POP3
+The Post Office Protocol version 3 (POP3) is a protocol for retrieving email from a server. See RFC 1939. POP3 servers and clients use TCP port 110. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STLS command. See RFC 2595.
+POP3S
+Secure POP3 is POP3 done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 995 to communicate with each other. See RFC 8314.
+RTMP
+The Real-Time Messaging Protocol (RTMP) is a protocol for streaming audio, video and data. RTMP servers and clients use TCP port 1935.
+RTSP
+The Real Time Streaming Protocol (RTSP) is a network control protocol to control streaming media servers. See RFC 2326. RTSP servers and clients use TCP and UDP port 554.
+SCP
+The Secure Copy (SCP) protocol is designed to copy files to and from a remote SSH server. SCP servers and clients use TCP port 22.
+SFTP
+The SSH File Transfer Protocol (SFTP) that provides file access, file transfer, and file management over a reliable data stream. SFTP servers and clients use TCP port 22.
+SMB
+The Server Message Block (SMB) protocol is also known as CIFS. It is an application-layer network protocol mainly used for providing shared access to files, printers, and serial ports and miscellaneous communications between nodes on a network. SMB servers and clients use TCP port 445.
+SMBS
+SMB done over TLS.
+SMTP
+The Simple Mail Transfer Protocol (SMTP) is a protocol for email transmission. See RFC 5321. SMTP servers and clients use TCP port 25. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 3207.
+SMTPS
+Secure SMTP, is SMTP done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 465 to communicate with each other. See RFC 8314.
+TELNET
+TELNET is an application layer protocol used over networks to provide a bidirectional interactive text-oriented communication facility using a virtual terminal connection. See RFC 854. TELNET servers and clients use TCP port 23.
+TFTP
+The Trivial File Transfer Protocol (TFTP) is a protocol for doing simple file transfers over UDP to get a file from or put a file onto a remote host. TFTP servers and clients use UDP port 69.
+WS
+WebSocket is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WS is the scheme for the clear text version done over plain HTTP. Experimental support for this was added to curl 7.86.0.
+WSS
+WebSocket is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WSS is the scheme for the secure version done over HTTPS. Experimental support for this was added to curl 7.86.0.
+&lt;/div&gt;
+</pre>
+</div>
+
+<div id="selectbytextusingsplitcharacter" style="display:none">
+<h3>Select By Text Using Split Characters</h3>
+<label for="changetextusingsplitcharacterExamples">Select Example</label><br>
+<select name="changetextusingsplitcharacterExamples" id="changetextusingsplitcharacterExamples"
+ onchange="showTableExample(this.value);">
+ <option value='copyTable.innerHTML = "";' selcted></option>   
+ <optgroup label="By Text Using Split Character">
+  <option value='changeToTable(3, "Term,Definition,Port", "_s:--|--", "byTextWithSPlitCharacter", "id", 1, "copyTable", "id");'>
+   changeToTable(3, "Term,Definition,Port", "_s:--|--", "byTextWithSPlitCharacter", "id", 1, "copyTable", "id")
+  </option>
+  
+  <option value='changeToTable(3, "Term,Definition,Port", "_s:--|--", "byText", "class1", 1, "copyTable", "class0", "&lt;a href=&apos;https://everything.curl.dev/protocols/curl&apos; target=&apos;_blank&apos; rel=&apos;external&apos;&gt;::td0");'>
+   changeToTable(3, "Term,Definition,Port", "_s:--|--", "byText", "class1", 1, "copyTable", "class0", "&lt;a href=&apos;https://everything.curl.dev/protocols/curl&apos; target=&apos;_blank&apos; rel=&apos;external&apos;&gt;::td0")
+  </option>
+  
+  <option value='changeToTable(3, "Term,Definition,Port", "_s:--|--", "div", "tag3", 1, "div", "tag" + (document.getElementsByTagName("div").length - 1), "a-:-href-:-https://everything.curl.dev/protocols/curl-:-target-:-_blank-:-rel-:-external::append-:-href-:-anchor-:-innerHTML-:-lc::td0");'>
+   changeToTable(3, "Term,Definition,Port", "_s:--|--", "div", "tag3", 1, "div", "tag" + (document.getElementsByTagName("div").length - 1), "a-:-href-:-https://everything.curl.dev/protocols/curl-:-target-:-_blank-:-rel-:-external::append-:-href-:-anchor-:-innerHTML-:-lc::td0")
+  </option>  
+  
+ </optgroup> 
+</select>
+<br>
+<button data-showhide="0" data-totext="1"
+onclick="changeNextElementDisplay(this, this.nextElementSibling)">Show HTML Used</button><br>
+<pre style="display:none">
+&lt;div id="copyTable" class="copyTable" data-tag="copyTable"&gt; &lt;/div&gt;
+&lt;div id="byTextWithSPlitCharacter" class="byText"&gt;
+DICT --|--
+DICT is a dictionary network protocol, it allows clients to ask dictionary servers about a meaning or explanation for words. See RFC 2229.  --|--
+Dict servers and clients use TCP port 2628. --|--
+
+FILE --|--
+FILE is not actually a "network" protocol. It is a URL scheme that allows you to tell curl to get a file from the local file system instead of getting it over the network from a remote server. See RFC 1738. --|--
+*Not listed. --|--
+
+FTP --|--
+FTP stands for File Transfer Protocol and is an old (originates in the early 1970s) way to transfer files back and forth between a client and a server. See RFC 959. It has been extended greatly over the years.  --|--
+FTP servers and clients use TCP port 21 plus one more port, though the second one is usually dynamically established during communication. See the external page FTP vs HTTP for how it differs to HTTP. --|--
+
+FTPS --|--
+FTPS stands for Secure File Transfer Protocol. It follows the tradition of appending an 'S' to the protocol name to signify that the protocol is done like normal FTP but with an added SSL/TLS security layer.  --|--
+See RFC 4217.This protocol is problematic to use through firewalls and other network equipment. --|--
+
+GOPHER --|--
+Designed for "distributing, searching, and retrieving documents over the Internet", Gopher is somewhat of the grand father to HTTP as HTTP has mostly taken over completely for the same use cases.  --|--
+See RFC 1436. Gopher servers and clients use TCP port 70. --|--
+
+GOPHERS --|--
+Gopher over TLS.  --|--
+A recent extension to the old protocol. --|--
+
+HTTP --|--
+The Hypertext Transfer Protocol, HTTP, is the most widely used protocol for transferring data on the web and over the Internet. See RFC 7230 for HTTP/1.1 and RFC 7540 for HTTP/2.  --|--
+HTTP servers and clients use TCP port 80. --|--
+
+HTTPS --|--
+Secure HTTP is HTTP done over an SSL/TLS connection. See RFC 2818.  --|--
+HTTPS servers and clients use TCP port 443, unless they speak HTTP/3 which then uses QUIC and is done over UDP. --|--
+
+IMAP --|--
+The Internet Message Access Protocol, IMAP, is a protocol for accessing, controlling and "reading" email. See RFC 3501.  --|--
+IMAP servers and clients use TCP port 143. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 2595. --|--
+
+IMAPS --|--
+Secure IMAP is IMAP done over an SSL/TLS connection.--|--
+Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 993 to communicate with each other. See RFC 8314. --|--
+
+LDAP --|--
+The Lightweight Directory Access Protocol, LDAP, is a protocol for accessing andmaintaining distributed directory information. Basically a database lookup. See RFC 4511.  --|--
+LDAP servers and clients use TCP port 389. --|--
+
+LDAPS --|--
+Secure LDAP is LDAP done over an SSL/TLS connection. --|--
+*Not listed. --|--
+
+MQTT --|--
+Message Queuing Telemetry Transport, MQTT, is a protocol commonly used in IoT systems for interchanging data mostly involving smaller devices. It is a so called "publish-subscribe" protocol. --|--
+*Not listed. --|--
+
+POP3 --|--
+The Post Office Protocol version 3 (POP3) is a protocol for retrieving email from a server. See RFC 1939. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STLS command. See RFC 2595. --|--
+POP3 servers and clients use TCP port 110.  --|--
+
+POP3S --|--
+Secure POP3 is POP3 done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use  --|--
+TCP port 995 to communicate with each other. See RFC 8314. --|--
+
+RTMP --|--
+The Real-Time Messaging Protocol (RTMP) is a protocol for streaming audio, video and data.  --|--
+RTMP servers and clients use TCP port 1935. --|--
+
+RTSP --|--
+The Real Time Streaming Protocol (RTSP) is a network control protocol to control streaming media servers. See RFC 2326.  --|--
+RTSP servers and clients use TCP and UDP port 554. --|--
+
+SCP --|--
+The Secure Copy (SCP) protocol is designed to copy files to and from a remote SSH server.  --|--
+SCP servers and clients use TCP port 22. --|--
+
+SFTP --|--
+The SSH 
+File Transfer Protocol (SFTP) that provides file access, file transfer, and file management over a reliable data stream.  --|--
+SFTP servers and clients use TCP port 22. --|--
+
+SMB --|--
+The Server Message Block (SMB) protocol is also known as CIFS. It is an application-layer network protocol mainly used for providing shared access to files, printers, and serial ports and miscellaneous communications between nodes on a network.  --|--
+SMB servers and clients use TCP port 445. --|--
+
+SMBS --|--
+SMB done over TLS. --|--
+*Not listed. --|--
+
+SMTP --|--
+The Simple 
+Mail Transfer Protocol (SMTP) is a protocol for email transmission. See RFC 5321. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 3207. --|--
+SMTP servers and clients use TCP port 25. --|--
+
+SMTPS --|--
+Secure SMTP, is SMTP done over an SSL/TLS connection.  --|--
+Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 465 to communicate with each other.See RFC 8314. --|--
+
+TELNET --|--
+TELNET is an application layer protocol used over networks to provide a bidirectional interactive text-oriented communication facility using a virtual terminal connection. See RFC 854. --|--
+TELNET servers and clients use TCP port 23. --|--
+
+TFTP --|--
+The Trivial File Transfer Protocol (TFTP) is a protocol for doing simple file transfersover UDP to get a file from or put a file onto a remote host.  --|--
+TFTP servers and clients use UDP port 69. --|--
+
+WS --|--
+WebSocket 
+is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WS is the scheme for the clear text version done over plain HTTP. Experimental support for this was added to curl 7.86.0. --|--
+*Not listed. (80?) --|--
+
+WSS --|--
+WebSocket isa bidirectional TCP-like protocol, setup over an HTTP(S) request. WSS is the scheme for the secure version done over HTTPS. Experimental support for this was added to curl 7.86.0. --|--
+*Not listed. (80?)
+&lt;/div&gt;
+</pre>
+</div>
+
+<div id="selectbytextusingtext" style="display:none">
+<h3>Select By Text Using Text</h3>
+<label for="changetextusingTextExamples">Select Example</label><br>
+<select name="changetextusingTextExamples" id="changetextusingTextExamples"
+ onchange="showTableExample(this.value);">
+ <option value='copyTable.innerHTML = "";' selcted></option>   
+ <optgroup label="By Text Using Split Character">
+  <option value='changeToTable(3, "Term,Definition,_href_", "_w3:n", "byTextUsingTextSettingAttribute", "id", 1, "copyTable", "id", "a-:-href-:-append-:-target-:-_blank-:-rel-:-external::td0_:_td2");'>
+   changeToTable(3, "Term,Definition,_href_", "_w3:n", "byTextUsingTextSettingAttribute", "id", 1, "copyTable", "id", "a-:-href-:-append-:-target-:-_blank-:-rel-:-external::td0_:_td2")
+  </option>
+  
+  <option value='changeToTable(3, "Term,Definition,_:href_", "_w3:n", "div", "tag4", 1, "copyTable", "class0", "a-:-href-:-append-:-target-:-_blank-:-rel-:-external::td0_:_td2");'>
+   changeToTable(3, "Term,Definition,_:href_", "_w3:n", "div", "tag4", 1, "copyTable", "class0", "a-:-href-:-append-:-target-:-_blank-:-rel-:-external::td0_:_td2")
+  </option> 
+ </optgroup> 
+</select>
+<br>
+<button data-showhide="0" data-totext="1"
+onclick="changeNextElementDisplay(this, this.nextElementSibling)">Show HTML Used</button><br>
+<pre style="display:none">
+&lt;div id="copyTable" class="copyTable" data-tag="copyTable"&gt; &lt;/div&gt;
+&lt;div id="byTextUsingTextSettingAttribute"&gt;
+HTTP proxy
+An HTTP proxy is a proxy that the client speaks HTTP with to get the transfer done. curl will, by default, assume that a host you point out with -x or --proxy is an HTTP proxy, and unless you also specify a port number it will default to port 1080 (and the reason for that particular port number is purely historical).
+https://everything.curl.dev/usingcurl/proxies/http
+
+Proxy
+A proxy is a machine or software that does something on behalf of you, the client. Proxies are like a middle man between you and the target server, connecting to and communicating with the target server on your behalf.
+https://everything.curl.dev/usingcurl/proxies#proxies
+
+SOCKS proxy
+SOCKS is a protocol used for proxies and curl supports it. curl supports both SOCKS version 4 as well as version 5, and both versions come in two flavors.
+https://everything.curl.dev/usingcurl/proxies/socks#socks-proxy
+&lt;/div&gt;
+</pre>
+</div>
+</div>
+
+<div id="copyTable" class="copyTable" data-tag="copyTable"></div>
+
+<script>
+var firstRun = 0;
+function showTableExample(genFunc) {
+ if (firstRun == 0) {
+  firstRun = 1;
+  } else {
+   document.getElementById("runExample").remove();
+  }
+  /*setTimeout(function() {
+   var addScript = document.createElement("script");
+   let hasTags = 1;
+   addScript.innerHTML = genFunc;  
+   document.body.append(addScript);
+   addScript.id = "runExample";
+  }, 50);*/
+   var addScript = document.createElement("script");
+   let hasTags = 1;
+   addScript.innerHTML = genFunc;  
+   document.body.append(addScript);
+   addScript.id = "runExample";  
+}
+</script>
+
+</body>
+</html>
