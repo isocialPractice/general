@@ -2426,76 +2426,100 @@ function showTermTitleWithLink(cur, curData, curTitle) {
    }
   };  
  // Functio Variables
+ var curTermOffsetTop, tempTermBox, tempTermBoxScrollHeight;
  var termTitleWithLinkData, termTitleWithLinkDefinition, termTitleWithLinkTerm,
      termBox, termBoxid, termBoxHTML, termLink, termLinkBox, termBoxTop, termBoxPos, termLinkTag;
  termTitleWithLinkData = curData;
  termTitleWithLinkTerm = cur.innerHTML;
  termTitleWithLinkDefinition = curData.title;
+ // MOUSE OVER HTML
+ curTermOffsetTop = cur.parentElement.offsetTop;
  if (curData.termtitle == 0) {
-  termTitleWithLinkData.termtitle = 1;
-  termBox = document.createElement("span");
-  // Function in file.
-  termBoxid = removeSpaceInVariable(termTitleWithLinkTerm);
-  termBoxid += sessionStorage.termTitleStorage;
-  setCurTermTitleStorage();  
-  termBox.id = termBoxid;
-  termBox.setAttribute("data-keepdefinitionbox", 0);
-  termBox.setAttribute("onmouseover", "this.dataset.keepdefinitionbox = 1");
-  termBox.setAttribute("onmouseleave", "showTermTitleWithLink(this, 1)");
-  
-  if (termTitleWithLinkDefinition.indexOf("::") > -1) {
-   termLink = termTitleWithLinkDefinition
-    .substr(termTitleWithLinkDefinition
-    .lastIndexOf("::") + 2);
-
-   termLinkBox = ' ' +
-    '<a style="color: black; width: auto" href="' + termLink + 
-     '" target="_blank" rel="external" ' +
-     'data-keepdefinitionbox="0" ' +
-     'onmouseover="this.dataset.keepdefinitionbox = 1;" ' +
-     'onmouseout="this.dataset.keepdefinitionbox = 0;">Source Page</a>';
-    } else {
-   termLinkBox = ' ' +
-    '<a style="display: none" href="javascript:void(0)" ' +
-     'target="_blank" rel="external" ' +
-     'data-keepdefinitionbox="0">Source Page</a>';   
-    }
-  if (cur.offsetTop > 50) {
-   if (cur.parentElement.nodeName != "BODY") {    
-    termBoxPos = "absolute;";
-    termBoxTop = (cur.offsetTop - 30) + "px;";
+  var makeTempThenBox = function(temp) {
+   termTitleWithLinkData.termtitle = 1;
+   if (temp == 0) {
+    tempTermBox = document.getElementById(termBoxid);
+    tempTermBoxScrollHeight = tempTermBox.scrollHeight;
    } else {
-    termBoxPos = "relative;";
-    termBoxTop = "15px;";
+    tempTermBoxScrollHeight = 0;
+   }
+   termBox = document.createElement("span");
+   // Function in file.
+   termBoxid = removeSpaceInVariable(termTitleWithLinkTerm);
+   termBoxid += sessionStorage.termTitleStorage;
+   setCurTermTitleStorage();  
+   termBox.id = termBoxid;
+   termBox.setAttribute("data-keepdefinitionbox", 0);
+   termBox.setAttribute("onmouseover", "this.dataset.keepdefinitionbox = 1");
+   termBox.setAttribute("onmouseleave", "showTermTitleWithLink(this, 1)");
+
+   if (termTitleWithLinkDefinition.indexOf("::") > -1) {
+    termLink = termTitleWithLinkDefinition
+     .substr(termTitleWithLinkDefinition
+     .lastIndexOf("::") + 2);
+
+    termLinkBox = ' ' +
+     '<a style="color: black; width: auto" href="' + termLink + 
+      '" target="_blank" rel="external" ' +
+      'data-keepdefinitionbox="0" ' +
+      'onmouseover="this.dataset.keepdefinitionbox = 1;" ' +
+      'onmouseout="this.dataset.keepdefinitionbox = 0;">Source Page</a>';
+     } else {
+    termLinkBox = ' ' +
+     '<a style="display: none" href="javascript:void(0)" ' +
+      'target="_blank" rel="external" ' +
+      'data-keepdefinitionbox="0">Source Page</a>';   
+     }
+
+   if (cur.offsetTop > 50 || curTermOffsetTop > 50) {
+    if (cur.parentElement.nodeName != "BODY") {    
+     termBoxPos = "absolute;";            
+     if (temp == 1) {
+      termBoxTop = (cur.parentElement.offsetTop - 30) + "px;";     
+     } else {
+      termBoxTop = (cur.parentElement.offsetTop - tempTermBoxScrollHeight - 5) + "px;";
+     }     
+    } else {
+     termBoxPos = "relative;";
+     termBoxTop = "15px;";
+    }   
+   }
+   else {
+    termBoxPos = "absolute;";
+    termBoxTop = (cur.offsetTop + 15) + "px;";
+   }
+
+  termBox.setAttribute("style", 
+   "display: inline;" +
+   "position: " + termBoxPos +
+   "top:" + termBoxTop +
+   "left: 0px;" +
+   "padding: 5px;" +   
+   "border: 1px solid black;" +
+   "background: lightyellow;" +
+   "color: black;" +
+   "margin-bottom: 20px;" +   
+   "height: auto;" +
+   "width: auto;");  
+
+  if (termTitleWithLinkDefinition.indexOf("::") > -1) {
+   termBox.innerHTML = 
+    termTitleWithLinkDefinition
+    .replace(termTitleWithLinkDefinition
+    .substr(termTitleWithLinkDefinition
+    .lastIndexOf("::") - 1), termLinkBox);
+   } else {
+   termBox.innerHTML = termTitleWithLinkDefinition + termLinkBox;
+   }
+   if (temp == 0) {
+    tempTermBox.remove();
+    cur.insertAdjacentElement("afterend", termBox);  
+   } else {
+    cur.insertAdjacentElement("afterend", termBox);  
    }   
-  }
-  else {
-   termBoxPos = "absolute;";
-   termBoxTop = (cur.offsetTop + 15) + "px;";
-  }
-  
- termBox.setAttribute("style", 
-  "display: inline;" +
-  "position: " + termBoxPos +
-  "top:" + termBoxTop +
-  "left: 0px;" +
-  "padding: 5px;" +   
-  "border: 1px solid black;" +
-  "background: lightyellow;" +
-  "color: black;" +
-  "margin-bottom: 20px;" +   
-  "height: auto;" +
-  "width: auto;");  
- if (termTitleWithLinkDefinition.indexOf("::") > -1) {
-  termBox.innerHTML = 
-   termTitleWithLinkDefinition
-   .replace(termTitleWithLinkDefinition
-   .substr(termTitleWithLinkDefinition
-   .lastIndexOf("::") - 1), termLinkBox);
-  } else {
-  termBox.innerHTML = termTitleWithLinkDefinition + termLinkBox;
-  }
-  cur.insertAdjacentElement("afterend", termBox);
+  };
+  makeTempThenBox(1);
+  makeTempThenBox(0);
  } else {
   termTitleWithLinkData.termtitle = 0;
   if (cur.nextElementSibling) {
