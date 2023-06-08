@@ -183,7 +183,7 @@ General scripts, snippets, and tools. The functions are meant to be lightweight,
    b. "tag\[indexNumber\]" e.g. "tag2" relocates to the tag at index 2 as if array.   
    c. "class\[indexNumber\]" e.g. "className1" relocates to the class at index 1 as if array.   
    d. "data\[indexNumber\]" e.g. "name0" relocates to the data-name at index 0 as if array.
-9. <strong>addHTML</strong>: <em> String; String = html element, add items, adding where. 
+9. <strong>addHTML</strong>: String; String = html element, add items, adding where. 
    - Example use:
    a. "a-:-href-:-https ://site.com-:-target-:-_blank-:-rel-:-external::append-:-href-:-anchor-:-innerHTML-:-lc::td0"
       - Here "&lt;a&gt;" tag added with "href", "target", and "rel" attribute with values followed by "-:-" characters. Then appendsed to the href is an anchor link with value of the innerHTML of "&lt;td&gt;"  at index 0.
@@ -195,9 +195,13 @@ General scripts, snippets, and tools. The functions are meant to be lightweight,
 
 <strong>NOTE</strong> - using only <strong>changeToTable()</strong> with no arguments will also work, but additionally; <em><strong>NOTE</strong></em> that the parent element with highest length will be converted to table.
 
+<hr><hr>
+
 ### changeToTable Example:
 The <strong>changeToTable</strong> function example page below.
 [Change To Table Example](https://nobedee.github.io/htmlpreview.github.com/?https://github.com/isocialPractice/general/blob/main/changeToTableExample.html)
+
+<hr><hr>
 
 <strong>changeNextElementDisplay</strong>(<em>cur</em>, <em>curEl</em>)
 1. <strong>cur</strong>: Keyword - use the keyword "this".
