@@ -605,6 +605,7 @@ function replaceNewLines(word, parElement, parElementIdentifier, removeExcessSpa
   var useID=0, useClass=0, useData=0, useTag=0, addingClass = 0, wrappingWords = 0, mindingElement = 0, mindingWhatElement;
   var theParElement, theParElementInnerHTML, theParElementIndex = 0;    
   var mindArr, mindArrA, mindArrB, mindArrC, mindArrLen;
+  var mindRecurseA, mindRecurseB;
   
   var mindAnElement = function() {// MIND LINES MATCHING PATTERN
    if (mindingWhatElement == "wc") {    
@@ -612,7 +613,7 @@ function replaceNewLines(word, parElement, parElementIdentifier, removeExcessSpa
     let activeRecurse = 0;
     let recurseCount = 0;
     let tempMindArr = theParElementInnerHTML.split(word);    
-    var mindRecurseA = function(mindVarA, mindIndexA) {
+    mindRecurseA = function(mindVarA, mindIndexA) {
      for (i = mindIndexA; i < mindVarA.length; i++) {
       mindArrA = mindVarA[i].split(" ");
       if (mindArrA.length > mindElement && mindArrA[0].indexOf("<") == -1 && mindArrA[0].indexOf("</") == -1) {
@@ -638,7 +639,7 @@ function replaceNewLines(word, parElement, parElementIdentifier, removeExcessSpa
       }
      }     
     };
-    var mindRecurseB = function(mindVarB, mindIndexB) {
+    mindRecurseB = function(mindVarB, mindIndexB) {
      for (i = mindIndexB; i < mindVarB.length; i++) {
       mindArrA = mindVarB[i].split(" ");      
       if (mindArrA.length > mindElement && mindArrA[0].indexOf("<") == -1 && mindArrA[0].indexOf("</") == -1) {
@@ -676,8 +677,6 @@ function replaceNewLines(word, parElement, parElementIdentifier, removeExcessSpa
      }
     }
     theParElement.innerHTML = theParElementInnerHTML;
-   } else {
-    let updateNeeded;
    }
   };
   var prepForArray = function() {// PREP FOR ARRAY USE
@@ -834,6 +833,9 @@ function replaceNewLines(word, parElement, parElementIdentifier, removeExcessSpa
     if (typeof mindElement == "number" && mindElement >= 2) {
      mindingWhatElement = "wc"; // word count
      mindingElement = 1;
+    } else {
+     mindingWhatElement = 0;
+     mindingElement = 0;     
     }
     replaceTheNewLines();
   };  
@@ -1327,15 +1329,23 @@ function changeToTable(colNumber, colTitles, extractTags, parElement, parElement
       theTempSplitCharacter = "--COL_MARK_iS_unLikELY_tO2_BE_in_the_TExT_thHat_isConVERteD_To_A_TaBlE--";      
       if (splitWordCount <= 1) {
        if (colNumber <= 2) {
-        splitWordCount = 0;
-        replaceNewLines(theTempSplitCharacter, parElement, parElementIdentifier, 1, 1, 2);
+        if (splitWordCount == -1) {
+         replaceNewLines(theTempSplitCharacter, parElement, parElementIdentifier, 1, 1, 0);
+        } else {
+         if (isUsingSplitCharacter == 1) {
+          replaceNewLines(theTempSplitCharacter, parElement, parElementIdentifier, 1, 1, 0);
+         } else {
+          replaceNewLines(theTempSplitCharacter, parElement, parElementIdentifier, 1, 1, 2);
+         }         
+        }
+        splitWordCount = 0;        
        } else {
         splitWordCount = -1;
         replaceNewLines(theTempSplitCharacter, parElement, parElementIdentifier, 1, 1, 0);
        }
       } else {
-       replaceNewLines(theTempSplitCharacter, parElement, parElementIdentifier, 1, 1, Number(splitWordCount));      
-      }    
+        replaceNewLines(theTempSplitCharacter, parElement, parElementIdentifier, 1, 1, Number(splitWordCount));      
+       }
      };
      makeRowsUsingTextElements = function() {// TEXT IS NESTED IN ANOTHER HTML ELEMENT
       let tempParElementInnerHTML = theParElement.innerHTML;         
@@ -1739,11 +1749,12 @@ function changeToTable(colNumber, colTitles, extractTags, parElement, parElement
     {// BALANCED TABLE
      isUsingWords = 0;
      splittingHow = usingWhatText = theExtractTags[0];
-     splitWordCount = 0;
+     splitWordCount = -1;
     }
     {// BY TEXT CONFIG
     switch(splittingHow) {
      case "s":
+      if (splitWordCount == -1) splitWordCount = 0;
       isUsingSplitCharacter = 1;
       theSplitCharacter = extractTags.substr(extractTags.indexOf(":") + 1);
       break;
