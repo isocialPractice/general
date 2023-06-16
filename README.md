@@ -238,10 +238,10 @@ onclick="changeNextElementDisplay(this, this.nextElementSibling)"
 3. <strong>curTitle</strong>: Required constant argument - this.dataset.title <br>   
 
 Options are controlled with the <strong>title</strong> attribute. Enter function arguments as noted above, but the title attribute follows this logic: <br>
-1. <strong>title</strong>\=" <em>A.</em> Definition :: <em>B. </em> \[Alternate text for\], \[Source Name\] :: <em>C. </em> \[link 1\] -:- \[link 2\]"
-   <strong>A.</strong> - the definition or hint for the displayed html text. <em><strong>required</strong></em>
-   <strong>B.</strong> - Alternative text to reference source link (default is "Source Page"). Separate with "," using "\[l\]" (defaults to first item) to denote which text is nested in link (when one link); and if multiple links leave blank, or denote with: a. "\[l\]" (matches link order with or without \[l\]) or b. "\[i\]" (where i links index in array and can be used with or without \[l\]). <em>optional</em>
-   <strong>C. </strong> - The link(s) that the definition was derived from. Separate with "-:-" if over one. <em>optional</em>
+1. <strong>title</strong>\=" <em>A.</em> Definition :: <em>B. </em> \[Alternate text for\], \[Source Name\] :: <em>C. </em> \[link 1\] -:- \[link 2\]" <br>
+   <strong>A.</strong> - the definition or hint for the displayed html text. <em><strong>required</strong></em> <br>
+   <strong>B.</strong> - Alternative text to reference source link (default is "Source Page"). Separate with "," using "\[l\]" (defaults to first item) to denote which text is nested in link (when one link); and if multiple links leave blank, or denote with: a. "\[l\]" (matches link order with or without \[l\]) or b. "\[i\]" (where i links index in array and can be used with or without \[l\]). <em>optional</em> <br>
+   <strong>C. </strong> - The link(s) that the definition was derived from. Separate with "-:-" if over one. <em>optional</em> <br>
 **To Use** - Paste one of the below examples (as is) into and HTML tag (as attribute), then modify **title** attribute only: <br>
 ```markdown
 onmouseover="showTermTitleWithLink(this, this.dataset, this.dataset.title)" title="Change the definition. ::https ://change_source_linke.com"
