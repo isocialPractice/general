@@ -2438,8 +2438,15 @@ function showTermTitleWithLink(cur, curData, curTitle) {
   };  
  // Functio Variables
  var curTermOffsetTop, tempTermBox, tempTermBoxScrollHeight;
- var termTitleWithLinkData, termTitleWithLinkDefinition, termTitleWithLinkTerm,
-     termBox, termBoxid, termBoxHTML, termLink, termLinkBox, termBoxTop, termBoxPos, termLinkTag;
+ var termTitleWithLinkData, termTitleWithLinkDefinition, termTitleWithLinkTerm, termTitleArray, termTitleArrayLen, 
+     termTitleLinkArray, termTitleLinkArrayLen, termLinkArray, termLinkArrayLen,
+     termBox, termBoxid, termBoxHTML, termLinkBox, termBoxTop, termBoxPos, termLinkTag;
+ var termLink = "javascript:void(0)";
+ var sourcePage = "Source Page";
+ var termTitleStyle = "display:none";
+ var closeLinkText = "";
+ var multipeTermLinks = 0;
+ termLinkBox = ""; 
  termTitleWithLinkData = curData;
  termTitleWithLinkTerm = cur.innerHTML;
  termTitleWithLinkDefinition = curData.title;
@@ -2465,22 +2472,107 @@ function showTermTitleWithLink(cur, curData, curTitle) {
    termBox.setAttribute("onmouseleave", "showTermTitleWithLink(this, 1)");
 
    if (termTitleWithLinkDefinition.indexOf("::") > -1) {
-    termLink = termTitleWithLinkDefinition
-     .substr(termTitleWithLinkDefinition
-     .lastIndexOf("::") + 2);
-
-    termLinkBox = ' ' +
-     '<a style="color: black; width: auto" href="' + termLink + 
-      '" target="_blank" rel="external" ' +
-      'data-keepdefinitionbox="0" ' +
-      'onmouseover="this.dataset.keepdefinitionbox = 1;" ' +
-      'onmouseout="this.dataset.keepdefinitionbox = 0;">Source Page</a>';
-     } else {
-    termLinkBox = ' ' +
-     '<a style="display: none" href="javascript:void(0)" ' +
-      'target="_blank" rel="external" ' +
-      'data-keepdefinitionbox="0">Source Page</a>';   
+    termTitleArray = termTitleWithLinkDefinition.split("::");
+    termTitleArrayLen = termTitleArray.length;
+    termTitleStyle = "color: black; width: auto";
+    if (termTitleArrayLen > 2) {
+     if (termTitleArray[1].indexOf(",") > -1) {
+      termTitleLinkArray = termTitleArray[1].split(","); 
+      termTitleLinkArrayLen = termTitleLinkArray.length;      
+       (function() {
+        if (termTitleArray[2].indexOf("-:-") > -1) {
+         let updateNeeded;         
+         multipeTermLinks = 1;
+         termLinkArray = termTitleArray[2].split("-:-");
+         termLinkArrayLen = termLinkArray.length;
+         let usingBrackets = 0;
+         for (i = 0; i < termLinkArrayLen; i++) {
+          if (termTitleLinkArray[i].indexOf("[") > -1 && termTitleLinkArray[i].indexOf("]") > -1) {
+           usingBrackets = 1; break;
+          }
+         }
+         let tempTermLinkBox = "";
+         for (i = 0; i < termLinkArrayLen; i++) {
+          
+           
+           if (termTitleLinkArray[i].indexOf("[") > -1 && termTitleLinkArray[i].indexOf("]") > -1) {
+            if (termTitleLinkArray[i].indexOf("["+i+"]") > -1) {
+             termLink = termLinkArray[i];
+             sourcePage = termTitleLinkArray[i].replace("["+i+"]", "");
+            } else {
+             if (termTitleLinkArray[i].indexOf("[l]") > -1) {
+              termLink = termLinkArray[i];
+              sourcePage = termTitleLinkArray[i].replace("[l]", "");
+             } else {
+              let j;
+              for (ii = 0; ii < termLinkArrayLen; ii++) {
+               if (termTitleLinkArray[i].indexOf("["+ii+"]") > -1) {
+                j = ii;
+                break;
+               } else {
+                j = -1;
+               }
+              }
+              if (j == -1) {
+              termLink = termLinkArray[i];
+              sourcePage = termTitleLinkArray[i];
+              } else {
+              termLink = termLinkArray[j];
+              sourcePage = termTitleLinkArray[i].replace("["+j+"]", "");              
+              }
+             }
+            }          
+           } else {           
+            termLink = termLinkArray[i];
+            sourcePage = termTitleLinkArray[i];                        
+           }
+           if (i == termLinkArrayLen-1) closeLinkText = ""; else  closeLinkText = ", ";
+           tempTermLinkBox += ' ' +
+            '<a style="' + termTitleStyle + '" href="' + termLink + 
+            '" target="_blank" rel="external" ' +
+            'data-keepdefinitionbox="0" ' +
+            'onmouseover="this.dataset.keepdefinitionbox = 1;" ' +
+            'onmouseout="this.dataset.keepdefinitionbox = 0;">' + sourcePage + '</a>' + closeLinkText;
+         }
+         termLinkBox = tempTermLinkBox;
+        } else {        
+        if (termTitleArray[1].indexOf("[") > -1 && termTitleArray[1].indexOf("]") > -1) {
+         if (termTitleLinkArrayLen > 2) {
+          let updateNeeded;
+         }
+         termLink = termTitleArray[2];
+         closeLinkText = ", ";
+         for (i = 0; i < termTitleLinkArrayLen; i++) {
+          if (termTitleLinkArray[i].indexOf("[l]") > -1) {
+           sourcePage = termTitleLinkArray[i].replace("[l]", "");
+          } else {           
+           closeLinkText += termTitleLinkArray[i];
+          }
+         }
+        } else {
+       termLink = termTitleArray[2];
+       sourcePage = termTitleLinkArray[0]; 
+       closeLinkText = ", " + termTitleLinkArray[1];      
+      }      
      }
+    }) ();      
+   } else {
+    termLink = termTitleArray[2];
+    sourcePage = termTitleArray[1];
+   } 
+  } else {     
+   termLink = termTitleArray[1];
+  }
+ }
+
+   if (multipeTermLinks == 0) {
+    termLinkBox = ' ' +
+     '<a style="' + termTitleStyle + '" href="' + termLink + 
+     '" target="_blank" rel="external" ' +
+     'data-keepdefinitionbox="0" ' +
+     'onmouseover="this.dataset.keepdefinitionbox = 1;" ' +
+     'onmouseout="this.dataset.keepdefinitionbox = 0;">' + sourcePage + '</a>' + closeLinkText;
+   } 
 
    if (cur.offsetTop > 50 || curTermOffsetTop > 50) {
     if (cur.parentElement.nodeName != "BODY") {    
@@ -2514,11 +2606,7 @@ function showTermTitleWithLink(cur, curData, curTitle) {
    "width: auto;");  
 
   if (termTitleWithLinkDefinition.indexOf("::") > -1) {
-   termBox.innerHTML = 
-    termTitleWithLinkDefinition
-    .replace(termTitleWithLinkDefinition
-    .substr(termTitleWithLinkDefinition
-    .lastIndexOf("::") - 1), termLinkBox);
+   termBox.innerHTML = termTitleArray[0] + termLinkBox;
    } else {
    termBox.innerHTML = termTitleWithLinkDefinition + termLinkBox;
    }

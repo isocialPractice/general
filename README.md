@@ -232,14 +232,21 @@ onclick="changeNextElementDisplay(this, this.nextElementSibling)"
    a. "text" - default | gets the parent elements "innerText" value.   
    b. "html" - gets the parent elements "innerHTML" value.
    
-<strong>showTermTitleWithLink</strong>(<em>cur</em>, <em>curData</em>, <em>curTitle</em>) <br>
-     **TO USE** - Paste below example as is into HTML tag, then modify: <br>
+<strong>showTermTitleWithLink</strong>(<em>cur</em>, <em>curData</em>, <em>curTitle</em>) 
+1. <strong>this</strong>: Required constant argument - this
+2. <strong>curData</strong>: Required constant argument - this.dataset
+3. <strong>curTitle</strong>: Required constant argument - this.dataset.title <br>   
+
+Options are controlled with the <strong>title</strong> attribute. Enter function arguments as noted above, but the title attribute follows this logic: <br>
+1. <strong>title</strong>\=" <em>A.</em> Definition :: <em>B. </em> \[Alternate text for\], \[Source Name\] :: <em>C. </em> \[link 1\] -:- \[link 2\]"
+   <strong>A.</strong> - the definition or hint for the displayed html text. <em><strong>required</strong></em>
+   <strong>B.</strong> - Alternative text to reference source link (default is "Source Page"). Separate with "," using "\[l\]" (defaults to first item) to denote which text is nested in link (when one link); and if multiple links leave blank, or denote with: a. "\[l\]" (matches link order with or without \[l\]) or b. "\[i\]" (where i links index in array and can be used with or without \[l\]). <em>optional</em>
+   <strong>C. </strong> - The link(s) that the definition was derived from. Separate with "-:-" if over one. <em>optional</em>
+**To Use** - Paste one of the below examples (as is) into and HTML tag (as attribute), then modify **title** attribute only: <br>
 ```markdown
 onmouseover="showTermTitleWithLink(this, this.dataset, this.dataset.title)" title="Change the definition. ::https ://change_source_linke.com"
 ```
-1. <strong>this</strong>: Required
-2. <strong>curData</strong>: Required
-3. <strong>curTitle</strong>: Required.
-   For best results set arguments as such - (this, this.dataset, this.dataset.title). Example:
-   showTermTitleWithLink(this, this.dataset, this.dataset.title)
-   And place in a "onmouseover" attribute of HTML element, ensuring there is also a "title" attribute. 
+<strong>NOTE</strong> - mind indexes if using below example.
+```markdown
+onmouseover="showTermTitleWithLink(this, this.dataset, this.dataset.title)" title="Change the definition.:: One\[0\], two\[1\]::https ://changelink1.com -:- https ://changelink2.com"
+```

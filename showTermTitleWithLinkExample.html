@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Show Term Title With Link Example</title>
+<script src="reusableJavascriptFunctions.js"></script>
+</head>
+
+<body>
+
+<h1>Show Term Title with Link</h1><hr>
+<p>Hover over the bold words below to see how setting title attribute will alter how the funciton created title block.</p>
+<br>
+<code>onmouseover="showTermTitleWithLink(this, this.dataset, this.dataset.title)" title="Change the definition."</code><br>
+<strong onmouseover="showTermTitleWithLink(this, this.dataset, this.dataset.title)" title="Change the definition.">ONE</strong><br>
+<br>
+<code>onmouseover="showTermTitleWithLink(this, this.dataset, this.dataset.title)" title="Change the definition.:: https://example.com"</code><br>
+<strong onmouseover="showTermTitleWithLink(this, this.dataset, this.dataset.title)" title="Change the definition.:: https://example.com">TWO</strong><br>
+<br>
+<code>onmouseover="showTermTitleWithLink(this, this.dataset, this.dataset.title)" title="Change the definition.:: Some Article, John Smith::https://example.com"</code><br>
+<strong onmouseover="showTermTitleWithLink(this, this.dataset, this.dataset.title)" title="Change the definition.:: Some Article, John Smith::https://example.com">THREE</strong><br>
+<br>
+<code>onmouseover="showTermTitleWithLink(this, this.dataset, this.dataset.title)" title="Change the definition.:: Some Article, John Smith[l]::https://en.wikipedia.org/wiki/John_Smith_(explorer)"</code><br>
+<strong onmouseover="showTermTitleWithLink(this, this.dataset, this.dataset.title)" title="Change the definition.:: Some Article, John Smith[l]::https://en.wikipedia.org/wiki/John_Smith_(explorer)">FOUR</strong><br>
+<br>
+<code>onmouseover="showTermTitleWithLink(this, this.dataset, this.dataset.title)" title="Change the definition.:: Some Article[1], John Smith[0]::https://en.wikipedia.org/wiki/John_Smith_(explorer)-:-https://example.com"</code><br>
+<strong onmouseover="showTermTitleWithLink(this, this.dataset, this.dataset.title)" title="Change the definition.:: Some Article[1], John Smith[0]::https://en.wikipedia.org/wiki/John_Smith_(explorer)-:-https://example.com">FIVE</strong><br>
+<br>
+<p><strong>NOTE</strong> - As there is really no need for "[l]" after text, index mark in link text can be omitted if links are in correct order.</p>
+<code>onmouseover="showTermTitleWithLink(this, this.dataset, this.dataset.title)" title="Change the definition.:: Some Article[0], John Smith[l]::https://example.com-:-https://en.wikipedia.org/wiki/John_Smith_(explorer)"</code><br>
+<strong onmouseover="showTermTitleWithLink(this, this.dataset, this.dataset.title)" title="Change the definition.:: Some Article[0], John Smith[l]::https://example.com-:-https://en.wikipedia.org/wiki/John_Smith_(explorer)">FIVE</strong><br>
+
+</body>
+</html>
