@@ -257,5 +257,6 @@ The <strong>showTermTitleWithLink</strong> function example page below.
 
 <strong>findArrayMax</strong>(<em>arr</em>)
 1. <strong>arr</strong>: Array Object - required array. Can take nested arrays.
+
 <strong>findArrayMin</strong>(<em>arr</em>)
 1. <strong>arr</strong>: Array Object - required array. Can take nested arrays.
