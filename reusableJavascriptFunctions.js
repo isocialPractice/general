@@ -2632,3 +2632,51 @@ function showTermTitleWithLink(cur, curData, curTitle) {
  }
 }
 
+function findArrayMax(arr) {
+ if (arr == undefined) { return; } 
+ var hasNestedArray = 0;  var theFinalArray = "";
+ 
+ var recurseCheckNestedArray = function(arr) {
+  for (i = 0; i < arr.length; i ++) {
+   if (typeof arr[i] == "object") {    
+    hasNestedArray = 1;        
+    break;
+   } else {
+    let skip;
+   }
+  }
+ }; 
+ recurseCheckNestedArray(arr);
+ if (hasNestedArray == 1) {
+  theFinalArray = String(arr);  
+  theFinalArray = theFinalArray.split(",");
+  for (i in theFinalArray) {theFinalArray[i] = Number(theFinalArray[i]);}  
+  return Math.max.apply(null, theFinalArray); 
+ } else {
+  return Math.max.apply(null, arr);
+ } 
+}
+function findArrayMin(arr) {
+ if (arr == undefined) { return; } 
+ var hasNestedArray = 0;  var theFinalArray = "";
+ 
+ var recurseCheckNestedArray = function(arr) {
+  for (i = 0; i < arr.length; i ++) {
+   if (typeof arr[i] == "object") {    
+    hasNestedArray = 1;        
+    break;
+   } else {
+    let skip;
+   }
+  }
+ }; 
+ recurseCheckNestedArray(arr);
+ if (hasNestedArray == 1) {
+  theFinalArray = String(arr);  
+  theFinalArray = theFinalArray.split(",");
+  for (i in theFinalArray) {theFinalArray[i] = Number(theFinalArray[i]);}  
+  return Math.min.apply(null, theFinalArray); 
+ } else {
+  return Math.min.apply(null, arr);
+ } 
+}

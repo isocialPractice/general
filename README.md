@@ -254,3 +254,8 @@ onmouseover="showTermTitleWithLink(this, this.dataset, this.dataset.title)" titl
 ### showTermTitleWithLink Example:
 The <strong>showTermTitleWithLink</strong> function example page below.
 [Show Term Title With Link Example](https://nobedee.github.io/htmlpreview.github.com/?https://github.com/isocialPractice/general/blob/main/showTermTitleWithLinkExample.html)
+
+<strong>findArrayMax</strong>(<em>arr</em>)
+1. <strong>arr</strong>: Array Object - required array. Can take nested arrays.
+<strong>findArrayMin</strong>(<em>arr</em>)
+1. <strong>arr</strong>: Array Object - required array. Can take nested arrays.
