@@ -1,154 +1,181 @@
 <div class="keepWrapt">
+ <button onclick="toggleButtonSwitch(this)" data-toggle-X="a()" data-toggle-y="b()" data-togglebuttonswitch="0">Click</button>
+ <script>
+ function a() {
+ //alert("a worked");
+  console.log("a worked.");
+ }
+ function b() {//alert("b worked");
+  console.log("b worked");
+ }
+ </script>
  <button id="showTableUsed" style="display: none" data-sh="0" onclick="showHide(this, this.dataset)">Show HTML Used for table</button>  
   <div id="makeTable" style="display:none">
-<span>
-DICT DICT is a dictionary network protocol, it allows clients to ask dictionary servers about a meaning or explanation for words. See RFC 2229. Dict servers and clients use TCP port 2628.
-</span>
-<span>
-FILE FILE is not actually a "network" protocol. It is a URL scheme that allows you to tell curl to get a file from the local file system instead of getting it over the network from a remote server. See RFC 1738.
-</span>
-<span>
-FTP FTP stands for File Transfer Protocol and is an old (originates in the early 1970s) way to transfer files back and forth between a client and a server. See RFC 959. It has been extended greatly over the years. FTP servers and clients use TCP port 21 plus one more port, though the second one is usually dynamically established during communication.
-See the external page FTP vs HTTP for how it differs to HTTP.
-</span>
-<span>
-FTPS FTPS stands for Secure File Transfer Protocol. It follows the tradition of appending an 'S' to the protocol name to signify that the protocol is done like normal FTP but with an added SSL/TLS security layer. See RFC 4217.
-This protocol is problematic to use through firewalls and other network equipment.
-</span>
-<span>
-GOPHER Designed for "distributing, searching, and retrieving documents over the Internet", Gopher is somewhat of the grand father to HTTP as HTTP has mostly taken over completely for the same use cases. See RFC 1436. Gopher servers and clients use TCP port 70.
-</span>
-<span>
-GOPHERS Gopher over TLS. A recent extension to the old protocol.
-</span>
-<span>
-HTTP The Hypertext Transfer Protocol, HTTP, is the most widely used protocol for transferring data on the web and over the Internet. See RFC 7230 for HTTP/1.1 and RFC 7540 for HTTP/2. HTTP servers and clients use TCP port 80.
-</span>
-<span>
-HTTPS Secure HTTP is HTTP done over an SSL/TLS connection. See RFC 2818. HTTPS servers and clients use TCP port 443, unless they speak HTTP/3 which then uses QUIC and is done over UDP.
-</span>
-<span>
-IMAP The Internet Message Access Protocol, IMAP, is a protocol for accessing, controlling and "reading" email. See RFC 3501. IMAP servers and clients use TCP port 143. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 2595.
-</span>
-<span>
-IMAPS Secure IMAP is IMAP done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 993 to communicate with each other. See RFC 8314.
-</span>
-<span>
-LDAP The Lightweight Directory Access Protocol, LDAP, is a protocol for accessing and maintaining distributed directory information. Basically a database lookup. See RFC 4511. LDAP servers and clients use TCP port 389.
-</span>
-<span>
-LDAPS Secure LDAP is LDAP done over an SSL/TLS connection.
-</span>
-<span>
-MQTT Message Queuing Telemetry Transport, MQTT, is a protocol commonly used in IoT systems for interchanging data mostly involving smaller devices. It is a so called "publish-subscribe" protocol.
-</span>
-<span>
-POP3 The Post Office Protocol version 3 (POP3) is a protocol for retrieving email from a server. See RFC 1939. POP3 servers and clients use TCP port 110. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STLS command. See RFC 2595.
-</span>
-<span>
-POP3S Secure POP3 is POP3 done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 995 to communicate with each other. See RFC 8314.
-</span>
-<span>
-RTMP The Real-Time Messaging Protocol (RTMP) is a protocol for streaming audio, video and data. RTMP servers and clients use TCP port 1935.
-</span>
-<span>
-RTSP The Real Time Streaming Protocol (RTSP) is a network control protocol to control streaming media servers. See RFC 2326. RTSP servers and clients use TCP and UDP port 554.
-</span>
-<span>
-SCP The Secure Copy (SCP) protocol is designed to copy files to and from a remote SSH server. SCP servers and clients use TCP port 22.
-</span>
-<span>
-SFTP The SSH File Transfer Protocol (SFTP) that provides file access, file transfer, and file management over a reliable data stream. SFTP servers and clients use TCP port 22.
-</span>
-<span>
-SMB The Server Message Block (SMB) protocol is also known as CIFS. It is an application-layer network protocol mainly used for providing shared access to files, printers, and serial ports and miscellaneous communications between nodes on a network. SMB servers and clients use TCP port 445.
-</span>
-<span>
-SMBS SMB done over TLS.
-</span>
-<span>
-SMTP The Simple Mail Transfer Protocol (SMTP) is a protocol for email transmission. See RFC 5321. SMTP servers and clients use TCP port 25. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 3207.
-</span>
-<span>
-SMTPS Secure SMTP, is SMTP done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 465 to communicate with each other. See RFC 8314.
-</span>
-<span>
-TELNET TELNET is an application layer protocol used over networks to provide a bidirectional interactive text-oriented communication facility using a virtual terminal connection. See RFC 854. TELNET servers and clients use TCP port 23.
-</span>
-<span>
-TFTP The Trivial File Transfer Protocol (TFTP) is a protocol for doing simple file transfers over UDP to get a file from or put a file onto a remote host. TFTP servers and clients use UDP port 69.
-</span>
-<span>
-WS WebSocket is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WS is the scheme for the clear text version done over plain HTTP. Experimental support for this was added to curl 7.86.0.
-</span>
-<span>
-WSS WebSocket is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WSS is the scheme for the secure version done over HTTPS. Experimental support for this was added to curl 7.86.0.
-</span>
-
-   </div>  
+   <span>
+   DICT DICT is a dictionary network protocol, it allows clients to ask dictionary servers about a meaning or explanation for words. See RFC 2229. Dict servers and clients use TCP port 2628.
+   </span>
+   <span>
+   FILE FILE is not actually a "network" protocol. It is a URL scheme that allows you to tell curl to get a file from the local file system instead of getting it over the network from a remote server. See RFC 1738.
+   </span>
+   <span>
+   FTP FTP stands for File Transfer Protocol and is an old (originates in the early 1970s) way to transfer files back and forth between a client and a server. See RFC 959. It has been extended greatly over the years. FTP servers and clients use TCP port 21 plus one more port, though the second one is usually dynamically established during communication.
+   See the external page FTP vs HTTP for how it differs to HTTP.
+   </span>
+   <span>
+   FTPS FTPS stands for Secure File Transfer Protocol. It follows the tradition of appending an 'S' to the protocol name to signify that the protocol is done like normal FTP but with an added SSL/TLS security layer. See RFC 4217.
+   This protocol is problematic to use through firewalls and other network equipment.
+   </span>
+   <span>
+   GOPHER Designed for "distributing, searching, and retrieving documents over the Internet", Gopher is somewhat of the grand father to HTTP as HTTP has mostly taken over completely for the same use cases. See RFC 1436. Gopher servers and clients use TCP port 70.
+   </span>
+   <span>
+   GOPHERS Gopher over TLS. A recent extension to the old protocol.
+   </span>
+   <span>
+   HTTP The Hypertext Transfer Protocol, HTTP, is the most widely used protocol for transferring data on the web and over the Internet. See RFC 7230 for HTTP/1.1 and RFC 7540 for HTTP/2. HTTP servers and clients use TCP port 80.
+   </span>
+   <span>
+   HTTPS Secure HTTP is HTTP done over an SSL/TLS connection. See RFC 2818. HTTPS servers and clients use TCP port 443, unless they speak HTTP/3 which then uses QUIC and is done over UDP.
+   </span>
+   <span>
+   IMAP The Internet Message Access Protocol, IMAP, is a protocol for accessing, controlling and "reading" email. See RFC 3501. IMAP servers and clients use TCP port 143. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 2595.
+   </span>
+   <span>
+   IMAPS Secure IMAP is IMAP done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 993 to communicate with each other. See RFC 8314.
+   </span>
+   <span>
+   LDAP The Lightweight Directory Access Protocol, LDAP, is a protocol for accessing and maintaining distributed directory information. Basically a database lookup. See RFC 4511. LDAP servers and clients use TCP port 389.
+   </span>
+   <span>
+   LDAPS Secure LDAP is LDAP done over an SSL/TLS connection.
+   </span>
+   <span>
+   MQTT Message Queuing Telemetry Transport, MQTT, is a protocol commonly used in IoT systems for interchanging data mostly involving smaller devices. It is a so called "publish-subscribe" protocol.
+   </span>
+   <span>
+   POP3 The Post Office Protocol version 3 (POP3) is a protocol for retrieving email from a server. See RFC 1939. POP3 servers and clients use TCP port 110. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STLS command. See RFC 2595.
+   </span>
+   <span>
+   POP3S Secure POP3 is POP3 done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 995 to communicate with each other. See RFC 8314.
+   </span>
+   <span>
+   RTMP The Real-Time Messaging Protocol (RTMP) is a protocol for streaming audio, video and data. RTMP servers and clients use TCP port 1935.
+   </span>
+   <span>
+   RTSP The Real Time Streaming Protocol (RTSP) is a network control protocol to control streaming media servers. See RFC 2326. RTSP servers and clients use TCP and UDP port 554.
+   </span>
+   <span>
+   SCP The Secure Copy (SCP) protocol is designed to copy files to and from a remote SSH server. SCP servers and clients use TCP port 22.
+   </span>
+   <span>
+   SFTP The SSH File Transfer Protocol (SFTP) that provides file access, file transfer, and file management over a reliable data stream. SFTP servers and clients use TCP port 22.
+   </span>
+   <span>
+   SMB The Server Message Block (SMB) protocol is also known as CIFS. It is an application-layer network protocol mainly used for providing shared access to files, printers, and serial ports and miscellaneous communications between nodes on a network. SMB servers and clients use TCP port 445.
+   </span>
+   <span>
+   SMBS SMB done over TLS.
+   </span>
+   <span>
+   SMTP The Simple Mail Transfer Protocol (SMTP) is a protocol for email transmission. See RFC 5321. SMTP servers and clients use TCP port 25. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 3207.
+   </span>
+   <span>
+   SMTPS Secure SMTP, is SMTP done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 465 to communicate with each other. See RFC 8314.
+   </span>
+   <span>
+   TELNET TELNET is an application layer protocol used over networks to provide a bidirectional interactive text-oriented communication facility using a virtual terminal connection. See RFC 854. TELNET servers and clients use TCP port 23.
+   </span>
+   <span>
+   TFTP The Trivial File Transfer Protocol (TFTP) is a protocol for doing simple file transfers over UDP to get a file from or put a file onto a remote host. TFTP servers and clients use UDP port 69.
+   </span>
+   <span>
+   WS WebSocket is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WS is the scheme for the clear text version done over plain HTTP. Experimental support for this was added to curl 7.86.0.
+   </span>
+   <span>
+   WSS WebSocket is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WSS is the scheme for the secure version done over HTTPS. Experimental support for this was added to curl 7.86.0.
+   </span>
+</div>  
   <div id="copyTable"></div>  
-     <div>    
-     <div id="boxWithExamplesThatStyle">
-      In this example box if the example dropdown is selected and the SECOND example addHTMLToText() is selected, then these example words will be styled blue.
-     </div>    <br><br>
-     This is a div with no attributes but two a tags with the following attributes: <br>
-     --- class="link" <br>
-     --- 1. href="https://practicing.xyz" (<em>changed in a example</em>)<br>
-     --- 2. href="https://gitHub.com" <br>
-     --- target="_blank" <br>
-     <a class="link" href="https://practicing.xyz" target="_blank">Practicing.XYZ Site</a>
-     <a class="link" href="https://gitHub.com" target="_blank">GitHub Home Page</a>
-     <br>
-    <strong> Hover for more about <span style="text-decoration:underline" id="showtermtitlewithlink" title="Use showTermTitleWithLink example to see function use. <br>Git is used to store the source code for a project and track the complete history of all changes to that code. It lets developers collaborate on a project more ::https://gitHub.com">gitHub</span>.
-    </strong>
-     </div>
-     <br><br>
-     <div class="item" id="removesSpaceInText"
-      style="display:block; margin-left: 30px"
-      data-name="Value in Attribute data-name index 0" 
-      value="text in value attribute">
-     This is a div element with following attributes: <br>
-     --- class="item" <br>
-     --- id="removesSpaceInText" <br>
-     --- style="display:block; margin-left: 30px" <br>
-     --- data-name="Value in Attribute data-name index 0"  <br>
-     --- value="text in value attribute" <br>
-     </div>
-     <div id="removeTheWord">This is a div element with id attribute removeTheWord.</div>
-     <br><br> 
-     <p class="item" id="removeHTML"
-      style="display:block; margin-left: 30px"
-      data-name="Value in Attribute data-name index 1" 
-      value="text in value attribute">
-     This is a paragraph element with following attributes: <br>
-     --- class="item"  <br>
-     --- id="removeHTML" <br>
-     --- style="display:block; margin-left: 30px" <br>
-     --- data-name="Value in Attribute data-name index 1"  <br>
-     --- value="text in value attribute" <br>
-     </p>
-     <p>This is a paragraph element with no attributes.</p>
-     <br><br>
-     <article class="itemTwo" 
-      style="display:block; margin-left: 30px"
-      data-href="Value in Attribute data-href index 0" 
-      value="text in value attribute">
-     This is an article with the following attributes: <br> 
-     --- class="itemTwo"  <br>
-     --- style="display:block; margin-left: 30px" <br>
-     --- data-href="Value in Attribute data-href index 0"  <br>
-     --- value="text in value attribute"  <br>
-     </article> 
-     <article id="copiedText">This is an article with an id attibutes copiedText.</article>
-     <br><br>
-     <div class="itemTwo" 
-      style="display:block; margin-left: 30px"
-      data-href="Value in Attribute data-href index 1" 
-      value="text in value attribute">
-     This is a div with the following attribute:<br>
-     --- class="itemTwo" <br>
-     --- style="display:block; margin-left: 30px"<br>
-     --- data-href="Value in Attribute data-href index 1" <br>
-     --- value="text in value attribute"<br>
-     </div> 
+   
+  <div>    
+   <div id="boxWithExamplesThatStyle">
+    In this example box if the example dropdown is selected and the SECOND example addHTMLToText() is selected, then these example words will be styled blue.
+   </div><br>
+   
+   <div id="showArrayMaxMin">
+    <p>
+     Select the "findArrayMax(arr)" or "findArrayMin(arr)" to display the max or min for the array below: <br>
+     var arrayWithMaxOrMin = <br>
+      [45, [30, 20, 2, 21], 13, 63, 72, 20, [84, [<strong>1000</strong>, 49, 98, [86, <strong>1</strong>]]], 35, [47,90], 100, [[90, 40, 17], [[8, 5, 2], [[50, 67], [73, 85]]]]];
+    </p>
+    <p id="arrayMaxOrMin"></p>
+   </div><br>
+   
+   <div id="changesNextElementDisplay" style="display:none">
+    <button onclick="changeNextElementDisplay(this, this.nextElementSibling)">Show Next HTML Element</button> <br>
+    <div style="display:none">This text was shown using the function "changeNextElementDisplay(cur, curEl)".</div><br>
+   </div>
+   
+   This is a div with no attributes but two a tags with the following attributes: <br>
+   --- class="link" <br>
+   --- 1. href="https://practicing.xyz" (<em>changed in a example</em>)<br>
+   --- 2. href="https://gitHub.com" <br>
+   --- target="_blank" <br>
+   <a class="link" href="https://practicing.xyz" target="_blank">Practicing.XYZ Site</a>
+   <a class="link" href="https://gitHub.com" target="_blank">GitHub Home Page</a>
+   <br>
+   <strong> Hover for more about <span style="text-decoration:underline" id="showtermtitlewithlink" title="Use showTermTitleWithLink example to see function use. <br>Git is used to store the source code for a project and track the complete history of all changes to that code. It lets developers collaborate on a project more ::https://gitHub.com">gitHub</span>.
+   </strong>  
+  </div>
+  
+  <div class="item" id="removesSpaceInText"
+    style="display:block; margin-left: 30px"
+    data-name="Value in Attribute data-name index 0" 
+    value="text in value attribute">
+    
+    This is a div element with following attributes: <br>
+    --- class="item" <br>
+    --- id="removesSpaceInText" <br>
+    --- style="display:block; margin-left: 30px" <br>
+    --- data-name="Value in Attribute data-name index 0"  <br>
+    --- value="text in value attribute" <br>   
+  </div>
+  
+  <div id="removeTheWord">This is a div element with id attribute removeTheWord.</div><br><br>   
+   <p class="item" id="removeHTML"
+    style="display:block; margin-left: 30px"
+    data-name="Value in Attribute data-name index 1" 
+    value="text in value attribute">
+    This is a paragraph element with following attributes: <br>
+    --- class="item"  <br>
+    --- id="removeHTML" <br>
+    --- style="display:block; margin-left: 30px" <br>
+    --- data-name="Value in Attribute data-name index 1"  <br>
+    --- value="text in value attribute" <br>
+   </p>
+   <p>This is a paragraph element with no attributes.</p><br><br>
+   
+   <article class="itemTwo" 
+    style="display:block; margin-left: 30px"
+    data-href="Value in Attribute data-href index 0" 
+    value="text in value attribute">
+    This is an article with the following attributes: <br> 
+    --- class="itemTwo"  <br>
+    --- style="display:block; margin-left: 30px" <br>
+    --- data-href="Value in Attribute data-href index 0"  <br>
+    --- value="text in value attribute"  <br>
+   </article> 
+   
+   <article id="copiedText">This is an article with an id attibutes copiedText.</article><br><br>
+   
+   <div class="itemTwo" 
+    style="display:block; margin-left: 30px"
+    data-href="Value in Attribute data-href index 1" 
+    value="text in value attribute">
+    This is a div with the following attribute:<br>
+    --- class="itemTwo" <br>
+    --- style="display:block; margin-left: 30px"<br>
+    --- data-href="Value in Attribute data-href index 1" <br>
+    --- value="text in value attribute"<br>
+  </div> 
 </div>

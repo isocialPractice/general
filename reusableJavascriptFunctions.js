@@ -48,20 +48,69 @@ function removeSpaceInVariable(variableWhereSpaceIs, changeCase) {
  return theVariableWhereSpaceIs;
 }
 
-function removeWord(word, idWhereWordIs) {
- var curWordID = document.getElementById(idWhereWordIs);
- let curWordIDText = curWordID.innerHTML; 
- 
- let wordIsPresent = 1;
- if (curWordID) {
-  while (wordIsPresent==1) {
-   if (curWordIDText.indexOf(word) > -1) {
-    curWordIDText = curWordIDText.replace(word, "");  
-   } else {
-    wordIsPresent = 0;
+function removeWord(word, parElement, parElementIdentifier) {
+  var useID=0, useClass=0, useData=0, useTag=0;
+  var theParElement, theParElementInnerHTML, theParElementIndex = 0;
+  // variables for function
+  
+  // CHANGE HERE and on last line of parElementConfigII.
+  var removeTheWord = function() {
+   let curWordText = theParElement.innerHTML; 
+
+   let wordIsPresent = 1;
+   if (theParElement) {
+    while (wordIsPresent==1) {
+     if (curWordText.indexOf(word) > -1) {
+      curWordText = curWordText.replace(word, "");  
+     } else {
+      wordIsPresent = 0;
+     }
+    }
+    theParElement.innerHTML = curWordText;
    }
-  }
-  curWordID.innerHTML = curWordIDText;
+  };   
+  
+  var parElementConfigI = function() {
+   if (parElementIdentifierLowCase == "id") useID = 1;
+
+   if (parElementIdentifierLowCase.indexOf("class") > -1) {
+    useClass = 1;
+    theParElementIndex = parElementIdentifierLowCase.replace("class", "");
+   }
+   if (parElementIdentifierLowCase.indexOf("data") > -1) {
+    useData = 1;
+    theParElementIndex = parElementIdentifierLowCase.replace("data", "");
+   }
+   if (parElementIdentifierLowCase.indexOf("tag") > -1) {
+    useTag = 1;
+    theParElementIndex = parElementIdentifierLowCase.replace("tag", "");
+   }
+  };
+  var parElementConfigII = function() {
+   if (useID == 1) {
+     theParElement = document.getElementById(parElement);
+    }
+    if (useClass == 1) {
+     theParElement = document.getElementsByClassName(parElement)[theParElementIndex];
+    }
+    if (useData == 1) {
+     theParElement = document.querySelectorAll("[data-" + parElement + "]")[theParElementIndex];
+    }
+    if (useTag == 1) {
+     theParElement = document.getElementsByTagName(parElement)[theParElementIndex];
+    }    
+    removeTheWord();
+  };  
+  
+  if (parElementIdentifier == undefined) {
+   parElementIdentifier = "id";
+   useID = 1;
+   //parElementConfigI();
+   parElementConfigII();   
+  } else {
+   var parElementIdentifierLowCase = parElementIdentifier.toLowerCase();
+   parElementConfigI();
+   parElementConfigII();  
  }
 }
 function removeWordInVariable(word, variableWithWord) {
@@ -80,7 +129,7 @@ function removeWordInVariable(word, variableWithWord) {
 }
 
 function removeHTMLTag(tag, parElement, parElementIdentifier, replace) {
- if (replace == undefined) replace = "";
+ if (replace == undefined) replace = 0;
  var useID=0, useClass=0, useData=0, useTag=0, useSelf=0, replaceTag=0, remove = 0;
  var theParElements, theParElementsLen, theParElement, theParElementIndex = 0;
  
@@ -88,16 +137,16 @@ function removeHTMLTag(tag, parElement, parElementIdentifier, replace) {
   if (tag == "self" || tag == "this") {
    useSelf = 1;
    parElementIdentifier = "SELF";
-   replace = "";
+   replace = 0;
   } else {
    useID = 1;  
    parElementIdentifier = "ID";
-   replace = "";   
+   replace = 0;   
   }
  } else {
   let parElementIdentifierLowCase = parElementIdentifier.toLowerCase();
   if (replace == undefined) {
-   replace = "";
+   replace = 0;
    remove = 1;
   }
   if (parElementIdentifierLowCase == "id") useID = 1;
@@ -116,7 +165,8 @@ function removeHTMLTag(tag, parElement, parElementIdentifier, replace) {
    theParElementIndex = parElementIdentifierLowCase.replace("tag", "");
   }
  }
- var removeTheHTMLTag = function() {
+ 
+ var removeTheHTMLTag = function() {  
   let theRemoveTag = theParElement.getElementsByTagName(tag);
   if (theRemoveTag) {
    let theRemoveTagLen = theRemoveTag.length;
@@ -131,17 +181,21 @@ function removeHTMLTag(tag, parElement, parElementIdentifier, replace) {
    }  
   }
  };
-
  var replaceTheHTMLTag = function() {
-  let theRemoveTag = theParElement.getElementsByTagName(tag);
-  if (theRemoveTag) {
-   let theRemoveTagLen = theRemoveTag.length;
-   for (i = 0; i < theRemoveTagLen; i++) {
-    let curTagToRemove = theRemoveTag[i];
-    curTagToRemove.insertAdjacentHTML("beforebegin", replace);   
+  if (replace == 0) {   
+   return;
+  } else {   
+   let theRemoveTag = theParElement.getElementsByTagName(tag);
+   if (theRemoveTag) {
+    let theRemoveTagLen = theRemoveTag.length;
+    for (i = 0; i < theRemoveTagLen; i++) {
+     let curTagToRemove = theRemoveTag[i];
+     curTagToRemove.insertAdjacentHTML("beforebegin", replace);   
+    }  
    }  
   }
  }; 
+ 
  if (useID == 1) {
   theParElement = document.getElementById(parElement);
   replaceTheHTMLTag();  
@@ -200,6 +254,7 @@ function removeHTMLTag(tag, parElement, parElementIdentifier, replace) {
     theParElement.remove();    
    }
   } else {
+
    theParElement = document.getElementsByTagName(parElement)[theParElementIndex];
    replaceTheHTMLTag();
    removeTheHTMLTag();
@@ -285,13 +340,27 @@ function removeNewLines(parElement, parElementIdentifier, removeExcessSpace) {
  }
 }
 
-function removeLastWord(word, parElement, parElementIdentifier) {
+function removeLastWord(word, parElement, parElementIdentifier, ignoreCase) {
+ if (ignoreCase == undefined) { ignoreCase = 0; }
  var useID=0, useClass=0, useData=0, useTag=0, addingClass = 0, wrappingWords = 0;
  var theParElement, theParElementInnerHTML, theParElementIndex = 0;
  var arrayParElementInnerHTML, arrayParElementInnerHTMLLen, outArrayParElementInnerHTML = "";
 
  var removeTheLastCharacter = function() {
   theParElementInnerHTML = theParElement.innerHTML;  
+  if (ignoreCase == 1) {
+   let ignoreVar = "Ignore_CasSE_iS_Unlinkely_TO_B_E_iN__THe_Elements_WHere_T_H_i_S___Is_C_a__L_l__e_d_";
+   let tempParElementInnerHTML = theParElementInnerHTML.toLowerCase();
+   let ignoringCase = 0;
+   while (ignoringCase == 0) {
+    if (tempParElementInnerHTML.indexOf(word) > -1) {
+     tempParElementInnerHTML = tempParElementInnerHTML.replace(word, ignoreVar);
+    } else {
+     ignoringCase = 1;
+    }
+   }
+   theParElementInnerHTML = theParElementInnerHTML.substr(0, tempParElementInnerHTML.indexOf(ignoreVar)) + word + theParElementInnerHTML.substr(tempParElementInnerHTML.indexOf(ignoreVar) + word.length);
+  }
   theParElementInnerHTML = theParElementInnerHTML.replace(word, "");
   theParElement.innerHTML = theParElementInnerHTML;
  };
@@ -385,12 +454,12 @@ function removeLastWordInVariable(variableWithWord, word) {
  return theVariableWhereWordIs;
 }
 
-function removeAttribute(attribute, parElement, parElementIdentifier) {
+function removeHTMLAttribute(attribute, parElement, parElementIdentifier) {
   var useID=0, useClass=0, useData=0, useTag=0;
   var theParElement, theParElementInnerHTML, theParElementIndex = 0; 
   
   var removeTheAttribute = function() {
-   theParElement.removeAttribute(attribute);
+   theParElement.removeAttribute(attribute);  
   };   
   
   var parElementConfigI = function() {
@@ -612,13 +681,13 @@ function replaceNewLines(word, parElement, parElementIdentifier, removeExcessSpa
     mindArr = theParElementInnerHTML.split(word);    
     let activeRecurse = 0;
     let recurseCount = 0;
-    let tempMindArr = theParElementInnerHTML.split(word);    
+    let tempMindArr = theParElementInnerHTML.split(word);
     mindRecurseA = function(mindVarA, mindIndexA) {
      for (i = mindIndexA; i < mindVarA.length; i++) {
       mindArrA = mindVarA[i].split(" ");
       if (mindArrA.length > mindElement && mindArrA[0].indexOf("<") == -1 && mindArrA[0].indexOf("</") == -1) {
        if (mindVarA[i+1]) {
-        mindArrB = mindVarA[i+1].split(" ");        
+        mindArrB = mindVarA[i+1].split(" ");
         if (mindArrB.length > mindElement && mindArrB[0].indexOf("<") == -1 && mindArrB[0].indexOf("</") == -1) {
          activeRecurse = 1;
          mindVarA[i] = mindVarA[i] + " " + mindVarA[i+1];        
@@ -632,6 +701,7 @@ function replaceNewLines(word, parElement, parElementIdentifier, removeExcessSpa
         }       
        } else {
         break;
+        //continue;
        }
       } else {   
        activeRecurse = 0;
@@ -659,6 +729,7 @@ function replaceNewLines(word, parElement, parElementIdentifier, removeExcessSpa
          }
        } else {
         break;
+        //continue;
        }
       } else {             
        activeRecurse = 0;
@@ -2241,6 +2312,7 @@ function changeToTable(colNumber, colTitles, extractTags, parElement, parElement
 } 
 
 function changeNextElementDisplay(cur, curEl) {
+ if (cur == undefined || curEl == undefined) { return; }
  if (curEl.nodeName == "BR") curEl = curEl.nextElementSibling;
  var toText = function(parEl, tags) {
   if (tags == undefined) tags = "";
@@ -2261,7 +2333,7 @@ function changeNextElementDisplay(cur, curEl) {
   parEl.innerHTML = curText;
  };
  if (cur.dataset.totext == 1) toText(curEl, "<>");
- if (cur.dataset.showhide == 0) {
+ if (cur.dataset.showhide == 0 || cur.hasAttribute("data-showhide") == false) {
   cur.dataset.showhide = 1;
   cur.innerHTML = cur.innerHTML.replace("Show", "Hide");
   curEl.style.display = ""; 
@@ -2271,7 +2343,6 @@ function changeNextElementDisplay(cur, curEl) {
   curEl.style.display = "none";
  }
 }
-
 
 // Miscellaneous
 function outputTextFile(textFilePath, parElement, parElementIdentifier, asWhat) {
@@ -2679,4 +2750,34 @@ function findArrayMin(arr) {
  } else {
   return Math.min.apply(null, arr);
  } 
+}
+
+function toggleButtonSwitch(cur, curRun) {
+ if (cur == undefined) { return; }
+ if (curRun == undefined) { curRun = "0"; }
+ if (cur.dataset.toggleX == false) { return; }
+ if (cur.dataset.togglebuttonswitch == -1) { 
+  cur.dataset.togglebuttonswitch = 1; 
+  //cur.setAttribute("onclick", "toggleButtonSwitch(this)"); 
+  cur.setAttribute("onclick", cur.getAttribute("onclick").replace("toggleButtonSwitch(this," + cur.dataset.toggleX + ")", "toggleButtonSwitch(this)"));
+  return; 
+ }
+ if (cur.dataset.togglebuttonswitch == -2) { 
+  cur.dataset.togglebuttonswitch = 0; 
+  cur.setAttribute("onclick", cur.getAttribute("onclick").replace("toggleButtonSwitch(this," + cur.dataset.toggleY + ")", "toggleButtonSwitch(this)"));
+  return; 
+ }
+ if (cur.dataset.togglebuttonswitch == 0 || cur.hasAttribute("data-togglebuttonswitch") == false) {  
+  cur.dataset.togglebuttonswitch = -1;    
+  cur.setAttribute("onclick", cur.getAttribute("onclick").replace("toggleButtonSwitch(this)", "toggleButtonSwitch(this," + cur.dataset.toggleX + ")"));
+  cur.click();
+ } else {
+  cur.dataset.togglebuttonswitch = -2;
+  if (cur.dataset.toggleY == false) {    
+   cur.setAttribute("onclick", "toggleButtonSwitch(this)");   
+  } else {
+   cur.setAttribute("onclick", cur.getAttribute("onclick").replace("toggleButtonSwitch(this)", "toggleButtonSwitch(this," + cur.dataset.toggleY + ")"));
+  }
+  cur.click();
+ }
 }

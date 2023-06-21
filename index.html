@@ -4,33 +4,21 @@
 <meta charset="utf-8">
 <title>General Functions</title>
 <style>
- div.row, div.col {
-  display: inline-block;
-  position: relative;
-  margin-left: 150px;
- }
- div.col div:first-child {
+
+ div.examples {
   margin-left: 30px;
  }
- .item + *, .itemTwo + * {
-  margin-left: 30px;
+ 
+ button.showSectioBtn {
+  padding: 10px;
+  background: black;
+  color: white;
  }
- div#ExampleSelection {
-  position: fixed;
-  top: 280px;
-  left: 10px;
- }
- div.col label {
-  position: relative;    
-  max-width: 350px;
-  /*top: 280px;*/
-  /*left: 30px; */
- }
- div.col select {
-  position: relative;    
-  max-width: 350px;
-  /*top: 300px;*/
-/*  left: 30px;*/
+ button[onclick^="toggleButtonSwitch"] {
+  padding: 4px;
+  border: 1px solid black;
+  background: dimgray;
+  color: white;  
  }
  a {
   margin: 10px;
@@ -43,345 +31,1196 @@
 
 <h1>Testing - Add Attribute Function</h1>
 <hr>
-<button onclick="
- var showVar = document.getElementById('showVar');
- var btnData = this.dataset;
- if (this.dataset.showhide == 0) {
-  btnData.showhide = 1;
-  showVar.style.display = '';  
-  print.style.display = 'none';  
-  ExampleSelection.style.top = '380px';  
- } else {  
-  btnData.showhide = 0;
-  showVar.style.display = 'none';
-  print.style.display = '';  
-  ExampleSelection.style.top = '280px';
- }
-" data-showhide="0">Show Variables Used</button><br>
-<div id="showVar" style="display:none">
-<pre id="showVarUsed"
- style="background-color: whitesmoke">
- 
-</pre>
-</div>
 
-<p>The output of the selected example used, or the function used will be shown below.</p>
-<p id="print">Attribute changes shown here</p>
-
- <div class="row">
-  <!-- SELECT EXMPLES -->
-  <div class="col">
-   <div id="ExampleSelection">
-    <label for="SelectExample">Select Example Function</label>
-    <br>
-    <select name="SelectExample" id="SelectExample"
-     value="Select Example to Run" data-show="0"        
-     onchange="
-     resetHTML(this.dataset.show, this.dataset);
-     showGeneralExample(this.value);">
-     <option value="let skip;" name="blankOption" id="blankOption" selected> </option>
- <!-- Remove Element -->    
-     <optgroup label="Remove Elements">
-      <option id="removeSpace" 
-       name="removeSpace"
-       value="
-       removeSpace('removesSpaceInText', 'u');
-       document.getElementById('print').innerHTML = 'removeSpace(\'removesSpaceInText\', \'u\')';">
-       removeSpace('removesSpaceInText', 'u');
-      </option>    
-
-      <option id="removeSpaceInVariable" name="removeSpaceInVariable"
-       value="
-       var withoutSpace = removeSpaceInVariable(withSpace, 'l');
-       document.getElementById('print').innerHTML = withoutSpace;">
-      removeSpaceInVariable(withSpace, 'l');
-      </option>
-
-      <option id="removeWord" name="removeWord"
-       value="
-       removeWord('removeTheWord', 'removeTheWord');
-       document.getElementById('print').innerHTML = 'removeWord(\'removeTheWord\', \'removeTheWord\')';">
-      removeWord('removeTheWord', 'removeTheWord');
-      </option>    
-
-      <option id="removeWordInVariable" name="removeWordInVariable"
-       value="
-       var withoutWord = removeWordInVariable('remove', withWord);
-       document.getElementById('print').innerHTML = withoutWord;">
-      removeWordInVariable(remove, variableWithWord);
-      </option>   
-
-      <option id="removeHTMLTag" name="removeHTMLTag" 
-       value="
-       removeHTMLTag('p', 'col', 'class1');
-       document.getElementById('print').innerHTML = 'removeHTMLTag(\'p\', \'col\', \'class1\')';">
-      removeHTMLTag('p', 'col', 'class1')
-      </option>    
-     </optgroup>
- <!-- Replace Element -->    
-     <optgroup label="Replace Elements">
-      <option id="replaceWord" name="replaceWord"
-       value="
-       replaceWord('---', '!-', 'col', 'class1');
-       document.getElementById('print').innerHTML = 'replaceWord(\'---\', \'!-\', \'col\', \'class1\')';">
-      replaceWord('---', '!-', 'col', 'class1');
-      </option>
-
-      <option id="replaceInnerHTML" name="replaceInnerHTML"
-       value="
-       replaceInnerHTML('Ariticle HTML replaced', 'article', 'tag0');
-       document.getElementById('print').innerHTML = 'replaceInnerHTML(\'Ariticle HTML replaced\', \'article\', \'tag0\')';">
-      replaceInnerHTML('Ariticle HTML replaced', 'article', 'tag0');
-      </option>    
-
-      <option id="replaceAttribute" name="replaceAttribute"
-       value="replaceAttribute('href', 'https://practicing.xyz/Exercises.html', 'link', 'class0');
-       document.getElementById('print').innerHTML = 'replaceAttribute(\'href\', \'https://practicing.xyz/Exercises.html\', \'link\', \'class0\')';">
-      replaceAttribute('href', 'https://practicing.xyz/Exercises.html', 'link', 'class0');
-      </option>        
-     </optgroup>
- <!-- Append/Prepend/Adding ELements -->    
-     <optgroup label="Append/Prepend/Add Elements">
-      <option id="addToAttribute" 
-       name="addToAttribute"
-       value="
-       addToAttribute('data-name', '-a', 'after', 'name', 'data', 1);
-       nowShowWhat('data-name', '[data-name]', 1);
-       document.getElementById('print').innerHTML = showWhat">
-       addToAttribute('data-name', '-a', 'after', 'name', 'data', 1);
-      </option>
-      <option id="addHTMLToText" 
-       name="addHTMLToText"
-       value="
-       addHTMLToText('strong', 'boxWithExample', 'id', 'style::color:blue', 'element');
-       document.getElementById('boxWithExamplesThatStyle').innerHTML = 'The attributes will only work when the text is the last node in the parent element.';">
-       * addHTMLToText('strong', 'boxWithExample', 'id', 'style::color:blue', 'element');
-      </option>
-      <option id="addHTMLToTextII" 
-       name="addHTMLToText"
-       value="
-       addHTMLToText('strong', 'boxWithExamplesThatStyle', 'id', 'style::color:blue', 'example');">
-       ** addHTMLToText('strong', 'boxWithExamplesThatStyle', 'id', 'style::color:blue', 'example');
-      </option>      
-     </optgroup>
- <!-- Change Case -->        
-     <optgroup label="Change Case">
-      <option id="changeToUpperCase" name="changeToUpperCase"
-      value="
-      var changedToUpperCase = changeToUpperCase(toChangeToUpperCase);
-      document.getElementById('print').innerHTML = changedToUpperCase;
-      ">
-      changeToUpperCase(toChangeToUpperCase);
-      </option>       
-      <option id="changeToLowerCase" name="changeToLowerCase"
-      value="
-      var changedToLowerCase = changeToLowerCase(toChangeToLowerCase);
-      document.getElementById('print').innerHTML = changedToLowerCase;
-      ">     
-      changeToLowerCase(toChangeToLowerCase);
-      </option>    
-      <option id="changeToTable" name="changeToTable"
-      value="
-      changeToTable(2, 'Term,Definition', 'span: ', 'makeTable', 'id', 1, 'copyTable', 'id', 'a-:-href-:-https://everything.curl.dev/protocols/curl-:-target-:-_blank-:-rel-:-external::append-:-href-:-anchor-:-innerHTML-:-lc::td0');
-      document.getElementById('showTableUsed').style.display = '';      
-      ">     
-      changeToTable(2, 'Term,Definition', 'span: ', 'makeTable', 'id', 1, 'copyTable', 'id', 'a-:-href-:-https://everything.curl.dev/protocols/curl-:-target-:-_blank-:-rel-:-external::append-:-href-:-anchor-:-innerHTML-:-lc::td0');
-      </option>          
-     </optgroup> 
- <!-- Miscellaneous -->    
-     <optgroup label="Miscellaneous">
-      <option id="outputTextFile" name="outputTextFile"
-      value="
-      outputTextFile('support/TextFile.txt', 'print', 'id', 'html');     
-      ">
-      outputTextFile('support/TextFile.txt', 'print', 'id', 'html');
-      </option>    
-
-      <option id="copyText" name="copyText"
-      value="
-      copyText('copiedText', 'id', 'html');     
-      print.innerHTML = 'copyText(\'copiedText\', \'id\', \'html\')';
-      print.innerHTML += '<br><strong>Paste below text below:</strong><br>';
-      printTextArea = document.createElement('textarea');
-      printTextArea.width = '300px';
-      printTextArea.height = '300px';
-      print.appendChild(printTextArea);
-      ">
-      copyText('copiedText', 'id', 'html');
-      </option>     
-      
-      <option id="showTermTitleWithLink" name="showTermTitleWithLink" 
-       value="
-        document.getElementById('showtermtitlewithlink').setAttribute('onmouseover', 'showTermTitleWithLink(this, this.dataset, this.dataset.title)');
-       ">
-       showTermTitleWithLink(this, this.dataset, this.dataset.title)
-       </option>
-     </optgroup>    
-    </select>
-   </div>
-  </div>
-  
-  <!-- HTML -->
-  <div class="col">
-   <h3>The Elements Below Will Be Changed</h3>
-  
-   <div id="boxWithExample">    
-<div class="keepWrapt">
- <button id="showTableUsed" style="display: none" data-sh="0" onclick="showHide(this, this.dataset)">Show HTML Used for table</button>  
-  <div id="makeTable" style="display:none">
-<span>
-DICT DICT is a dictionary network protocol, it allows clients to ask dictionary servers about a meaning or explanation for words. See RFC 2229. Dict servers and clients use TCP port 2628.
-</span>
-<span>
-FILE FILE is not actually a "network" protocol. It is a URL scheme that allows you to tell curl to get a file from the local file system instead of getting it over the network from a remote server. See RFC 1738.
-</span>
-<span>
-FTP FTP stands for File Transfer Protocol and is an old (originates in the early 1970s) way to transfer files back and forth between a client and a server. See RFC 959. It has been extended greatly over the years. FTP servers and clients use TCP port 21 plus one more port, though the second one is usually dynamically established during communication.
-See the external page FTP vs HTTP for how it differs to HTTP.
-</span>
-<span>
-FTPS FTPS stands for Secure File Transfer Protocol. It follows the tradition of appending an 'S' to the protocol name to signify that the protocol is done like normal FTP but with an added SSL/TLS security layer. See RFC 4217.
-This protocol is problematic to use through firewalls and other network equipment.
-</span>
-<span>
-GOPHER Designed for "distributing, searching, and retrieving documents over the Internet", Gopher is somewhat of the grand father to HTTP as HTTP has mostly taken over completely for the same use cases. See RFC 1436. Gopher servers and clients use TCP port 70.
-</span>
-<span>
-GOPHERS Gopher over TLS. A recent extension to the old protocol.
-</span>
-<span>
-HTTP The Hypertext Transfer Protocol, HTTP, is the most widely used protocol for transferring data on the web and over the Internet. See RFC 7230 for HTTP/1.1 and RFC 7540 for HTTP/2. HTTP servers and clients use TCP port 80.
-</span>
-<span>
-HTTPS Secure HTTP is HTTP done over an SSL/TLS connection. See RFC 2818. HTTPS servers and clients use TCP port 443, unless they speak HTTP/3 which then uses QUIC and is done over UDP.
-</span>
-<span>
-IMAP The Internet Message Access Protocol, IMAP, is a protocol for accessing, controlling and "reading" email. See RFC 3501. IMAP servers and clients use TCP port 143. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 2595.
-</span>
-<span>
-IMAPS Secure IMAP is IMAP done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 993 to communicate with each other. See RFC 8314.
-</span>
-<span>
-LDAP The Lightweight Directory Access Protocol, LDAP, is a protocol for accessing and maintaining distributed directory information. Basically a database lookup. See RFC 4511. LDAP servers and clients use TCP port 389.
-</span>
-<span>
-LDAPS Secure LDAP is LDAP done over an SSL/TLS connection.
-</span>
-<span>
-MQTT Message Queuing Telemetry Transport, MQTT, is a protocol commonly used in IoT systems for interchanging data mostly involving smaller devices. It is a so called "publish-subscribe" protocol.
-</span>
-<span>
-POP3 The Post Office Protocol version 3 (POP3) is a protocol for retrieving email from a server. See RFC 1939. POP3 servers and clients use TCP port 110. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STLS command. See RFC 2595.
-</span>
-<span>
-POP3S Secure POP3 is POP3 done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 995 to communicate with each other. See RFC 8314.
-</span>
-<span>
-RTMP The Real-Time Messaging Protocol (RTMP) is a protocol for streaming audio, video and data. RTMP servers and clients use TCP port 1935.
-</span>
-<span>
-RTSP The Real Time Streaming Protocol (RTSP) is a network control protocol to control streaming media servers. See RFC 2326. RTSP servers and clients use TCP and UDP port 554.
-</span>
-<span>
-SCP The Secure Copy (SCP) protocol is designed to copy files to and from a remote SSH server. SCP servers and clients use TCP port 22.
-</span>
-<span>
-SFTP The SSH File Transfer Protocol (SFTP) that provides file access, file transfer, and file management over a reliable data stream. SFTP servers and clients use TCP port 22.
-</span>
-<span>
-SMB The Server Message Block (SMB) protocol is also known as CIFS. It is an application-layer network protocol mainly used for providing shared access to files, printers, and serial ports and miscellaneous communications between nodes on a network. SMB servers and clients use TCP port 445.
-</span>
-<span>
-SMBS SMB done over TLS.
-</span>
-<span>
-SMTP The Simple Mail Transfer Protocol (SMTP) is a protocol for email transmission. See RFC 5321. SMTP servers and clients use TCP port 25. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 3207.
-</span>
-<span>
-SMTPS Secure SMTP, is SMTP done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 465 to communicate with each other. See RFC 8314.
-</span>
-<span>
-TELNET TELNET is an application layer protocol used over networks to provide a bidirectional interactive text-oriented communication facility using a virtual terminal connection. See RFC 854. TELNET servers and clients use TCP port 23.
-</span>
-<span>
-TFTP The Trivial File Transfer Protocol (TFTP) is a protocol for doing simple file transfers over UDP to get a file from or put a file onto a remote host. TFTP servers and clients use UDP port 69.
-</span>
-<span>
-WS WebSocket is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WS is the scheme for the clear text version done over plain HTTP. Experimental support for this was added to curl 7.86.0.
-</span>
-<span>
-WSS WebSocket is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WSS is the scheme for the secure version done over HTTPS. Experimental support for this was added to curl 7.86.0.
-</span>
-
-   </div>  
-  <div id="copyTable"></div>  
-     <div>    
-     <div id="boxWithExamplesThatStyle">
-      In this example box if the example dropdown is selected and the SECOND example addHTMLToText() is selected, then these example words will be styled blue.
-     </div>    <br><br>
-     This is a div with no attributes but two a tags with the following attributes: <br>
-     --- class="link" <br>
-     --- 1. href="https://practicing.xyz" (<em>changed in a example</em>)<br>
-     --- 2. href="https://gitHub.com" <br>
-     --- target="_blank" <br>
-     <a class="link" href="https://practicing.xyz" target="_blank">Practicing.XYZ Site</a>
-     <a class="link" href="https://gitHub.com" target="_blank">GitHub Home Page</a>
-     <br>
-    <strong> Hover for more about <span style="text-decoration:underline" id="showtermtitlewithlink" title="Use showTermTitleWithLink example to see function use. <br>Git is used to store the source code for a project and track the complete history of all changes to that code. It lets developers collaborate on a project more ::https://gitHub.com">gitHub</span>.
-    </strong>
-     </div>
-     <br><br>
-     <div class="item" id="removesSpaceInText"
-      style="display:block; margin-left: 30px"
-      data-name="Value in Attribute data-name index 0" 
-      value="text in value attribute">
+<div class="examples">
+ <h4>Removing Elements Examples:</h4><hr>
+ <button class="showSectioBtn" onclick="changeNextElementDisplay(this, this.nextElementSibling)">Show Remove Element Examples</button><br>
+ <div style="display:none">
+  <!-- remove space -->
+  <span>
+   <p><strong>removeSpace("removesSpaceInText", "u")</strong></p>
+   <button onclick="toggleButtonSwitch(this);
+    if (this.dataset.togglebuttonswitch == 1) { this.innerHTML = this.innerHTML.replace('Run', 'Reset'); }
+    if (this.dataset.togglebuttonswitch == 0) { this.innerHTML = this.innerHTML.replace('Reset', 'Run'); }      
+   " data-togglebuttonswitch="0" data-toggle-X="removeSpace('removesSpaceInText', 'u')" data-toggle-y="document.getElementById('removesSpaceInText').innerHTML = document.getElementById('resetRemoveSpace').innerHTML">Run removeSpace() Function</button><br>
+   <div id="resetRemoveSpace" style="display:none">
      This is a div element with following attributes: <br>
      --- class="item" <br>
      --- id="removesSpaceInText" <br>
      --- style="display:block; margin-left: 30px" <br>
      --- data-name="Value in Attribute data-name index 0"  <br>
-     --- value="text in value attribute" <br>
-     </div>
-     <div id="removeTheWord">This is a div element with id attribute removeTheWord.</div>
-     <br><br> 
-     <p class="item" id="removeHTML"
-      style="display:block; margin-left: 30px"
-      data-name="Value in Attribute data-name index 1" 
-      value="text in value attribute">
-     This is a paragraph element with following attributes: <br>
-     --- class="item"  <br>
-     --- id="removeHTML" <br>
-     --- style="display:block; margin-left: 30px" <br>
-     --- data-name="Value in Attribute data-name index 1"  <br>
-     --- value="text in value attribute" <br>
-     </p>
-     <p>This is a paragraph element with no attributes.</p>
-     <br><br>
-     <article class="itemTwo" 
-      style="display:block; margin-left: 30px"
-      data-href="Value in Attribute data-href index 0" 
-      value="text in value attribute">
-     This is an article with the following attributes: <br> 
-     --- class="itemTwo"  <br>
-     --- style="display:block; margin-left: 30px" <br>
-     --- data-href="Value in Attribute data-href index 0"  <br>
-     --- value="text in value attribute"  <br>
-     </article> 
-     <article id="copiedText">This is an article with an id attibutes copiedText.</article>
-     <br><br>
-     <div class="itemTwo" 
-      style="display:block; margin-left: 30px"
-      data-href="Value in Attribute data-href index 1" 
-      value="text in value attribute">
-     This is a div with the following attribute:<br>
-     --- class="itemTwo" <br>
-     --- style="display:block; margin-left: 30px"<br>
-     --- data-href="Value in Attribute data-href index 1" <br>
-     --- value="text in value attribute"<br>
-     </div> 
-</div>
+     --- value="text in value attribute" <br>       
    </div>
+   <div class="item" id="removesSpaceInText"
+     style="display:block; margin-left: 30px"
+     data-name="Value in Attribute data-name index 0" 
+     value="text in value attribute">
+     This is a div element with following attributes: <br>
+     --- class="item" <br>
+     --- id="removesSpaceInText" <br>
+     --- style="display:block; margin-left: 30px" <br>
+     --- data-name="Value in Attribute data-name index 0"  <br>
+     --- value="text in value attribute" <br>   
+   </div>  
+  </span>
+  <!-- rmove space in variable -->
+ <span>
+  <p><strong>removeSpaceInVariable(withSpace, 'l');</strong><br>
+  var withSpace = "This variables SPACE will be removed";</p>
+  <button onclick="toggleButtonSwitch(this);
+   if (this.dataset.togglebuttonswitch == 1) { this.innerHTML = this.innerHTML.replace('Run', 'Reset'); }
+   if (this.dataset.togglebuttonswitch == 0) { this.innerHTML = this.innerHTML.replace('Reset', 'Run'); }      
+  " 
+  data-togglebuttonswitch="0" 
+  data-toggle-X="(function () {
+   var withSpace = 'This variables SPACE will be removed';
+   var withoutSpace = removeSpaceInVariable(withSpace, 'l');
+   document.getElementById('removeSpaceInVariableEx').innerHTML = withoutSpace;    
+  }) ()" 
+  data-toggle-y="document.getElementById('removeSpaceInVariableEx').innerHTML = document.getElementById('resetRemoveSpaceInVariable').innerHTML">Run removeSpaceInVariable() Function</button><br>
+  <div id="resetRemoveSpaceInVariable" style="display:none">
+
+  </div>
+  <div id="removeSpaceInVariableEx">
+
+  </div><br>
+ </span>
+  <!-- remove word --> 
+ <span>
+  <p><strong>removeWord('removeTheWord', 'removeTheWord')</strong></p>
+  <button onclick="toggleButtonSwitch(this);
+   if (this.dataset.togglebuttonswitch == 1) { this.innerHTML = this.innerHTML.replace('Run', 'Reset'); }
+   if (this.dataset.togglebuttonswitch == 0) { this.innerHTML = this.innerHTML.replace('Reset', 'Run'); }      
+  " 
+  data-togglebuttonswitch="0" 
+  data-toggle-X="removeWord('removeTheWord', 'removeTheWord')" 
+  data-toggle-y="document.getElementById('removeTheWord').innerHTML = document.getElementById('resetRemoveTheWord').innerHTML">Run removeWord() Function</button><br>
+  <div id="resetRemoveTheWord" style="display:none">
+   This is a div element with id attribute removeTheWord.
+  </div>
+  <div id="removeTheWord">This is a div element with id attribute removeTheWord.</div><br>
+ </span>
+  <!-- remove word in variable --> 
+ <span>
+  <p><strong>removeWordInVariable('remove', withWord)()</strong><br>
+  var withWord = 'The word remove is removed when removes used.';</p>
+  <button onclick="toggleButtonSwitch(this);
+   if (this.dataset.togglebuttonswitch == 1) { this.innerHTML = this.innerHTML.replace('Run', 'Reset'); }
+   if (this.dataset.togglebuttonswitch == 0) { this.innerHTML = this.innerHTML.replace('Reset', 'Run'); }      
+  " 
+  data-togglebuttonswitch="0" 
+  data-toggle-X="(function () {
+   var withWord = 'The word remove is removed when removes used.';
+   var withoutWord = removeWordInVariable('remove', withWord);
+   document.getElementById('removeWordInVariableEx').innerHTML = withoutWord;     
+  }) ()" 
+  data-toggle-y="document.getElementById('removeWordInVariableEx').innerHTML = document.getElementById('resetremoveWordInVariable').innerHTML">Run removeWordInVariable() Function</button><br>
+  <div id="resetremoveWordInVariable" style="display:none">
+
+  </div>
+  <div id="removeWordInVariableEx">
+
+  </div><br>
+ </span>
+  <!-- remove HTML Tag --> 
+ <span>
+  <p><strong>removeHTMLTag('div', 'removeHTMLTag', 'class0')</strong></p>
+  <button onclick="toggleButtonSwitch(this);
+   if (this.dataset.togglebuttonswitch == 1) { this.innerHTML = this.innerHTML.replace('Run', 'Reset'); }
+   if (this.dataset.togglebuttonswitch == 0) { this.innerHTML = this.innerHTML.replace('Reset', 'Run'); }      
+  " 
+  data-togglebuttonswitch="0" 
+  data-toggle-X="removeHTMLTag('div', 'removeHTMLTag', 'class0')" 
+  data-toggle-y="document.getElementById('removeHTMLTagEx').innerHTML = document.getElementById('resetremoveHTMLTag').innerHTML">Run removeHTMLTag() Function</button><br>
+  <div id="resetremoveHTMLTag" style="display:none">
+   &lt;div class="removeHTMLTag"&gt;
+   <div>&lt;div&gt;This is the first [0] class "removeHTMLTag".&lt;/div&gt;</div>
+   <p>&lt;p&gt;This is p tag so not removed.&lt;/p&gt;</p>
+   <div>&lt;div&gt;Next div in class "removeHTMLTag" at index 0 in div element and text in tag that will be removed.&lt;/div&gt;</div>
+   &lt;/div&gt;
+  </div>
+  <div id="removeHTMLTagEx" class="removeHTMLTag">
+   &lt;div class="removeHTMLTag"&gt;
+   <div>&lt;div&gt;This is the first [0] class "removeHTMLTag".&lt;/div&gt;</div>
+   <p>&lt;p&gt;This is p tag so not removed.&lt;/p&gt;</p>
+   <div>&lt;div&gt;Next div in class "removeHTMLTag" at index 0 in div element and text in tag that will be removed.&lt;/div&gt;</div>
+   &lt;/div&gt;
+  </div><br>
+ </span>   
+ <!-- remove New lines --> 
+ <span>
+  <p><strong>removeNewLines('removeNewLinesEx', 'id', 1)</strong></p>
+  <button onclick="toggleButtonSwitch(this);
+   if (this.dataset.togglebuttonswitch == 1) { this.innerHTML = this.innerHTML.replace('Run', 'Reset'); }
+   if (this.dataset.togglebuttonswitch == 0) { this.innerHTML = this.innerHTML.replace('Reset', 'Run'); }      
+  " 
+  data-togglebuttonswitch="0" 
+  data-toggle-X="removeNewLines('removeNewLinesEx', 'id', 1)" 
+  data-toggle-y="document.getElementById('removeNewLinesEx').innerHTML = document.getElementById('resetremoveNewLines').innerHTML">Run removeNewLines() Function</button><br>
+  <div id="resetremoveNewLines" style="display:none">
+All the 
+new lines
+will
+be removed.
+  </div>
+  &lt;pre id="removeNewLinesEx"&gt;<pre id="removeNewLinesEx">
+All the 
+new lines
+will
+be removed.
+  </pre>&lt;/pre&gt;<br>
+ </span>
+ <!-- remove last word --> 
+ <span>
+  <p><strong>removeLastWord('last', 'remove-last-word', 'data0, 0')</strong></p>
+  <p><strong>removeLastWord('last', 'remove-last-word', 'data1, 1')</strong></p>
+  <button onclick="toggleButtonSwitch(this);
+   if (this.dataset.togglebuttonswitch == 1) { this.innerHTML = this.innerHTML.replace('Run', 'Reset'); }
+   if (this.dataset.togglebuttonswitch == 0) { this.innerHTML = this.innerHTML.replace('Reset', 'Run'); }      
+  " 
+  data-togglebuttonswitch="0" 
+  data-toggle-X="(function () {
+   removeLastWord('last', 'remove-last-word', 'data0', 0)
+   removeLastWord('last', 'remove-last-word', 'data1', 1)    
+  }) ()" 
+  data-toggle-y="(function () {
+   document.getElementById('removeLastWord').innerHTML = document.getElementById('resetremoveLastWord').innerHTML;
+   document.getElementById('removeLastWordII').innerHTML = document.getElementById('resetremoveLastWordII').innerHTML;
+  }) ()">Run removeLastWord() Function</button><br>
+  <div id="resetremoveLastWord" style="display:none">
+  The last instance of the word last will be removed using "removeLastWord" function, removing last word.
+  </div>
+  &lt;div data-remove-last-word="index 0"&gt;<div id="removeLastWord" data-remove-last-word="1">
+  The last instance of the word last will be removed using "removeLastWord" function, removing last word.
+  </div>&lt;/div&gt;    
+  <div id="resetremoveLastWordII" style="display:none">
+  The last instance of the word last will be removed using "removeLastWord" function, removing word and ignoring case.
+  </div>
+  &lt;div data-remove-last-word="index 1"&gt;<div id="removeLastWordII" data-remove-last-word="1">
+  The last instance of the word last will be removed using "removeLastWord" function, removing word and ignoring case.
+  </div>&lt;/div&gt;
+  <br>
+ </span>
+ <!-- 7 remove last word in variable --> 
+ <span>
+  <p><strong>removeLastWordInVariable(removeLastWordVar, 'last')</strong><br>
+  var removeLastWordVar = "The last instance of the word last is removed if it is last."</p>
+  <button onclick="toggleButtonSwitch(this);
+   if (this.dataset.togglebuttonswitch == 1) { this.innerHTML = this.innerHTML.replace('Run', 'Reset'); }
+   if (this.dataset.togglebuttonswitch == 0) { this.innerHTML = this.innerHTML.replace('Reset', 'Run'); }      
+  " 
+  data-togglebuttonswitch="0" 
+  data-toggle-X="(
+   function () {
+    var removeLastWordVar = 'The last instance of the word last is removed if it is last.';
+    document.getElementById('removeLastWordInVariable').innerHTML = removeLastWordInVariable(removeLastWordVar, 'last');
+   }
+  ) ()" 
+  data-toggle-y="document.getElementById('removeLastWordInVariable').innerHTML = document.getElementById('resetremoveLastWordInVariable').innerHTML">Run removeLastWordInVariable() Function</button><br>
+  <div id="resetremoveLastWordInVariable" style="display:none">
+
+  </div>
+  <div id="removeLastWordInVariable">
+
+  </div><br>
+ </span>
+ <!-- 7 remove html attribute --> 
+ <span>
+  <p><strong>removeHTMLAttribute('style', 'removeAttribute', 'class1')</strong></p>
+  <button onclick="toggleButtonSwitch(this);
+   if (this.dataset.togglebuttonswitch == 1) { this.innerHTML = this.innerHTML.replace('Run', 'Reset'); }
+   if (this.dataset.togglebuttonswitch == 0) { this.innerHTML = this.innerHTML.replace('Reset', 'Run'); }      
+  " 
+  data-togglebuttonswitch="0" 
+  data-toggle-X="removeHTMLAttribute('style', 'removeAttribute', 'class1')" 
+  data-toggle-y="document.getElementById('removeAttribute').innerHTML = document.getElementById('resetremoveAttribute').innerHTML">Run removeAttribute() Function</button><br>
+  <div id="resetremoveAttribute" style="display:none">
+   <div class="removeAttribute" style="background:black; color: white;">The style attribute will be removed.</div>
+  </div>
+  <div id="removeAttribute">
+   <div class="removeAttribute" style="background:black; color: white;">The style attribute will be removed.</div>
+  </div><br>
+ </span>
+ <hr>
  </div>
+
+ <h4>Replacing Elements Examples:</h4><hr>
+ <button class="showSectioBtn" onclick="changeNextElementDisplay(this, this.nextElementSibling)">Show Replacing Element Examples</button><br>
+ <div style="display:none">   
+ <!-- replace word --> 
+ <span>
+  <p><strong>replaceWord('---', '!-', 'replaceWord', 'class0')</strong></p>
+  <button onclick="toggleButtonSwitch(this);
+   if (this.dataset.togglebuttonswitch == 1) { this.innerHTML = this.innerHTML.replace('Run', 'Reset'); }
+   if (this.dataset.togglebuttonswitch == 0) { this.innerHTML = this.innerHTML.replace('Reset', 'Run'); }      
+  " 
+  data-togglebuttonswitch="0" 
+  data-toggle-X="replaceWord('---', '!-', 'replaceWord', 'class0')" 
+  data-toggle-y="document.getElementById('replaceWordEx').innerHTML = document.getElementById('resetreplaceWord').innerHTML">Run replaceWord() Function</button><br>
+  <div id="resetreplaceWord" style="display:none">
+ This is a div with no attributes but two a tags with the following attributes: <br>
+ --- class="link" <br>
+ --- 1. href="https://practicing.xyz" (<em>changed in a example</em>)<br>
+ --- 2. href="https://gitHub.com" <br>
+ --- target="_blank" <br>
+  </div>
+  <div id="replaceWordEx" class="replaceWord">
+  &lt;div class="replaceWord"&gt;
+  This is a div with no attributes but two a tags with the following attributes: <br>
+  --- class="link" <br>
+  --- 1. href="https://practicing.xyz" (<em>changed in a example</em>)<br>
+  --- 2. href="https://gitHub.com" <br>
+  --- target="_blank" <br>    
+  &lt;/div&gt;
+  </div><br>
+ </span>
+ <!-- replace inner html --> 
+ <span>
+  <p><strong>replaceInnerHTML('Ariticle HTML replaced', 'article', 'tag1')</strong></p>
+  <button onclick="toggleButtonSwitch(this);
+   if (this.dataset.togglebuttonswitch == 1) { this.innerHTML = this.innerHTML.replace('Run', 'Reset'); }
+   if (this.dataset.togglebuttonswitch == 0) { this.innerHTML = this.innerHTML.replace('Reset', 'Run'); }      
+  " 
+  data-togglebuttonswitch="0" 
+  data-toggle-X="replaceInnerHTML('Ariticle HTML replaced', 'article', 'tag1')" 
+  data-toggle-y="document.getElementById('replaceInnerHTMLEx').innerHTML = document.getElementById('resetreplaceInnerHTML').innerHTML">Run replaceInnerHTML() Function</button><br>
+  <div id="resetreplaceInnerHTML" style="display:none">
+ <article>
+  This is an article with the following attributes: <br> 
+  --- class="itemTwo"  <br>
+  --- style="display:block; margin-left: 30px" <br>
+  --- data-href="Value in Attribute data-href index 0"  <br>
+  --- value="text in value attribute"  <br>
+ </article>
+  </div>
+  <div id="replaceInnerHTMLEx">
+ <article>
+  This is an article with the following attributes: <br> 
+  --- class="itemTwo"  <br>
+  --- style="display:block; margin-left: 30px" <br>
+  --- data-href="Value in Attribute data-href index 0"  <br>
+  --- value="text in value attribute"  <br>
+ </article>
+  </div><br>
+ </span>
+ <!-- replace attribute --> 
+ <span>
+  <p><strong>replaceAttribute('href', 'https://practicing.xyz/Exercises.html', 'link', 'class0')</strong></p>
+  <button onclick="toggleButtonSwitch(this);
+   if (this.dataset.togglebuttonswitch == 1) { this.innerHTML = this.innerHTML.replace('Run', 'Reset'); }
+   if (this.dataset.togglebuttonswitch == 0) { this.innerHTML = this.innerHTML.replace('Reset', 'Run'); }      
+  " 
+  data-togglebuttonswitch="0" 
+  data-toggle-X="replaceAttribute('href', 'https://practicing.xyz/Exercises.html', 'link', 'class2')" 
+  data-toggle-y="document.getElementById('replaceAttributeEx').innerHTML = document.getElementById('resetreplaceAttribute').innerHTML">Run replaceAttribute() Function</button><br>
+  <div id="resetreplaceAttribute" style="display:none">
+   <a class="link" href="https://practicing.xyz" target="_blank">Practicing.XYZ Site</a> <pre style="display:inline">&lt;- link will change</pre>
+   <a class="link" href="https://gitHub.com" target="_blank">GitHub Home Page</a>
+  </div>
+  <div id="replaceAttributeEx">
+   <a class="link" href="https://practicing.xyz" target="_blank">Practicing.XYZ Site</a> <pre style="display:inline">&lt;- link will change</pre>
+   <a class="link" href="https://gitHub.com" target="_blank">GitHub Home Page</a>    
+  </div><br>
+ </span>
+ <!-- replace new lines I --> 
+ <span>
+  <p><strong>I. replaceNewLines('-s-', 'replaceNewLinesEx, 'id', 1, 1, 0)</strong></p>
+  <button onclick="toggleButtonSwitch(this);
+   if (this.dataset.togglebuttonswitch == 1) { this.innerHTML = this.innerHTML.replace('Run', 'Reset'); }
+   if (this.dataset.togglebuttonswitch == 0) { this.innerHTML = this.innerHTML.replace('Reset', 'Run'); }      
+  " 
+  data-togglebuttonswitch="0" 
+  data-toggle-X="replaceNewLines('-s-', 'replaceNewLinesExI', 'id', 1, 1, 0)" 
+  data-toggle-y="document.getElementById('replaceNewLinesExI').innerHTML = document.getElementById('resetreplaceNewLinesExI').innerHTML">Run replaceNewLines() Function</button><br>
+  <button onclick="changeNextElementDisplay(this, this.nextElementSibling)">Show text used</button><br>
+  <pre style="display:none">
+  <div id="resetreplaceNewLinesExI">
+  All of the
+New lines in this element will
+be replaced with the character specified
+
+end
+of example
+.
+  </div></pre>    
+  &lt;pre id="replaceNewLinesEx"&gt;<pre id="replaceNewLinesExI">
+  All of the
+New lines in this element will
+be replaced with the character specified
+
+end
+of example
+.
+  </pre>&lt;/pre&gt;<br>
+ </span>   
+ <!-- replace new lines II --> 
+ <span>
+  <p><strong>II. replaceNewLines('-s-', 'replaceNewLinesEx, 'id', 1, 1, 2)</strong></p>
+  <button onclick="toggleButtonSwitch(this);
+   if (this.dataset.togglebuttonswitch == 1) { this.innerHTML = this.innerHTML.replace('Run', 'Reset'); }
+   if (this.dataset.togglebuttonswitch == 0) { this.innerHTML = this.innerHTML.replace('Reset', 'Run'); }      
+  " 
+  data-togglebuttonswitch="0" 
+  data-toggle-X="replaceNewLines('-s-', 'replaceNewLinesEx', 'id', 1, 1, 2)" 
+  data-toggle-y="document.getElementById('replaceNewLinesEx').innerHTML = document.getElementById('resetreplaceNewLinesEx').innerHTML">Run replaceNewLines() Function</button><br>
+  <button onclick="changeNextElementDisplay(this, this.nextElementSibling)">Show text used</button><br>
+  <pre style="display:none">
+  <div id="resetreplaceNewLinesEx">
+  All of the
+New lines in this element will
+be replaced with the character specified &lt;br&gt;<br>
+unless 
+a line is &lt;br&gt;<br>
+greater-than 
+in number of words (or number of spaces) the number specified
+in the "mindword" parameter,
+ then lines after that line &lt;br&gt;<br>
+will be joined without split character
+until there is a line with word(s) or &lt;br&gt;<br>
+spaces
+that are less than the &lt;br&gt;<br>
+number 
+specified in the "mindElement" parameter
+then the split character will be added and &lt;br&gt;<br>
+All
+   lines (first empty line is indented, next is not)  
+following the above mentioned pattern will be skipped.
+This is good to make an arrary where the pattern &lt;br&gt;<br>
+follows a "term" and "definition" like pattern.
+
+&lt;br&gt;<br>  
+end 
+of example
+.
+  </div></pre>
+  <strong>NOTE</strong> - for readability there are "&lt;br&gt;" tags in example.
+  &lt;pre id="replaceNewLinesEx"&gt;<pre id="replaceNewLinesEx">
+  All of the
+New lines in this element will
+be replaced with the character specified &lt;br&gt;<br>
+unless 
+a line is &lt;br&gt;<br>
+greater-than 
+in number of words (or number of spaces) the number specified
+in the "mindword" parameter,
+ then lines after that line &lt;br&gt;<br>
+will be joined without split character
+until there is a line with word(s) or &lt;br&gt;<br>
+spaces
+that are less than the &lt;br&gt;<br>
+number 
+specified in the "mindElement" parameter
+then the split character will be added and &lt;br&gt;<br>
+All
+   lines (first empty line is indented, next is not)  
+following the above mentioned pattern will be skipped.
+This is good to make an arrary where the pattern &lt;br&gt;<br>
+follows a "term" and "definition" like pattern.
+
+&lt;br&gt;<br>  
+end 
+of example
+.
+  </pre>&lt;/pre&gt;<br>
+ </span>
+ <hr>
+ </div>
+
+ <h4>Appending/Prepending/Add Elements:</h4><hr>
+ <button class="showSectioBtn" onclick="changeNextElementDisplay(this, this.nextElementSibling)">Show Appending/Prepending/Add Element Examples</button><br>
+ <div style="display:none">   
+ <!-- add to attribute --> 
+ <span>
+  <p>
+  <strong>addToAttribute('style', '; background: black; color: white;', 'after', 'addToAttribute', 'class1', 0)</strong> <br>
+  <strong>addToAttribute('style', '; background: black; color: white;', 'after', 'addToAttributeII', 'class', 1)</strong>
+  </p>
+  <button onclick="toggleButtonSwitch(this);
+   if (this.dataset.togglebuttonswitch == 1) { this.innerHTML = this.innerHTML.replace('Run', 'Reset'); }
+   if (this.dataset.togglebuttonswitch == 0) { this.innerHTML = this.innerHTML.replace('Reset', 'Run'); }      
+  " 
+  data-togglebuttonswitch="0" 
+  data-toggle-X="(
+   function () {
+    addToAttribute('style', '; background: black; color: white;', 'after', 'addToAttribute', 'class1', 0);
+    addToAttribute('style', '; background: black; color: white;', 'after', 'addToAttributeII', 'class', 1);
+   }
+  ) ()" 
+  data-toggle-y="(
+   function () {
+    var keepresetaddToAttribute = document.getElementById('resetaddToAttribute').innerHTML;
+    addToAttribute('class', 'I', 'after', 'addToAttributeI', 'class', 1);
+    document.getElementById('addToAttributeEx').innerHTML = document.getElementById('resetaddToAttribute').innerHTML;
+    document.getElementById('resetaddToAttribute').innerHTML = keepresetaddToAttribute;
+   }
+  ) ()">Run addToAttribute() Function</button><br>
+  <div id="resetaddToAttribute" style="display:none">
+   <div class="addToAttribute" style="text-decoration:underline">Add to attribute.</div>
+   <div class="addToAttributeI" style="text-decoration:underline">Add to attribute.</div>
+   <div class="addToAttributeI" style="text-decoration:underline">Add to attribute.</div>
+   <div class="addToAttributeI" style="text-decoration:underline">Add to attribute.</div>
+  </div>
+  <div id="addToAttributeEx">
+  <div class="addToAttribute" style="text-decoration:underline">Add to attribute.</div>
+   <div class="addToAttributeII" style="text-decoration:underline">Add to attribute.</div>
+   <div class="addToAttributeII" style="text-decoration:underline">Add to attribute.</div>
+   <div class="addToAttributeII" style="text-decoration:underline">Add to attribute.</div>    
+  </div><br>
+ </span>
+ <!-- add html to text --> 
+ <span>
+  <p><strong>addHTMLToText('strong', 'addHTMLToText', 'class1', 'style:: color: blue', 'EXAMPLE')</strong></p>
+  <button onclick="toggleButtonSwitch(this);
+   if (this.dataset.togglebuttonswitch == 1) { this.innerHTML = this.innerHTML.replace('Run', 'Reset'); }
+   if (this.dataset.togglebuttonswitch == 0) { this.innerHTML = this.innerHTML.replace('Reset', 'Run'); }      
+  " 
+  data-togglebuttonswitch="0" 
+  data-toggle-X="addHTMLToText('strong', 'addHTMLToText', 'class1', 'style:: color: blue', 'EXAMPLE')" 
+  data-toggle-y="document.getElementById('addHTMLToTextEx').innerHTML = document.getElementById('resetaddHTMLToText').innerHTML">Run addHTMLToText() Function</button><br>
+  <div id="resetaddHTMLToText" style="display:none">
+   <div class="addHTMLToText">
+  &lt;div class="addHTMLToText"&gt; <br>
+   All instances of EXAMPLE in this tag will be wrapped. <br>
+   EXAMPLE - the left example will change. <br>
+   EXAMPLE: <br>
+   so will the above example text. <br>
+  &lt;/div&gt;
+   </div>
+  </div>
+  <div id="addHTMLToTextEx">
+   <div class="addHTMLToText">
+  &lt;div class="addHTMLToText"&gt; <br>
+   All instances of EXAMPLE in this tag will be wrapped. <br>
+   EXAMPLE - the left example will change. <br>
+   EXAMPLE: <br>
+   so will the above example text. <br>
+  &lt;/div&gt;
+   </div>
+  </div><br>
+ </span>
+ <hr>
+ </div>
+
+ <h4>Changing Elements Examples:</h4><hr>
+ <button class="showSectioBtn" onclick="changeNextElementDisplay(this, this.nextElementSibling)">Show Changing Examples</button><br>   
+ <div style="display:none">
+ <!-- change to uppercase --> 
+ <span>
+  <p><strong>changeToUpperCase(upperCaseVar)</strong><br>
+  var upperCaseVar = "change to uppercase."
+  </p>
+  <button onclick="toggleButtonSwitch(this);
+   if (this.dataset.togglebuttonswitch == 1) { this.innerHTML = this.innerHTML.replace('Run', 'Reset'); }
+   if (this.dataset.togglebuttonswitch == 0) { this.innerHTML = this.innerHTML.replace('Reset', 'Run'); }      
+  " 
+  data-togglebuttonswitch="0" 
+  data-toggle-X="(
+   function() {      
+    var upperCaseVar = 'change to uppercase.';
+    document.getElementById('changeToUpperCaseEx').innerHTML = changeToUpperCase(upperCaseVar);
+   }
+  ) ()" 
+  data-toggle-y="document.getElementById('changeToUpperCaseEx').innerHTML = document.getElementById('resetchangeToUpperCase').innerHTML">Run changeToUpperCase() Function</button><br>
+  <div id="resetchangeToUpperCase" style="display:none">
+
+  </div>
+  <div id="changeToUpperCaseEx">
+
+  </div><br>
+ </span>
+ <!-- change to lowercase --> 
+ <span>
+  <p><strong>changeToLowerCase(upperCaseVar)</strong><br>
+  var lowerCaseVar = "CHANGE TO LOWERCASE."
+  </p>
+  <button onclick="toggleButtonSwitch(this);
+   if (this.dataset.togglebuttonswitch == 1) { this.innerHTML = this.innerHTML.replace('Run', 'Reset'); }
+   if (this.dataset.togglebuttonswitch == 0) { this.innerHTML = this.innerHTML.replace('Reset', 'Run'); }      
+  " 
+  data-togglebuttonswitch="0" 
+  data-toggle-X="(
+   function() {      
+    var lowerCaseVar = 'CHANGE TO LOWERCASE.';
+    document.getElementById('changeToLowerCaseEx').innerHTML = changeToLowerCase(lowerCaseVar);
+   }
+  ) ()" 
+  data-toggle-y="document.getElementById('changeToLowerCaseEx').innerHTML = document.getElementById('resetchangeToLowerCase').innerHTML">Run changeToLowerCase() Function</button><br>
+  <div id="resetchangeToLowerCase" style="display:none">
+
+  </div>
+  <div id="changeToLowerCaseEx">
+
+  </div><br>
+ </span>
+ <!-- change to table I --> 
+ <span>
+  <p><strong>I. changeToTable(2, 'Term,Definition', '_w:n', 'makeTableI', 'id', 1, 'copyTableI', 'id');</strong>    
+  </p>
+  <button onclick="toggleButtonSwitch(this);
+   if (this.dataset.togglebuttonswitch == 1) { this.innerHTML = this.innerHTML.replace('Run', 'Reset'); }
+   if (this.dataset.togglebuttonswitch == 0) { this.innerHTML = this.innerHTML.replace('Reset', 'Run'); }      
+  " 
+  data-togglebuttonswitch="0" 
+  data-toggle-X="
+  (
+   function() {
+    changeToTable(2, 'Term,Definition', '_w:n', 'makeTableI', 'id', 1, 'copyTableI', 'id');
+    document.getElementById('showTableUsedI').style.display = '';
+   }
+  ) ()"
+  data-toggle-y="(
+   function() {
+    document.getElementById('makeTableI').innerHTML = document.getElementById('storeTableI').innerHTML;
+    document.getElementById('showTableUsedI').style.display = 'none';
+    document.getElementById('makeTableI').style.display = 'none';
+    document.getElementById('copyTableI').innerHTML = '';
+   }
+  ) ()">Run changeToTable() Function</button><br>
+  <div id="resetchangeToTable" style="display:none">
+
+  </div>
+  <div id="changeToTableEx">
+    <button id="showTableUsedI" style="display: none" data-sh="0" onclick="showHide(this, this.dataset)">Show HTML Used for table</button>  
+    <div style="display:none"> &lt;div id="makeTableII"&gt;<pre id="storeTableI">
+DICT
+DICT is a dictionary network protocol, it allows clients to ask dictionary servers about a meaning or explanation for words. See RFC 2229. Dict servers and clients use TCP port 2628.
+FILE
+FILE is not actually a "network" protocol. It is a URL scheme that allows you to tell curl to get a file from the local file system instead of getting it over the network from a remote server. See RFC 1738.
+FTP
+FTP stands for File Transfer Protocol and is an old (originates in the early 1970s) way to transfer files back and forth between a client and a server. See RFC 959. It has been extended greatly over the years. FTP servers and clients use TCP port 21 plus one more port, though the second one is usually dynamically established during communication.See the external page FTP vs HTTP for how it differs to HTTP.
+FTPS
+FTPS stands for Secure File Transfer Protocol. It follows the tradition of appending an 'S' to the protocol name to signify that the protocol is done like normal FTP but with an added SSL/TLS security layer. See RFC 4217.This protocol is problematic to use through firewalls and other network equipment.
+GOPHER
+Designed for "distributing, searching, and retrieving documents over the Internet", Gopher is somewhat of the grand father to HTTP as HTTP has mostly taken over completely for the same use cases. See RFC 1436. Gopher servers and clients use TCP port 70.
+GOPHERS
+Gopher over TLS. A recent extension to the old protocol.
+HTTP
+The Hypertext Transfer Protocol, HTTP, is the most widely used protocol for transferring data on the web and over the Internet. See RFC 7230 for HTTP/1.1 and RFC 7540 for HTTP/2. HTTP servers and clients use TCP port 80.
+HTTPS
+Secure HTTP is HTTP done over an SSL/TLS connection. See RFC 2818. HTTPS servers and clients use TCP port 443, unless they speak HTTP/3 which then uses QUIC and is done over UDP.
+IMAP
+The Internet Message Access Protocol, IMAP, is a protocol for accessing, controlling and "reading" email. See RFC 3501. IMAP servers and clients use TCP port 143. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 2595.
+IMAPS
+Secure IMAP is IMAP done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 993 to communicate with each other. See RFC 8314.
+LDAP
+The Lightweight Directory Access Protocol, LDAP, is a protocol for accessing and maintaining distributed directory information. Basically a database lookup. See RFC 4511. LDAP servers and clients use TCP port 389.
+LDAPS
+Secure LDAP is LDAP done over an SSL/TLS connection.
+MQTT
+Message Queuing Telemetry Transport, MQTT, is a protocol commonly used in IoT systems for interchanging data mostly involving smaller devices. It is a so called "publish-subscribe" protocol.
+POP3
+The Post Office Protocol version 3 (POP3) is a protocol for retrieving email from a server. See RFC 1939. POP3 servers and clients use TCP port 110. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STLS command. See RFC 2595.
+POP3S
+Secure POP3 is POP3 done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 995 to communicate with each other. See RFC 8314.
+RTMP
+The Real-Time Messaging Protocol (RTMP) is a protocol for streaming audio, video and data. RTMP servers and clients use TCP port 1935.
+RTSP
+The Real Time Streaming Protocol (RTSP) is a network control protocol to control streaming media servers. See RFC 2326. RTSP servers and clients use TCP and UDP port 554.
+SCP
+The Secure Copy (SCP) protocol is designed to copy files to and from a remote SSH server. SCP servers and clients use TCP port 22.
+SFTP
+The SSH File Transfer Protocol (SFTP) that provides file access, file transfer, and file management over a reliable data stream. SFTP servers and clients use TCP port 22.
+SMB
+The Server Message Block (SMB) protocol is also known as CIFS. It is an application-layer network protocol mainly used for providing shared access to files, printers, and serial ports and miscellaneous communications between nodes on a network. SMB servers and clients use TCP port 445.
+SMBS
+SMB done over TLS.
+SMTP
+The Simple Mail Transfer Protocol (SMTP) is a protocol for email transmission. See RFC 5321. SMTP servers and clients use TCP port 25. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 3207.
+SMTPS
+Secure SMTP, is SMTP done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 465 to communicate with each other. See RFC 8314.
+TELNET
+TELNET is an application layer protocol used over networks to provide a bidirectional interactive text-oriented communication facility using a virtual terminal connection. See RFC 854. TELNET servers and clients use TCP port 23.
+TFTP
+The Trivial File Transfer Protocol (TFTP) is a protocol for doing simple file transfers over UDP to get a file from or put a file onto a remote host. TFTP servers and clients use UDP port 69.
+WS
+WebSocket is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WS is the scheme for the clear text version done over plain HTTP. Experimental support for this was added to curl 7.86.0.
+WSS
+WebSocket is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WSS is the scheme for the secure version done over HTTPS. Experimental support for this was added to curl 7.86.0.       
+    </pre></div>
+    <div style="display:none">
+    <div id="makeTableI" style="display:none">
+DICT
+DICT is a dictionary network protocol, it allows clients to ask dictionary servers about a meaning or explanation for words. See RFC 2229. Dict servers and clients use TCP port 2628.
+FILE
+FILE is not actually a "network" protocol. It is a URL scheme that allows you to tell curl to get a file from the local file system instead of getting it over the network from a remote server. See RFC 1738.
+FTP
+FTP stands for File Transfer Protocol and is an old (originates in the early 1970s) way to transfer files back and forth between a client and a server. See RFC 959. It has been extended greatly over the years. FTP servers and clients use TCP port 21 plus one more port, though the second one is usually dynamically established during communication.See the external page FTP vs HTTP for how it differs to HTTP.
+FTPS
+FTPS stands for Secure File Transfer Protocol. It follows the tradition of appending an 'S' to the protocol name to signify that the protocol is done like normal FTP but with an added SSL/TLS security layer. See RFC 4217.This protocol is problematic to use through firewalls and other network equipment.
+GOPHER
+Designed for "distributing, searching, and retrieving documents over the Internet", Gopher is somewhat of the grand father to HTTP as HTTP has mostly taken over completely for the same use cases. See RFC 1436. Gopher servers and clients use TCP port 70.
+GOPHERS
+Gopher over TLS. A recent extension to the old protocol.
+HTTP
+The Hypertext Transfer Protocol, HTTP, is the most widely used protocol for transferring data on the web and over the Internet. See RFC 7230 for HTTP/1.1 and RFC 7540 for HTTP/2. HTTP servers and clients use TCP port 80.
+HTTPS
+Secure HTTP is HTTP done over an SSL/TLS connection. See RFC 2818. HTTPS servers and clients use TCP port 443, unless they speak HTTP/3 which then uses QUIC and is done over UDP.
+IMAP
+The Internet Message Access Protocol, IMAP, is a protocol for accessing, controlling and "reading" email. See RFC 3501. IMAP servers and clients use TCP port 143. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 2595.
+IMAPS
+Secure IMAP is IMAP done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 993 to communicate with each other. See RFC 8314.
+LDAP
+The Lightweight Directory Access Protocol, LDAP, is a protocol for accessing and maintaining distributed directory information. Basically a database lookup. See RFC 4511. LDAP servers and clients use TCP port 389.
+LDAPS
+Secure LDAP is LDAP done over an SSL/TLS connection.
+MQTT
+Message Queuing Telemetry Transport, MQTT, is a protocol commonly used in IoT systems for interchanging data mostly involving smaller devices. It is a so called "publish-subscribe" protocol.
+POP3
+The Post Office Protocol version 3 (POP3) is a protocol for retrieving email from a server. See RFC 1939. POP3 servers and clients use TCP port 110. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STLS command. See RFC 2595.
+POP3S
+Secure POP3 is POP3 done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 995 to communicate with each other. See RFC 8314.
+RTMP
+The Real-Time Messaging Protocol (RTMP) is a protocol for streaming audio, video and data. RTMP servers and clients use TCP port 1935.
+RTSP
+The Real Time Streaming Protocol (RTSP) is a network control protocol to control streaming media servers. See RFC 2326. RTSP servers and clients use TCP and UDP port 554.
+SCP
+The Secure Copy (SCP) protocol is designed to copy files to and from a remote SSH server. SCP servers and clients use TCP port 22.
+SFTP
+The SSH File Transfer Protocol (SFTP) that provides file access, file transfer, and file management over a reliable data stream. SFTP servers and clients use TCP port 22.
+SMB
+The Server Message Block (SMB) protocol is also known as CIFS. It is an application-layer network protocol mainly used for providing shared access to files, printers, and serial ports and miscellaneous communications between nodes on a network. SMB servers and clients use TCP port 445.
+SMBS
+SMB done over TLS.
+SMTP
+The Simple Mail Transfer Protocol (SMTP) is a protocol for email transmission. See RFC 5321. SMTP servers and clients use TCP port 25. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 3207.
+SMTPS
+Secure SMTP, is SMTP done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 465 to communicate with each other. See RFC 8314.
+TELNET
+TELNET is an application layer protocol used over networks to provide a bidirectional interactive text-oriented communication facility using a virtual terminal connection. See RFC 854. TELNET servers and clients use TCP port 23.
+TFTP
+The Trivial File Transfer Protocol (TFTP) is a protocol for doing simple file transfers over UDP to get a file from or put a file onto a remote host. TFTP servers and clients use UDP port 69.
+WS
+WebSocket is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WS is the scheme for the clear text version done over plain HTTP. Experimental support for this was added to curl 7.86.0.
+WSS
+WebSocket is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WSS is the scheme for the secure version done over HTTPS. Experimental support for this was added to curl 7.86.0.       
+    </div>&lt;/div&gt;
+    </div>
+    <div id="copyTableI"></div>      
+  </div><br>
+ </span>   
+ <!-- change to table II --> 
+ <span>
+  <p><strong>II. changeToTable(2, 'Term,Definition', 'span: ', 'makeTableII', 'id', 1, 'copyTableII', 'id', 'a-:-href-:-https://everything.curl.dev/protocols/curl-:-target-:-_blank-:-rel-:-external::append-:-href-:-anchor-:-innerHTML-:-lc::td0');</strong>    
+  </p>
+  <button onclick="toggleButtonSwitch(this);
+   if (this.dataset.togglebuttonswitch == 1) { this.innerHTML = this.innerHTML.replace('Run', 'Reset'); }
+   if (this.dataset.togglebuttonswitch == 0) { this.innerHTML = this.innerHTML.replace('Reset', 'Run'); }      
+  " 
+  data-togglebuttonswitch="0" 
+  data-toggle-x="
+  (
+   function() {
+    changeToTable(2, 'Term,Definition', 'span: ', 'makeTableII', 'id', 1, 'copyTableII', 'id', 'a-:-href-:-https://everything.curl.dev/protocols/curl-:-target-:-_blank-:-rel-:-external::append-:-href-:-anchor-:-innerHTML-:-lc::td0');
+    document.getElementById('showTableUsedII').style.display = '';
+   }
+  ) ()"
+  data-toggle-y="(
+   function() {
+    document.getElementById('makeTableII').innerHTML = document.getElementById('storeTableII').innerHTML;
+    document.getElementById('showTableUsedII').style.display = 'none';
+    document.getElementById('makeTableII').style.display = 'none';
+    document.getElementById('copyTableII').innerHTML = '';
+   }
+  ) ()">Run changeToTable() Function</button><br>
+  <div id="changeToTableExII">
+    <button id="showTableUsedII" style="display: none" data-sh="0" onclick="changeNextElementDisplay(this, this.nextElementSibling);">Show HTML Used for table</button><br>
+    <div style="display:none">&lt;div id="makeTableI"&gt;
+     <pre>
+
+     &lt;span&gt;
+     DICT DICT is a dictionary network protocol, it allows clients to ask dictionary servers about a meaning or explanation for words. See RFC 2229. Dict servers and clients use TCP port 2628.
+     &lt;/span&gt;
+     &lt;span&gt;
+     FILE FILE is not actually a "network" protocol. It is a URL scheme that allows you to tell curl to get a file from the local file system instead of getting it over the network from a remote server. See RFC 1738.
+     &lt;/span&gt;
+     &lt;span&gt;
+     FTP FTP stands for File Transfer Protocol and is an old (originates in the early 1970s) way to transfer files back and forth between a client and a server. See RFC 959. It has been extended greatly over the years. FTP servers and clients use TCP port 21 plus one more port, though the second one is usually dynamically established during communication.
+     See the external page FTP vs HTTP for how it differs to HTTP.
+     &lt;/span&gt;
+     &lt;span&gt;
+     FTPS FTPS stands for Secure File Transfer Protocol. It follows the tradition of appending an 'S' to the protocol name to signify that the protocol is done like normal FTP but with an added SSL/TLS security layer. See RFC 4217.
+     This protocol is problematic to use through firewalls and other network equipment.
+     &lt;/span&gt;
+     &lt;span&gt;
+     GOPHER Designed for "distributing, searching, and retrieving documents over the Internet", Gopher is somewhat of the grand father to HTTP as HTTP has mostly taken over completely for the same use cases. See RFC 1436. Gopher servers and clients use TCP port 70.
+     &lt;/span&gt;
+     &lt;span&gt;
+     GOPHERS Gopher over TLS. A recent extension to the old protocol.
+     &lt;/span&gt;
+     &lt;span&gt;
+     HTTP The Hypertext Transfer Protocol, HTTP, is the most widely used protocol for transferring data on the web and over the Internet. See RFC 7230 for HTTP/1.1 and RFC 7540 for HTTP/2. HTTP servers and clients use TCP port 80.
+     &lt;/span&gt;
+     &lt;span&gt;
+     HTTPS Secure HTTP is HTTP done over an SSL/TLS connection. See RFC 2818. HTTPS servers and clients use TCP port 443, unless they speak HTTP/3 which then uses QUIC and is done over UDP.
+     &lt;/span&gt;
+     &lt;span&gt;
+     IMAP The Internet Message Access Protocol, IMAP, is a protocol for accessing, controlling and "reading" email. See RFC 3501. IMAP servers and clients use TCP port 143. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 2595.
+     &lt;/span&gt;
+     &lt;span&gt;
+     IMAPS Secure IMAP is IMAP done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 993 to communicate with each other. See RFC 8314.
+     &lt;/span&gt;
+     &lt;span&gt;
+     LDAP The Lightweight Directory Access Protocol, LDAP, is a protocol for accessing and maintaining distributed directory information. Basically a database lookup. See RFC 4511. LDAP servers and clients use TCP port 389.
+     &lt;/span&gt;
+     &lt;span&gt;
+     LDAPS Secure LDAP is LDAP done over an SSL/TLS connection.
+     &lt;/span&gt;
+     &lt;span&gt;
+     MQTT Message Queuing Telemetry Transport, MQTT, is a protocol commonly used in IoT systems for interchanging data mostly involving smaller devices. It is a so called "publish-subscribe" protocol.
+     &lt;/span&gt;
+     &lt;span&gt;
+     POP3 The Post Office Protocol version 3 (POP3) is a protocol for retrieving email from a server. See RFC 1939. POP3 servers and clients use TCP port 110. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STLS command. See RFC 2595.
+     &lt;/span&gt;
+     &lt;span&gt;
+     POP3S Secure POP3 is POP3 done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 995 to communicate with each other. See RFC 8314.
+     &lt;/span&gt;
+     &lt;span&gt;
+     RTMP The Real-Time Messaging Protocol (RTMP) is a protocol for streaming audio, video and data. RTMP servers and clients use TCP port 1935.
+     &lt;/span&gt;
+     &lt;span&gt;
+     RTSP The Real Time Streaming Protocol (RTSP) is a network control protocol to control streaming media servers. See RFC 2326. RTSP servers and clients use TCP and UDP port 554.
+     &lt;/span&gt;
+     &lt;span&gt;
+     SCP The Secure Copy (SCP) protocol is designed to copy files to and from a remote SSH server. SCP servers and clients use TCP port 22.
+     &lt;/span&gt;
+     &lt;span&gt;
+     SFTP The SSH File Transfer Protocol (SFTP) that provides file access, file transfer, and file management over a reliable data stream. SFTP servers and clients use TCP port 22.
+     &lt;/span&gt;
+     &lt;span&gt;
+     SMB The Server Message Block (SMB) protocol is also known as CIFS. It is an application-layer network protocol mainly used for providing shared access to files, printers, and serial ports and miscellaneous communications between nodes on a network. SMB servers and clients use TCP port 445.
+     &lt;/span&gt;
+     &lt;span&gt;
+     SMBS SMB done over TLS.
+     &lt;/span&gt;
+     &lt;span&gt;
+     SMTP The Simple Mail Transfer Protocol (SMTP) is a protocol for email transmission. See RFC 5321. SMTP servers and clients use TCP port 25. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 3207.
+     &lt;/span&gt;
+     &lt;span&gt;
+     SMTPS Secure SMTP, is SMTP done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 465 to communicate with each other. See RFC 8314.
+     &lt;/span&gt;
+     &lt;span&gt;
+     TELNET TELNET is an application layer protocol used over networks to provide a bidirectional interactive text-oriented communication facility using a virtual terminal connection. See RFC 854. TELNET servers and clients use TCP port 23.
+     &lt;/span&gt;
+     &lt;span&gt;
+     TFTP The Trivial File Transfer Protocol (TFTP) is a protocol for doing simple file transfers over UDP to get a file from or put a file onto a remote host. TFTP servers and clients use UDP port 69.
+     &lt;/span&gt;
+     &lt;span&gt;
+     WS WebSocket is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WS is the scheme for the clear text version done over plain HTTP. Experimental support for this was added to curl 7.86.0.
+     &lt;/span&gt;
+     &lt;span&gt;
+     WSS WebSocket is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WSS is the scheme for the secure version done over HTTPS. Experimental support for this was added to curl 7.86.0.
+     &lt;/span&gt;      
+
+     </pre>
+    &lt;/div&gt;
+    <pre id="storeTableII" style="display:none">
+     <span>
+     DICT DICT is a dictionary network protocol, it allows clients to ask dictionary servers about a meaning or explanation for words. See RFC 2229. Dict servers and clients use TCP port 2628.
+     </span>
+     <span>
+     FILE FILE is not actually a "network" protocol. It is a URL scheme that allows you to tell curl to get a file from the local file system instead of getting it over the network from a remote server. See RFC 1738.
+     </span>
+     <span>
+     FTP FTP stands for File Transfer Protocol and is an old (originates in the early 1970s) way to transfer files back and forth between a client and a server. See RFC 959. It has been extended greatly over the years. FTP servers and clients use TCP port 21 plus one more port, though the second one is usually dynamically established during communication.
+     See the external page FTP vs HTTP for how it differs to HTTP.
+     </span>
+     <span>
+     FTPS FTPS stands for Secure File Transfer Protocol. It follows the tradition of appending an 'S' to the protocol name to signify that the protocol is done like normal FTP but with an added SSL/TLS security layer. See RFC 4217.
+     This protocol is problematic to use through firewalls and other network equipment.
+     </span>
+     <span>
+     GOPHER Designed for "distributing, searching, and retrieving documents over the Internet", Gopher is somewhat of the grand father to HTTP as HTTP has mostly taken over completely for the same use cases. See RFC 1436. Gopher servers and clients use TCP port 70.
+     </span>
+     <span>
+     GOPHERS Gopher over TLS. A recent extension to the old protocol.
+     </span>
+     <span>
+     HTTP The Hypertext Transfer Protocol, HTTP, is the most widely used protocol for transferring data on the web and over the Internet. See RFC 7230 for HTTP/1.1 and RFC 7540 for HTTP/2. HTTP servers and clients use TCP port 80.
+     </span>
+     <span>
+     HTTPS Secure HTTP is HTTP done over an SSL/TLS connection. See RFC 2818. HTTPS servers and clients use TCP port 443, unless they speak HTTP/3 which then uses QUIC and is done over UDP.
+     </span>
+     <span>
+     IMAP The Internet Message Access Protocol, IMAP, is a protocol for accessing, controlling and "reading" email. See RFC 3501. IMAP servers and clients use TCP port 143. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 2595.
+     </span>
+     <span>
+     IMAPS Secure IMAP is IMAP done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 993 to communicate with each other. See RFC 8314.
+     </span>
+     <span>
+     LDAP The Lightweight Directory Access Protocol, LDAP, is a protocol for accessing and maintaining distributed directory information. Basically a database lookup. See RFC 4511. LDAP servers and clients use TCP port 389.
+     </span>
+     <span>
+     LDAPS Secure LDAP is LDAP done over an SSL/TLS connection.
+     </span>
+     <span>
+     MQTT Message Queuing Telemetry Transport, MQTT, is a protocol commonly used in IoT systems for interchanging data mostly involving smaller devices. It is a so called "publish-subscribe" protocol.
+     </span>
+     <span>
+     POP3 The Post Office Protocol version 3 (POP3) is a protocol for retrieving email from a server. See RFC 1939. POP3 servers and clients use TCP port 110. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STLS command. See RFC 2595.
+     </span>
+     <span>
+     POP3S Secure POP3 is POP3 done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 995 to communicate with each other. See RFC 8314.
+     </span>
+     <span>
+     RTMP The Real-Time Messaging Protocol (RTMP) is a protocol for streaming audio, video and data. RTMP servers and clients use TCP port 1935.
+     </span>
+     <span>
+     RTSP The Real Time Streaming Protocol (RTSP) is a network control protocol to control streaming media servers. See RFC 2326. RTSP servers and clients use TCP and UDP port 554.
+     </span>
+     <span>
+     SCP The Secure Copy (SCP) protocol is designed to copy files to and from a remote SSH server. SCP servers and clients use TCP port 22.
+     </span>
+     <span>
+     SFTP The SSH File Transfer Protocol (SFTP) that provides file access, file transfer, and file management over a reliable data stream. SFTP servers and clients use TCP port 22.
+     </span>
+     <span>
+     SMB The Server Message Block (SMB) protocol is also known as CIFS. It is an application-layer network protocol mainly used for providing shared access to files, printers, and serial ports and miscellaneous communications between nodes on a network. SMB servers and clients use TCP port 445.
+     </span>
+     <span>
+     SMBS SMB done over TLS.
+     </span>
+     <span>
+     SMTP The Simple Mail Transfer Protocol (SMTP) is a protocol for email transmission. See RFC 5321. SMTP servers and clients use TCP port 25. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 3207.
+     </span>
+     <span>
+     SMTPS Secure SMTP, is SMTP done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 465 to communicate with each other. See RFC 8314.
+     </span>
+     <span>
+     TELNET TELNET is an application layer protocol used over networks to provide a bidirectional interactive text-oriented communication facility using a virtual terminal connection. See RFC 854. TELNET servers and clients use TCP port 23.
+     </span>
+     <span>
+     TFTP The Trivial File Transfer Protocol (TFTP) is a protocol for doing simple file transfers over UDP to get a file from or put a file onto a remote host. TFTP servers and clients use UDP port 69.
+     </span>
+     <span>
+     WS WebSocket is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WS is the scheme for the clear text version done over plain HTTP. Experimental support for this was added to curl 7.86.0.
+     </span>
+     <span>
+     WSS WebSocket is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WSS is the scheme for the secure version done over HTTPS. Experimental support for this was added to curl 7.86.0.
+     </span>      
+    </pre>      
+    </div>
+    <div id="makeTableII" style="display:none">
+     <span>
+     DICT DICT is a dictionary network protocol, it allows clients to ask dictionary servers about a meaning or explanation for words. See RFC 2229. Dict servers and clients use TCP port 2628.
+     </span>
+     <span>
+     FILE FILE is not actually a "network" protocol. It is a URL scheme that allows you to tell curl to get a file from the local file system instead of getting it over the network from a remote server. See RFC 1738.
+     </span>
+     <span>
+     FTP FTP stands for File Transfer Protocol and is an old (originates in the early 1970s) way to transfer files back and forth between a client and a server. See RFC 959. It has been extended greatly over the years. FTP servers and clients use TCP port 21 plus one more port, though the second one is usually dynamically established during communication.
+     See the external page FTP vs HTTP for how it differs to HTTP.
+     </span>
+     <span>
+     FTPS FTPS stands for Secure File Transfer Protocol. It follows the tradition of appending an 'S' to the protocol name to signify that the protocol is done like normal FTP but with an added SSL/TLS security layer. See RFC 4217.
+     This protocol is problematic to use through firewalls and other network equipment.
+     </span>
+     <span>
+     GOPHER Designed for "distributing, searching, and retrieving documents over the Internet", Gopher is somewhat of the grand father to HTTP as HTTP has mostly taken over completely for the same use cases. See RFC 1436. Gopher servers and clients use TCP port 70.
+     </span>
+     <span>
+     GOPHERS Gopher over TLS. A recent extension to the old protocol.
+     </span>
+     <span>
+     HTTP The Hypertext Transfer Protocol, HTTP, is the most widely used protocol for transferring data on the web and over the Internet. See RFC 7230 for HTTP/1.1 and RFC 7540 for HTTP/2. HTTP servers and clients use TCP port 80.
+     </span>
+     <span>
+     HTTPS Secure HTTP is HTTP done over an SSL/TLS connection. See RFC 2818. HTTPS servers and clients use TCP port 443, unless they speak HTTP/3 which then uses QUIC and is done over UDP.
+     </span>
+     <span>
+     IMAP The Internet Message Access Protocol, IMAP, is a protocol for accessing, controlling and "reading" email. See RFC 3501. IMAP servers and clients use TCP port 143. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 2595.
+     </span>
+     <span>
+     IMAPS Secure IMAP is IMAP done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 993 to communicate with each other. See RFC 8314.
+     </span>
+     <span>
+     LDAP The Lightweight Directory Access Protocol, LDAP, is a protocol for accessing and maintaining distributed directory information. Basically a database lookup. See RFC 4511. LDAP servers and clients use TCP port 389.
+     </span>
+     <span>
+     LDAPS Secure LDAP is LDAP done over an SSL/TLS connection.
+     </span>
+     <span>
+     MQTT Message Queuing Telemetry Transport, MQTT, is a protocol commonly used in IoT systems for interchanging data mostly involving smaller devices. It is a so called "publish-subscribe" protocol.
+     </span>
+     <span>
+     POP3 The Post Office Protocol version 3 (POP3) is a protocol for retrieving email from a server. See RFC 1939. POP3 servers and clients use TCP port 110. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STLS command. See RFC 2595.
+     </span>
+     <span>
+     POP3S Secure POP3 is POP3 done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 995 to communicate with each other. See RFC 8314.
+     </span>
+     <span>
+     RTMP The Real-Time Messaging Protocol (RTMP) is a protocol for streaming audio, video and data. RTMP servers and clients use TCP port 1935.
+     </span>
+     <span>
+     RTSP The Real Time Streaming Protocol (RTSP) is a network control protocol to control streaming media servers. See RFC 2326. RTSP servers and clients use TCP and UDP port 554.
+     </span>
+     <span>
+     SCP The Secure Copy (SCP) protocol is designed to copy files to and from a remote SSH server. SCP servers and clients use TCP port 22.
+     </span>
+     <span>
+     SFTP The SSH File Transfer Protocol (SFTP) that provides file access, file transfer, and file management over a reliable data stream. SFTP servers and clients use TCP port 22.
+     </span>
+     <span>
+     SMB The Server Message Block (SMB) protocol is also known as CIFS. It is an application-layer network protocol mainly used for providing shared access to files, printers, and serial ports and miscellaneous communications between nodes on a network. SMB servers and clients use TCP port 445.
+     </span>
+     <span>
+     SMBS SMB done over TLS.
+     </span>
+     <span>
+     SMTP The Simple Mail Transfer Protocol (SMTP) is a protocol for email transmission. See RFC 5321. SMTP servers and clients use TCP port 25. Whilst connections to the server start out as cleartext, SSL/TLS communication may be supported by the client explicitly requesting to upgrade the connection using the STARTTLS command. See RFC 3207.
+     </span>
+     <span>
+     SMTPS Secure SMTP, is SMTP done over an SSL/TLS connection. Such connections implicitly start out using SSL/TLS and as such servers and clients use TCP port 465 to communicate with each other. See RFC 8314.
+     </span>
+     <span>
+     TELNET TELNET is an application layer protocol used over networks to provide a bidirectional interactive text-oriented communication facility using a virtual terminal connection. See RFC 854. TELNET servers and clients use TCP port 23.
+     </span>
+     <span>
+     TFTP The Trivial File Transfer Protocol (TFTP) is a protocol for doing simple file transfers over UDP to get a file from or put a file onto a remote host. TFTP servers and clients use UDP port 69.
+     </span>
+     <span>
+     WS WebSocket is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WS is the scheme for the clear text version done over plain HTTP. Experimental support for this was added to curl 7.86.0.
+     </span>
+     <span>
+     WSS WebSocket is a bidirectional TCP-like protocol, setup over an HTTP(S) request. WSS is the scheme for the secure version done over HTTPS. Experimental support for this was added to curl 7.86.0.
+     </span>
+  </div>        
+    <div id="copyTableII"></div>      
+  </div><br>
+ </span>
+ <!-- change next element display --> 
+ <span>
+  <p><strong>changeNextElementDisplay(this, this.nextElementSibling)</strong></p>
+  <button onclick="toggleButtonSwitch(this);
+   if (this.dataset.togglebuttonswitch == 1) { this.innerHTML = this.innerHTML.replace('Run', 'Reset'); }
+   if (this.dataset.togglebuttonswitch == 0) { this.innerHTML = this.innerHTML.replace('Reset', 'Run'); }           
+  " 
+  data-togglebuttonswitch="0" 
+  data-toggle-X="(
+   function() {    
+    document.getElementById('runChangeNextElementDisplay').click();
+    document.getElementById('changeNextElementDisplayEx').innerHTML = '&lt; button onclick=\'changeNextElementDisplay(this, this.nextElementSibling)\' &gt;' +
+    'Run changeNextElementDisplay() Function&lt; /button&gt;' + '<br>' +
+    '&lt; div style=\'display:none\' &gt;...&lt; /div&gt;';
+   }
+  ) ()" 
+  data-toggle-y="(
+   function() {
+    document.getElementById('runChangeNextElementDisplay').click();
+    document.getElementById('changeNextElementDisplayEx').innerHTML = ''
+   }
+  ) ()">Run changeNextElementDisplay() Function</button><br>
+  <button id="runChangeNextElementDisplay" style="display:none" onclick="changeNextElementDisplay(this, this.nextElementSibling);"></button>
+  <div id="resetchangeNextElementDisplay" style="display:none">
+   This is the next element that was hidden. Below is the html semantics.
+  </div>
+  <div id="changeNextElementDisplayEx">
+
+  </div><br>
+ </span>
+ <hr>
+ </div>
+
+ <h4>Miscellaneous Function Examples:</h4><hr>
+ <button class="showSectioBtn" onclick="changeNextElementDisplay(this, this.nextElementSibling)">Show Miscellaneous Function Examples</button><br>   
+ <div style="display:none">
+  <!-- output text file --> 
+  <span>
+   <p>
+   <strong>outputTextFile('text.txt', 'outputText', 'id', 'text')</strong><br>
+   <strong>outputTextFile('text.txt', 'outputTextII', 'id', 'html')</strong>
+   </p>
+   <button onclick="toggleButtonSwitch(this);
+    if (this.dataset.togglebuttonswitch == 1) { this.innerHTML = this.innerHTML.replace('Run', 'Reset'); }
+    if (this.dataset.togglebuttonswitch == 0) { this.innerHTML = this.innerHTML.replace('Reset', 'Run'); }      
+   " 
+   data-togglebuttonswitch="0" 
+   data-toggle-X="(
+    function() {
+     outputTextFile('support/TextFile.txt', 'outputText', 'id', 'text');
+     outputTextFile('support/TextFile.txt', 'outputTextII', 'id', 'html');
+    }
+   ) ()" 
+   data-toggle-y="(
+    function() {
+     document.getElementById('outputText').innerHTML = document.getElementById('resetoutputText').innerHTML;
+     document.getElementById('outputTextII').innerHTML = document.getElementById('resetoutputText').innerHTML;
+    }
+   ) ()">Run outputTextFile() Function</button><br>
+   <div id="resetoutputText" style="display:none">
+
+   </div>
+   <div id="outputText">
+
+   </div><br>
+   <div id="outputTextII">
+
+   </div><br>
+  </span>
+ <!-- copy text --> 
+ <span>
+  <p id="print"></p>
+  <p><strong>copyText('copiedText', 'id', 'html')</strong></p>
+  <button onclick="toggleButtonSwitch(this);
+   if (this.dataset.togglebuttonswitch == 1) { this.innerHTML = this.innerHTML.replace('Run', 'Reset'); }
+   if (this.dataset.togglebuttonswitch == 0) { this.innerHTML = this.innerHTML.replace('Reset', 'Run'); }      
+  " 
+  data-togglebuttonswitch="0" 
+  data-toggle-X="(
+   function() {
+    document.getElementById('copiedText').innerHTML = document.getElementById('resetcopyText').innerHTML;
+    copyText('copiedText', 'id', 'html');
+    print.innerHTML += '<br><strong>Paste below text below:</strong><br>';
+    printTextArea = document.createElement('textarea');
+    printTextArea.width = '300px';
+    printTextArea.height = '300px';
+    print.appendChild(printTextArea);      
+   }
+  ) ()" 
+  data-toggle-y="(
+   function() {
+    document.getElementById('copiedText').innerHTML = '';
+    document.getElementById('print').innerHTML = '';
+   }
+  ) ()">Run copyText() Function</button><br>
+  <div id="resetcopyText" style="display:none">
+  This is an article with an id attibutes copiedText.
+  </div>
+  <article id="copiedText"></article><br>
+ </span>
+ <!-- show term title with link --> 
+ <span>
+  <p><strong>showTermTitleWithLink(this, this.dataset, this.dataset.title)</strong></p>
+  <button onclick="toggleButtonSwitch(this);
+   if (this.dataset.togglebuttonswitch == 1) { this.innerHTML = this.innerHTML.replace('Run', 'Reset'); }
+   if (this.dataset.togglebuttonswitch == 0) { this.innerHTML = this.innerHTML.replace('Reset', 'Run'); }      
+  " 
+  data-togglebuttonswitch="0" 
+  data-toggle-X="(
+   function() {
+    document.getElementById('showTermTitleWithLinkExI').setAttribute('onmouseover','showTermTitleWithLink(this, this.dataset, this.dataset.title)');       
+   }
+  ) ()" 
+  data-toggle-y="(
+   function() {      
+    var storeResetShowTermTitleWithLink = document.getElementById('resetshowTermTitleWithLink').innerHTML;
+    addToAttribute('id', 'I', 'after', 'showTermTitleWithLinkEx', 'id', 0);
+    document.getElementById('showTermTitleWithLinkExTag').innerHTML = document.getElementById('resetshowTermTitleWithLink').innerHTML;
+    document.getElementById('resetshowTermTitleWithLink').innerHTML = storeResetShowTermTitleWithLink;
+   }
+  ) ()">Run showTermTitleWithLink() Function</button><br>
+  <div id="resetshowTermTitleWithLink" style="display:none">
+   <div id="showTermTitleWithLinkEx" 
+    title="Use showTermTitleWithLink example to see function use. <br>Git is used to store the source code for a project and track the complete history of all changes to that code. It lets developers collaborate on a project more ::https://gitHub.com">gitHub</div>
+  </div>
+  <div id="showTermTitleWithLinkExTag">
+   <div id="showTermTitleWithLinkExI" 
+    title="Use showTermTitleWithLink example to see function use. <br>Git is used to store the source code for a project and track the complete history of all changes to that code. It lets developers collaborate on a project more ::https://gitHub.com">gitHub</div>
+  </div><br>
+ </span>
+ <!-- find array max --> 
+ <span>
+  <p>
+  <strong>findArrayMax(arrayWithMaxOrMin)</strong><br>
+  var arrayWithMaxOrMin = <br>
+    [45, [30, 20, 2, 21], 13, 63, 72, 20, [84, [<strong>1000</strong>, 49, 98, [86, <strong>1</strong>]]], 35, [47,90], 100, [[90, 40, 17], [[8, 5, 2], [[50, 67], [73, 85]]]]];
+  </p>
+  <button onclick="toggleButtonSwitch(this);
+   if (this.dataset.togglebuttonswitch == 1) { this.innerHTML = this.innerHTML.replace('Run', 'Reset'); }
+   if (this.dataset.togglebuttonswitch == 0) { this.innerHTML = this.innerHTML.replace('Reset', 'Run'); }      
+  " 
+  data-togglebuttonswitch="0" 
+  data-toggle-X="(
+   function() {
+    var arrayWithMaxOrMin = [45, [30, 20, 2, 21], 13, 63, 72, 20, [84, [1000, 49, 98, [86, 1]]], 35, [47,90], 100, [[90, 40, 17], [[8, 5, 2], [[50, 67], [73, 85]]]]];
+    document.getElementById('findArrayMaxEx').innerHTML = findArrayMax(arrayWithMaxOrMin);
+   }
+  ) ()" 
+  data-toggle-y="document.getElementById('findArrayMaxEx').innerHTML = document.getElementById('resetfindArrayMax').innerHTML">Run findArrayMax() Function</button><br>
+  <div id="resetfindArrayMax" style="display:none">
+
+  </div>
+  <div id="findArrayMaxEx">
+
+  </div><br>
+ </span>
+ <!-- find array min --> 
+ <span>
+  <p>
+  <strong>findArrayMin(arrayWithMaxOrMin)</strong><br>
+  var arrayWithMaxOrMin = [45, [30, 20, 2, 21], 13, 63, 72, 20, [84, [1000, 49, 98, [86, 1]]], 35, [47,90], 100, [[90, 40, 17], [[8, 5, 2], [[50, 67], [73, 85]]]]];
+  </p>
+  <button onclick="toggleButtonSwitch(this);
+   if (this.dataset.togglebuttonswitch == 1) { this.innerHTML = this.innerHTML.replace('Run', 'Reset'); }
+   if (this.dataset.togglebuttonswitch == 0) { this.innerHTML = this.innerHTML.replace('Reset', 'Run'); }      
+  " 
+  data-togglebuttonswitch="0" 
+  data-toggle-X="(
+   function() {
+    var arrayWithMaxOrMin = [45, [30, 20, 2, 21], 13, 63, 72, 20, [84, [1000, 49, 98, [86, 1]]], 35, [47,90], 100, [[90, 40, 17], [[8, 5, 2], [[50, 67], [73, 85]]]]];
+    document.getElementById('findArrayMinEx').innerHTML = findArrayMin(arrayWithMaxOrMin);     
+   }
+  ) ()" 
+  data-toggle-y="document.getElementById('findArrayMinEx').innerHTML = document.getElementById('resetfindArrayMin').innerHTML">Run findArrayMin() Function</button><br>
+  <div id="resetfindArrayMin" style="display:none">
+
+  </div>
+  <div id="findArrayMinEx">
+
+  </div><br>
+ </span>
+ <!-- toggle button switch --> 
+ <span>
+  <p><strong>toggleButtonSwitch(cur, curRun)</strong></p>
+  <button onclick="toggleButtonSwitch(this);
+   if (this.dataset.togglebuttonswitch == 1) { this.innerHTML = this.innerHTML.replace('Run', 'Reset'); }
+   if (this.dataset.togglebuttonswitch == 0) { this.innerHTML = this.innerHTML.replace('Reset', 'Run'); }      
+  " 
+  data-togglebuttonswitch="0" 
+  data-toggle-X="(
+   function() {
+    document.getElementById('resettoggleButtonSwitch').style.display = '';
+    alert('Function run ONE has run.');          
+   }
+  ) ()" 
+  data-toggle-y="(
+   function() {
+    document.getElementById('resettoggleButtonSwitch').style.display = 'none';
+    alert('Function TWO has gone to.');              
+   }
+  ) ()">Run toggleButtonSwitch() Function</button><br>
+  <div id="resettoggleButtonSwitch" style="display:none">
+   <h5>HTML SEMANTICS</h5>
+   <pre>
+   <script style="display:block">
+   /* 
+  <button onclick="toggleButtonSwitch(this);
+   if (this.dataset.togglebuttonswitch == 1) { this.innerHTML = this.innerHTML.replace('Run', 'Reset'); }
+   if (this.dataset.togglebuttonswitch == 0) { this.innerHTML = this.innerHTML.replace('Reset', 'Run'); }      
+  " 
+  data-togglebuttonswitch="0" 
+  data-toggle-X="(
+   function() {
+    document.getElementById('resettoggleButtonSwitch').style.display = '';
+    alert('Function run ONE has run.');          
+   }
+  ) ()" 
+  data-toggle-y="(
+   function() {
+    document.getElementById('resettoggleButtonSwitch').style.display = '';
+    alert('Function TWO has gone to.');              
+   }
+  ) ()">Run toggleButtonSwitch() Function</button>     
+   */
+   </script>
+   </pre>
+  </div>
+  <div id="toggleButtonSwitchEx">
+
+  </div><br>
+ </span>
+  <hr>
+ </div>
+ <br>
 </div>
 
 
@@ -403,9 +1242,9 @@ var toChangeToLowerCase = "THE WORDS IN THIS VARIABLE WILL BE CHANGED TO LOWER C
 var print = document.getElementById('print');
 var ExampleSelection = document.getElementById("ExampleSelection");
 var printTextArea;
-var showVarUsed = document.getElementById("showVarUsed");
-var varUsed = document.getElementById("varUsed");
-showVarUsed.innerHTML = varUsed.innerHTML;
+//var showVarUsed = document.getElementById("showVarUsed");
+//var varUsed = document.getElementById("varUsed");
+//showVarUsed.innerHTML = varUsed.innerHTML;
 function resetHTML(reset, resetData) {
  if (reset == 0) {
   resetData.show = 1;

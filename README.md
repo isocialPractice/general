@@ -44,20 +44,23 @@ General scripts, snippets, and tools. The functions are meant to be lightweight,
 3. <strong>removeExcessSpace</strong>: Number - 1 = remove excess, 0 = do not remove excess space.
    <em>NOTE</em> - excess space is considered more than one space character.
    
-<strong>removeLastWord</strong>(<em>word</em>, <em>parElement</em>, <em>parElementIdentifier</em>)
+<strong>removeLastWord</strong>(<em>word</em>, <em>parElement</em>, <em>parElementIdentifier</em>, <em>ignoreCase</em>)
 1. <strong>word</strong>: String - the word to remove.
 2. <strong>parElement</strong>: String - the parent element by name of id, tag, class, or data-attribute.
 3. <strong>parElementIdentifier</strong>: String - acceptable values are:  
    a. "id" - default   
    b. "tag\[indexNumber\]" e.g. "tag2" gets the tag at index 2 as if array.   
    c. "class\[indexNumber\]" e.g. "className1" gets the class at index 1 as if array.   
-   d. "data\[indexNumber\]" e.g. "name0" gets the data-name at index 0 as if array.    
+   d. "data\[indexNumber\]" e.g. "name0" gets the data-name at index 0 as if array.
+4. <strong>ignoreCase</strong>: Number - default is 0.
+   a. 1 - ignore the case of the word.
+   b. 0 - match exactly (if blank, defaults to this).
 
 <strong>removeLastWordInVariable</strong>(<em>variableWithWord</em>, <em>word</em>)
 1. <strong>variableWithWord</strong>: variable - the variable with value.
 2. <strong>word</strong>: String - the word that will be removed.
 
-<strong>removeAttribute</strong>(<em>attribute</em>, <em>parElement</em>, <em>parElementIdentifier</em>)
+<strong>removeHTMLAttribute</strong>(<em>attribute</em>, <em>parElement</em>, <em>parElementIdentifier</em>)
 1. <strong>attribute</strong>: String - the attribute that will be removed.
 2. <strong>parElement</strong>: String - the parent element by name of id, tag, class, or data-attribute.
 3. <strong>parElementIdentifier</strong>: String - acceptable values are:  
@@ -119,9 +122,10 @@ General scripts, snippets, and tools. The functions are meant to be lightweight,
 ## Appending/Prepending/Add Elements
 <strong>addToAttribute</strong>(<em>attribute</em>, <em>addWhat</em>, <em>addWhere</em>, <em>curElement</em>, <em>curElementIdentifier</em>, <em>usingAll</em>)
 1. <strong>attribute</strong>: String - the attribute name.
-2. <strong>addWhere</strong>: String - "before" or "after".
-3. <strong>curElement</strong>: String - the element by name of id, tag, class, or data-<strong>attribute</strong>.
-4. <strong>curElementIdentifier</strong>: String - acceptable values are:
+2. <strong>addWhat</strong>: String - what is added to the attribute.
+3. <strong>addWhere</strong>: String - "before" or "after".
+4. <strong>curElement</strong>: String - the element by name of id, tag, class, or data-<strong>attribute</strong>.
+5. <strong>curElementIdentifier</strong>: String - acceptable values are:
    a. "id" - default
    b. "tag\[indexNumber\]" e.g. "tag1" gets the tag at index 1 as if array.
       <strong><em>NOTE</em></strong> - indexNumber is not necessary if <strong>usingAll</strong> is set to 1.
@@ -129,7 +133,7 @@ General scripts, snippets, and tools. The functions are meant to be lightweight,
       <strong><em>NOTE</em></strong> - indexNumber is not necessary if <strong>usingAll</strong> is set to 1.
    d. "data\[indexNumber\]" e.g. "name1" gets the data-name at index 1 as if array.
       <strong><em>NOTE</em></strong> - indexNumber is not necessary if <strong>usingAll</strong> is set to 1.
-5. <strong>usingAll</strong>: Number - 0 (default) for only one attribute, and 1 for all matching attributes.
+6. <strong>usingAll</strong>: Number - 0 (default) for only one attribute, and 1 for all matching attributes.
    <strong><em>NOTE</em></strong> - if set to "0", the curElementIdentifier requires <strong>indexNumber</strong> appended at end.
    
 <strong>addHTMLToText</strong>(<em>tag</em>, <em>parElement</em>, <em>parElementIdentifier</em>, <em>attributes</em>, <em>wrapWords</em>)
@@ -154,14 +158,14 @@ General scripts, snippets, and tools. The functions are meant to be lightweight,
 
 <strong>changeToTable</strong>(<em>colNumber</em>, <em>colTitles</em>, <em>extractTags</em>, <em>parElement</em>, <em>parElementIdentifier</em>, <em>relocate</em>, <em>relocateElement</em>, <em>relocateElementIdentifier</em>, <em>addHTML</em>)
 1. <strong>colNumber</strong>: Number - the number of columns the table will have.
-2. <strong>colTitles</strong>: 
+2. <strong>colTitles</strong>: String - the title of table columns. Follows two patterns:   
    a. String - the heading for each column. Separate each heading with a comma.
    b. Reserved - use either "_href_" or "_:href_"
       - <strong>_href_</strong> - use with "addHTML" setting last item after "::" character to "td\[indexWhereAdded\]_:_td\[indexWhichIsAdded].
-         This will change the column name to "Link" and the attribute to "td" at index "indexWhereAdded" to value of "td" at "indexWhichIsAdded".
+        This will change the column name to "Link" and the attribute to "td" at index "indexWhereAdded" to value of "td" at "indexWhichIsAdded".
       - <strong>_:href_</strong> - use with "addHTML" setting last item after "::" character to "td\[indexWhereAdded\]_:_td\[indexWhichIsAdded]. 
-         This will remove the column at "indexWhichIsAdded", and add the attribute to "td" at index "indexWhereAdded" to value of "td" at "indexWhichIsAdded".
-3. <strong>extractTags</strong>: String - follows two patterns:
+        This will remove the column at "indexWhichIsAdded", and add the attribute to "td" at index "indexWhereAdded" to value of "td" at "indexWhichIsAdded".
+3. <strong>extractTags</strong>: String - follows two patterns:  
    a. Tag Name - the tag(s) within the parent element that nests text. 
       <strong>NOTE</strong> - Currently only accepts one tag followed by a separator that marks where a column ends for each row.
    b. Begins with "<strong>_</strong>" - when using primitive text with no tag pattern begin with "_" character followed by "w". For example:
@@ -183,8 +187,8 @@ General scripts, snippets, and tools. The functions are meant to be lightweight,
    b. "tag\[indexNumber\]" e.g. "tag2" relocates to the tag at index 2 as if array.   
    c. "class\[indexNumber\]" e.g. "className1" relocates to the class at index 1 as if array.   
    d. "data\[indexNumber\]" e.g. "name0" relocates to the data-name at index 0 as if array.
-9. <strong>addHTML</strong>: String; String = html element, add items, adding where. 
-   - Example use:
+9. <strong>addHTML</strong>: String; String = html element, add items, adding where.  
+   - Example use:  
    a. "a-:-href-:-https ://site.com-:-target-:-_blank-:-rel-:-external::append-:-href-:-anchor-:-innerHTML-:-lc::td0"
       - Here "&lt;a&gt;" tag added with "href", "target", and "rel" attribute with values followed by "-:-" characters. Then appendsed to the href is an anchor link with value of the innerHTML of "&lt;td&gt;"  at index 0.
    b. "a-:-href-:-append-:-target-:-_blank-:-rel-:-external::td0_:_td2"
@@ -196,11 +200,9 @@ General scripts, snippets, and tools. The functions are meant to be lightweight,
 <strong>NOTE</strong> - using only <strong>changeToTable()</strong> with no arguments will also work, but additionally; <em><strong>NOTE</strong></em> that the parent element with highest length will be converted to table.
 
 <hr><hr>
-
 ### changeToTable Example:
 The <strong>changeToTable</strong> function example page below.
-[Change To Table Example](https://nobedee.github.io/htmlpreview.github.com/?https://github.com/isocialPractice/general/blob/main/changeToTableExample.html)
-
+[Change To Table Example](https://nobedee.github.io/htmlpreview.github.com/?https://github.com/isocialPractice/general/blob/main/changeToTableExample.html)  
 <hr><hr>
 
 <strong>changeNextElementDisplay</strong>(<em>cur</em>, <em>curEl</em>)
@@ -230,7 +232,7 @@ onclick="changeNextElementDisplay(this, this.nextElementSibling)"
    d. "data\[indexNumber\]" e.g. "name0" gets the data-name at index 0 as if array.   
 3. <strong>copyWhat</strong>: String - acceptable values are:   
    a. "text" - default | gets the parent elements "innerText" value.   
-   b. "html" - gets the parent elements "innerHTML" value.
+   b. "html" - gets the parent elements "innerHTML" value.  
    
 <strong>showTermTitleWithLink</strong>(<em>cur</em>, <em>curData</em>, <em>curTitle</em>) 
 1. <strong>this</strong>: Required constant argument - this
@@ -246,17 +248,38 @@ Options are controlled with the <strong>title</strong> attribute. Enter function
 ```markdown
 onmouseover="showTermTitleWithLink(this, this.dataset, this.dataset.title)" title="Change the definition. ::https ://change_source_linke.com"
 ```
-<strong>NOTE</strong> - mind indexes if using below example.
+<strong>NOTE</strong> - mind indexes if using below example.  
 ```markdown
 onmouseover="showTermTitleWithLink(this, this.dataset, this.dataset.title)" title="Change the definition.:: One\[0\], two\[1\]::https ://changelink1.com -:- https ://changelink2.com"
 ```
-
+<hr><hr>
 ### showTermTitleWithLink Example:
 The <strong>showTermTitleWithLink</strong> function example page below.
-[Show Term Title With Link Example](https://nobedee.github.io/htmlpreview.github.com/?https://github.com/isocialPractice/general/blob/main/showTermTitleWithLinkExample.html)
+[Show Term Title With Link Example](https://nobedee.github.io/htmlpreview.github.com/?https://github.com/isocialPractice/general/blob/main/showTermTitleWithLinkExample.html)  
+<hr><hr>
 
 <strong>findArrayMax</strong>(<em>arr</em>)
 1. <strong>arr</strong>: Array Object - required array. Can take nested arrays.
 
 <strong>findArrayMin</strong>(<em>arr</em>)
 1. <strong>arr</strong>: Array Object - required array. Can take nested arrays.
+
+<strong>toggleButtonSwitch</strong>(<em>cur</em>, <em>curRun</em>)  
+1. <strong>cur</strong>: required - set to "this".  
+2. <strong>curRun</strong>: mute - do not set in html onclick attribute. Instead set the function(s) as such:  
+   a. data-toggle-x="oneFunction()"  
+   <strong>IMPORTANT</strong> - do not add ";" at end.  
+   A. data-toggle-x="( <br>
+     function () {  
+      oneAFunction();  
+      oneBFucntion();  
+     }  
+   ) ()"   
+   b. data-toggle-y="twoFunction()"  
+   <strong>IMPORTANT</strong> - do not add ";" at end.  
+   B. data-toggle-y="( <br>
+     function () {   
+      twoAFunction();
+      twoBFunction();
+     }
+   ) ()"
