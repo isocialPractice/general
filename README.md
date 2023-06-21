@@ -199,11 +199,11 @@ General scripts, snippets, and tools. The functions are meant to be lightweight,
 
 <strong>NOTE</strong> - using only <strong>changeToTable()</strong> with no arguments will also work, but additionally; <em><strong>NOTE</strong></em> that the parent element with highest length will be converted to table.
 
-<hr><hr>
+<hr><hr>   
 ### changeToTable Example:
 The <strong>changeToTable</strong> function example page below.
 [Change To Table Example](https://nobedee.github.io/htmlpreview.github.com/?https://github.com/isocialPractice/general/blob/main/changeToTableExample.html)  
-<hr><hr>
+<hr><hr>   
 
 <strong>changeNextElementDisplay</strong>(<em>cur</em>, <em>curEl</em>)
 1. <strong>cur</strong>: Keyword - use the keyword "this".
