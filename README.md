@@ -200,9 +200,11 @@ General scripts, snippets, and tools. The functions are meant to be lightweight,
 <strong>NOTE</strong> - using only <strong>changeToTable()</strong> with no arguments will also work, but additionally; <em><strong>NOTE</strong></em> that the parent element with highest length will be converted to table.
 
 <hr><hr>   
+
 ### changeToTable Example:
 The <strong>changeToTable</strong> function example page below.
 [Change To Table Example](https://nobedee.github.io/htmlpreview.github.com/?https://github.com/isocialPractice/general/blob/main/changeToTableExample.html)  
+
 <hr><hr>   
 
 <strong>changeNextElementDisplay</strong>(<em>cur</em>, <em>curEl</em>)
@@ -253,9 +255,11 @@ onmouseover="showTermTitleWithLink(this, this.dataset, this.dataset.title)" titl
 onmouseover="showTermTitleWithLink(this, this.dataset, this.dataset.title)" title="Change the definition.:: One\[0\], two\[1\]::https ://changelink1.com -:- https ://changelink2.com"
 ```
 <hr><hr>
+
 ### showTermTitleWithLink Example:
 The <strong>showTermTitleWithLink</strong> function example page below.
 [Show Term Title With Link Example](https://nobedee.github.io/htmlpreview.github.com/?https://github.com/isocialPractice/general/blob/main/showTermTitleWithLinkExample.html)  
+
 <hr><hr>
 
 <strong>findArrayMax</strong>(<em>arr</em>)
