@@ -1365,7 +1365,7 @@ function changeToTable(colNumber, colTitles, extractTags, parElement, parElement
     // UPDATE MAY BE NEEDED
     theExtractTags[i].id = "tag" + i;
     removeLastWord(extractMark, "tag" + i, "id");
-    removeAttribute("id", "tag"+i, "id");
+    removeHTMLAttribute("id", "tag"+i, "id");
     curExtractData = theExtractTags[i].innerHTML;
     countCharacterMarks(1);
    }
