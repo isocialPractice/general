@@ -1438,7 +1438,7 @@ function changeToTable(colNumber, colTitles, extractTags, parElement, parElement
  // START MAKING ROWS
       let textBasedTableRowsAreMade = 0;
       addingHTMLAlteringByText = function(theColCount, theCase, theQuote, addingATag, addingAClosingTag, theCurAlteringValue, theCurAlteringText) {
-       if (theColCount == 2) theCurParElementInnerHTML = theParElementInnerHTML[i]; else theCurParElementInnerHTML = theParElementInnerHTML[i+ii];
+       if (theColCount <= 2) theCurParElementInnerHTML = theParElementInnerHTML[i]; else theCurParElementInnerHTML = theParElementInnerHTML[i+ii];
        if (theCase == undefined) {
         theCase = "";
         theQuote = "";
@@ -1482,22 +1482,33 @@ function changeToTable(colNumber, colTitles, extractTags, parElement, parElement
         if (theCase == "l") curCase = changeToLowerCase(theCurParElementInnerHTML); else if (theCase == "u") curCase = changeToUpperCase(theCurParElementInnerHTML); else curCase = theCase;
         if (theQuote == 1) curQuote = '"'; else if (theQuote === 0) curQuote = "'"; else curQuote = "";
        }
-       if (theColCount == 2) {
-        if (addingWhatIndex == i-i) {
-         theTableRows += "<tr><td>" + addingATag + theCurAlteringValue + curCase + curQuote + theCurAlteringText + theCurParElementInnerHTML + addingAClosingTag + "</td><td>"; 
-         theCurParElementInnerHTML = theParElementInnerHTML[i+1];
-         theTableRows += theCurParElementInnerHTML + "</td></tr>";
-        } else {
-         if (addingWhatIndex == i+1) {
+       if (theColCount <= 2) {
+        if (addingWhatIndex == i-i) { // will be 0
+         if (theColCount == 1) {
+          theTableRows += "<tr><td>" + addingATag + theCurAlteringValue + curCase + curQuote + theCurAlteringText + theCurParElementInnerHTML + addingAClosingTag + "</td></tr>";          
+         } else {
+          theTableRows += "<tr><td>" + addingATag + theCurAlteringValue + curCase + curQuote + theCurAlteringText + theCurParElementInnerHTML + addingAClosingTag + "</td><td>"; 
+          theCurParElementInnerHTML = theParElementInnerHTML[i+1];
+          theTableRows += theCurParElementInnerHTML + "</td></tr>";         
+         }
+         }
+        else if (addingWhatIndex == i+1) { // will be 1
+         if (theColCount == 1) {
+          theTableRows += "<tr><td>" + theCurParElementInnerHTML + "</td></tr>";
+         } else {
           theTableRows += "<tr><td>" + theCurParElementInnerHTML + "</td><td>"; 
           theCurParElementInnerHTML = theParElementInnerHTML[i+1];
-          theTableRows += addingATag + theCurAlteringValue + curCase + curQuote + theCurAlteringText + theCurParElementInnerHTML + addingAClosingTag + "</td></tr>";
+          theTableRows += addingATag + theCurAlteringValue + curCase + curQuote + theCurAlteringText + theCurParElementInnerHTML + addingAClosingTag + "</td></tr>";         
+         }
+         } else { // not used
+         if (theColCount == 1) {
+          theTableRows += "<tr><td>" + theCurParElementInnerHTML + "</td></tr>"; 
          } else {
           theTableRows += "<tr><td>" + theCurParElementInnerHTML + "</td><td>"; 
           theCurParElementInnerHTML = theParElementInnerHTML[i+1];
           theTableRows += theCurParElementInnerHTML + "</td></tr>"; 
-         }
-        }       
+          }
+         }              
        } else {
         if (ii == 0) {
          if (addingWhatIndex == ii) theTableRows += "<tr><td>" + addingATag + theCurAlteringValue + curCase + curQuote + theCurAlteringText + theCurParElementInnerHTML + addingAClosingTag + "</td><td>";                      
@@ -1530,12 +1541,12 @@ function changeToTable(colNumber, colTitles, extractTags, parElement, parElement
          }                  
          if (addingWhatIndex >= 0) {
           if (addHTMLAltering == 1) {
-           addingHTMLAlteringByText(2, curAlterCase, usedDoubleQuotes, addingTag, addingCloseTag, curAlterValue, curAlterText);
+           addingHTMLAlteringByText(colNumber, curAlterCase, usedDoubleQuotes, addingTag, addingCloseTag, curAlterValue, curAlterText);
            } else {
-           addingHTMLAlteringByText(2, "", "", addingTag, addingCloseTag);
+           addingHTMLAlteringByText(colNumber, "", "", addingTag, addingCloseTag);
            }
           } else {
-          addingHTMLAlteringByText(2);
+          addingHTMLAlteringByText(colNumber);
           }
         } else 
         { // OVER TWO COLUMNS        
@@ -1734,7 +1745,11 @@ function changeToTable(colNumber, colTitles, extractTags, parElement, parElement
    }
    for (i = 0; i < theColTitlesLen; i++) {
     if (i == 0) {
-     theTableCols += "<tr><th>" + theColTitles[i] + "</th><th>";
+     if (theColTitlesLen == 1) {
+      theTableCols += "<tr><th>" + theColTitles[i] + "</th></tr>";
+     } else {
+      theTableCols += "<tr><th>" + theColTitles[i] + "</th><th>";     
+     }     
     } else if (i == theColTitlesLen - 1) {
      theTableCols +=  theColTitles[i] + "</th></tr>";
     } else {
