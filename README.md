@@ -48,16 +48,18 @@ General scripts, snippets, and tools. The functions are meant to be lightweight,
 <details>
 <summary><strong>removeHTMLTag</strong>(<em>tag</em>, <em>parElement</em>, <em>parElementIdentifier</em>, <em>replace</em>) </summary>
 
-1. <strong>tag</strong>: String - the tag to be removed.
+1. <strong>tag</strong>: String or Keyword:
+  - a. String  - the tag to be removed.
+  - b. Keyword - use the keyword "this". Other arugments are then optional.
 2. <strong>parElement</strong>: String - the parent element by name of id, tag, class, data-attribute, or self.
 3. <strong>parElementIdentifier</strong>: String - acceptable values are:  
    - a. "id" - default   
    - b. "tag\[<em>indexNumber</em>\]" e.g. "tag2" gets the tag at index 2 as if array.   
    - c. "class\[<em>indexNumber</em>\]" e.g. "className1" gets the class at index 1 as if array.   
    - d. "data\[<em>indexNumber</em>\]" e.g. "name0" gets the data-name at index 0 as if array.   
-   - e. "self" e.g. similar to "id" but focus on one element. IMPORTANT - must have id attribute.  
-4. replace: String - either "self" or a tag to replace the removed tag with.   
-   - <em><strong>NOTE</strong></em> - if value is "self" then the tag and parElement are one in the same, and either the "indexNumber" or "l" is required at end of parElementIdentifier. <br>
+   - e. "self" e.g. similar to "id" but focus on one element. IMPORTANT - must have id attribute.
+4. <strong>replace</strong>: String - either "self" or a tag to replace the removed tag with.   
+   - <em><strong>NOTE</strong></em> - if value is "self" then the tag and parElement are one in the same, and either the "indexNumber" or "l" is required at end of parElementIdentifier or all matching tags will be removed. <br>
    - <em><strong>NOTE</strong></em> - using the value "l" at end of parElementIdentifier will remove the last element. Use "0" to remove first.
 </details>
 

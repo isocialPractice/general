@@ -128,43 +128,10 @@ function removeWordInVariable(word, variableWithWord) {
  }
 }
 
-function removeHTMLTag(tag, parElement, parElementIdentifier, replace) {
+function removeHTMLTag(tag, parElement, parElementIdentifier, replace) { 
  if (replace == undefined) replace = 0;
  var useID=0, useClass=0, useData=0, useTag=0, useSelf=0, replaceTag=0, remove = 0;
  var theParElements, theParElementsLen, theParElement, theParElementIndex = 0;
- 
- if (parElementIdentifier == undefined) {
-  if (tag == "self" || tag == "this") {
-   useSelf = 1;
-   parElementIdentifier = "SELF";
-   replace = 0;
-  } else {
-   useID = 1;  
-   parElementIdentifier = "ID";
-   replace = 0;   
-  }
- } else {
-  let parElementIdentifierLowCase = parElementIdentifier.toLowerCase();
-  if (replace == undefined) {
-   replace = 0;
-   remove = 1;
-  }
-  if (parElementIdentifierLowCase == "id") useID = 1;
-  if (parElementIdentifierLowCase == "self" || parElementIdentifierLowCase == "this") useSelf = 1;
-   
-  if (parElementIdentifierLowCase.indexOf("class") > -1) {
-   useClass = 1;
-   theParElementIndex = parElementIdentifierLowCase.replace("class", "");
-  }
-  if (parElementIdentifierLowCase.indexOf("data") > -1) {
-   useData = 1;
-   theParElementIndex = parElementIdentifierLowCase.replace("data", "");
-  }
-  if (parElementIdentifierLowCase.indexOf("tag") > -1) {
-   useTag = 1;
-   theParElementIndex = parElementIdentifierLowCase.replace("tag", "");
-  }
- }
  
  var removeTheHTMLTag = function() {  
   let theRemoveTag = theParElement.getElementsByTagName(tag);
@@ -173,92 +140,223 @@ function removeHTMLTag(tag, parElement, parElementIdentifier, replace) {
    for (i = 0; i < theRemoveTagLen; i++) {
     let curTagToRemove = theRemoveTag[i];   
     if (remove == 1) {
-     curTagToRemove.remove();
+     if (curTagToRemove) {
+      curTagToRemove.remove();
+     }
     } else {
-     curTagToRemove.innerHTML = "";
-     curTagToRemove.style.display = "none";
+     if (curTagToRemove) {
+      curTagToRemove.innerHTML = "";
+      curTagToRemove.style.display = "none";
+     }
     }
    }  
   }
  };
  var replaceTheHTMLTag = function() {
-  if (replace == 0) {   
-   return;
+  if (replace == 0 || replace == "self") {
+   if (replace == "self") { 
+    let theRemoveTag = theParElement.getElementsByTagName(tag);
+    if (theParElementIndex == "id") {
+     for (i = 0; i < theRemoveTag.length; i++) { theRemoveTag[i].remove(); }
+    } else {
+     theRemoveTag[theParElementIndex].remove();
+    }    
+   } else {
+    if (useID == 1) {
+     theParElement.remove();    
+    } else {
+     let theRemoveTag = theParElement.getElementsByTagName(tag);
+     if (theParElementIndex == "id") {
+      for (i = 0; i < theRemoveTag.length; i++) { theRemoveTag[i].remove(); }
+     } 
+     // no else. do not want to run with other condition.
+    }    
+   }
   } else {   
-   let theRemoveTag = theParElement.getElementsByTagName(tag);
-   if (theRemoveTag) {
-    let theRemoveTagLen = theRemoveTag.length;
-    for (i = 0; i < theRemoveTagLen; i++) {
-     let curTagToRemove = theRemoveTag[i];
-     curTagToRemove.insertAdjacentHTML("beforebegin", replace);   
-    }  
+   if (typeof tag != "object") {
+    let theRemoveTag = theParElement.getElementsByTagName(tag);
+    if (theRemoveTag) {
+     let theRemoveTagLen = theRemoveTag.length;
+     for (i = 0; i < theRemoveTagLen; i++) {
+      let curTagToRemove = theRemoveTag[i];
+      if (replace == "self") {
+       curTagToRemove.insertAdjacentHTML("beforebegin", "");
+      } else {
+       curTagToRemove.insertAdjacentHTML("beforebegin", replace);   
+      }     
+     }  
+    }   
+   } else {
+    let theRemoveTag = tag;
+    let curTagToRemove = theRemoveTag;
+    if (theRemoveTag) {
+     if (replace == "self") {
+      curTagToRemove.insertAdjacentHTML("beforebegin", "");
+     } else {
+      curTagToRemove.insertAdjacentHTML("beforebegin", replace);   
+     }
+    }
    }  
   }
- }; 
- 
- if (useID == 1) {
-  theParElement = document.getElementById(parElement);
-  replaceTheHTMLTag();  
-  removeTheHTMLTag();  
- }
- if (useSelf == 1) {
-  theParElement = document.getElementById(parElement);
-  theParElement.remove();
- } 
- if (useClass == 1) {
-  if (replace == "self") {
-   if (theParElementIndex == "l") {
-    theParElements = document.getElementsByClassName(parElement);
-    theParElementsLen = Number(theParElements.length - 1);
-    theParElement = theParElements[theParElementsLen];
-    theParElement.remove();
-   } else {
-    theParElements = document.getElementsByClassName(parElement);
-    theParElement = theParElements[theParElementIndex];
-    theParElement.remove();    
-   }
-  } else {
-   theParElement = document.getElementsByClassName(parElement)[theParElementIndex];  
-   replaceTheHTMLTag();
-   removeTheHTMLTag();
+ };  
+ var runRemoveHTMLTag = function() {
+  if (useID == 1) {   
+   replaceTheHTMLTag();  
+   removeTheHTMLTag();  
   }
- }
- if (useData == 1) {  
-  if (replace == "self") {
-   if (theParElementIndex == "l") {
-    theParElements = document.querySelectorAll("[data-" + parElement + "]");
-    theParElementsLen = Number(theParElements.length - 1);
-    theParElement = theParElements[theParElementsLen];
-    theParElement.remove();
-   } else {
-    theParElements = document.querySelectorAll("[data-" + parElement + "]"); 
+  var removeFirstOrAllParElements = function() {
+   if (theParElementIndex != "") {
     theParElement = theParElements[theParElementIndex];
     theParElement.remove();    
+   } else {
+    let tempParElementLen = theParElements.length;
+    let areParElementsRemoved = 0;
+    let i = 0;
+    while (areParElementsRemoved == 0) {    
+     tempParElementLen = theParElements.length;    
+     if (tempParElementLen > 0) {
+      theParElements[i].remove();  
+     } else {
+      areParElementsRemoved = 1;
+     }            
+    }    
    }
-  } else {
-   theParElement = document.querySelectorAll("[data-" + parElement + "]")[theParElementIndex]; 
-   replaceTheHTMLTag();
-   removeTheHTMLTag();
+  };
+  if (useSelf == 1) {
+   theParElement = document.getElementById(parElement);
+   theParElement.remove();
+  } 
+  if (useClass == 1) {
+   if (replace == "self") {
+    if (theParElementIndex == "l") {
+     theParElements = document.getElementsByClassName(parElement);
+     theParElementsLen = Number(theParElements.length - 1);
+     theParElement = theParElements[theParElementsLen];
+     theParElement.remove();
+    } else {
+     theParElements = document.getElementsByClassName(parElement);
+     removeFirstOrAllParElements();     
+    }
+   } else {
+    theParElement = document.getElementsByClassName(parElement)[theParElementIndex];  
+    replaceTheHTMLTag();
+    removeTheHTMLTag();
+   }
   }
- }
- if (useTag == 1) {
-  if (replace == "self") {
-   if (theParElementIndex == "l") {
-    theParElements = document.getElementsByTagName(parElement);
-    theParElementsLen = Number(theParElements.length - 1);
-    theParElement = theParElements[theParElementsLen];
-    theParElement.remove();
+  if (useData == 1) {  
+   if (replace == "self") {
+    if (theParElementIndex == "l") {
+     theParElements = document.querySelectorAll("[data-" + parElement + "]");
+     theParElementsLen = Number(theParElements.length - 1);
+     theParElement = theParElements[theParElementsLen];
+     theParElement.remove();
+    } else {
+     theParElements = document.querySelectorAll("[data-" + parElement + "]"); 
+     removeFirstOrAllParElements();
+    }
    } else {
-    theParElements = document.getElementsByTagName(parElement);    
-    theParElement = theParElements[theParElementIndex];
-    theParElement.remove();    
+    theParElement = document.querySelectorAll("[data-" + parElement + "]")[theParElementIndex]; 
+    replaceTheHTMLTag();
+    removeTheHTMLTag();
    }
-  } else {
+  }
+  if (useTag == 1) {
+   if (replace == "self") {
+    if (theParElementIndex == "l") {
+     theParElements = document.getElementsByTagName(parElement);
+     theParElementsLen = Number(theParElements.length - 1);
+     theParElement = theParElements[theParElementsLen];
+     theParElement.remove();
+    } else {
+     theParElements = document.getElementsByTagName(parElement);    
+     removeFirstOrAllParElements();
+    }
+   } else {
 
-   theParElement = document.getElementsByTagName(parElement)[theParElementIndex];
-   replaceTheHTMLTag();
-   removeTheHTMLTag();
+    theParElement = document.getElementsByTagName(parElement)[theParElementIndex];
+    replaceTheHTMLTag();
+    removeTheHTMLTag();
+   }   
+  }  
+ };
+ 
+ var parElementConfigI = function() {
+  if (parElementIdentifierLowCase == "id") { 
+   useID = 1; 
+   theParElementIndex = "id"; 
+  } else {
+   if (parElementIdentifierLowCase.indexOf("class") > -1) {
+    useClass = 1;
+    theParElementIndex = parElementIdentifierLowCase.replace("class", "");
+   }
+   if (parElementIdentifierLowCase.indexOf("data") > -1) {
+    useData = 1;
+    theParElementIndex = parElementIdentifierLowCase.replace("data", "");
+   }
+   if (parElementIdentifierLowCase.indexOf("tag") > -1) {
+    useTag = 1;
+    theParElementIndex = parElementIdentifierLowCase.replace("tag", "");
+   }   
+  }
+ };
+ var parElementConfigII = function() {
+  if (useID == 1) {
+    theParElement = document.getElementById(parElement);
+    theParElementIndex = "id";
+   } else {
+    if (
+    parElementIdentifierLowCase == "self" || parElementIdentifierLowCase == "this" ||
+    parElementIdentifier == "self" || parElementIdentifier == "this") {
+     useSelf = 1;
+     theParElement = document.getElementById(parElement);
+    }
+    if (useClass == 1) {
+     theParElement = document.getElementsByClassName(parElement)[theParElementIndex];
+    }
+    if (useData == 1) {
+     theParElement = document.querySelectorAll("[data-" + parElement + "]")[theParElementIndex];
+    }
+    if (useTag == 1) {
+     theParElement = document.getElementsByTagName(parElement)[theParElementIndex];
+    }    
+   }
+   runRemoveHTMLTag();
+ };  
+
+ if (parElementIdentifier == undefined) {  
+  if (tag == "self" || tag == "this") {   
+   useSelf = 1; useID = 0;
+   parElementIdentifier = "self";
+   replace = 0;
+  } else {
+   if (typeof tag != "object") {
+    useSelf = 0; useID = 1;  
+    parElementIdentifier = "id";
+    replace = 0;       
+   } else {
+    tag.remove();
+    return;
+   }
+  }     
+  parElementConfigII();   
+ } else {
+  var parElementIdentifierLowCase = parElementIdentifier.toLowerCase();
+  if (replace == undefined) {
+   replace = 0;
+   remove = 1;
   }   
+  if (typeof tag != "object") {
+   parElementConfigI();
+   parElementConfigII();  
+  } else {
+   if (replace == 0) {
+    tag.remove();
+    return;   
+   } else {
+    parElementConfigI();
+    parElementConfigII();  
+   }
+  }  
  } 
 }
 
@@ -2328,7 +2426,11 @@ function changeToTable(colNumber, colTitles, extractTags, parElement, parElement
 
 function changeNextElementDisplay(cur, curEl) {
  if (cur == undefined || curEl == undefined) { return; }
- if (curEl.nodeName == "BR") curEl = curEl.nextElementSibling;
+ let noBreakTags = 1;
+ while (noBreakTags == 1) {
+ if (curEl.nodeName == "BR" || curEl.nodeName == "HR") { curEl = curEl.nextElementSibling; } else { noBreakTags = 0; }
+ }
+ //if (curEl.nodeName == "BR") curEl = curEl.nextElementSibling;
  var toText = function(parEl, tags) {
   if (tags == undefined) tags = "";
   let hasEl = 1;
