@@ -1,7 +1,7 @@
 # General Purpose Javascript Functions 
 <hr>
 
-[Preview JavaScript Functions](https://nobedee.github.io/htmlpreview.github.com/?https://github.com/isocialPractice/general/blob/main/index.html)
+[Preview JavaScript Functions](https://jhauga.github.io/htmlpreview.github.com/?https://github.com/isocialPractice/general/blob/main/index.html)
 
 General scripts, snippets, and tools. The functions are meant to be lightweight, and able to be used with minimal customizations (if any). <br>
 <em><strong>NOTE</strong></em> - the elements in the "support" folder are example purposes.
@@ -278,7 +278,7 @@ General scripts, snippets, and tools. The functions are meant to be lightweight,
 
 > ### changeToTable Example:
 > The <strong>changeToTable</strong> function example page below.
-> [Change To Table Example](https://nobedee.github.io/htmlpreview.github.com/?https://github.com/isocialPractice/general/blob/main/changeToTableExample.html)  
+> [Change To Table Example](https://jhauga.github.io/htmlpreview.github.com/?https://github.com/isocialPractice/general/blob/main/changeToTableExample.html)  
 
 <hr>
 
@@ -406,7 +406,7 @@ onclick="changeNextElementDisplay(this, this.nextElementSibling)"
 
 > ### showTermTitleWithLink Example:
 > The <strong>showTermTitleWithLink</strong> function example page below.
-> [Show Term Title With Link Example](https://nobedee.github.io/htmlpreview.github.com/?https://github.com/isocialPractice/general/blob/main/showTermTitleWithLinkExample.html)  
+> [Show Term Title With Link Example](https://jhauga.github.io/htmlpreview.github.com/?https://github.com/isocialPractice/general/blob/main/showTermTitleWithLinkExample.html)  
 
 <hr>
 
