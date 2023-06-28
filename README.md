@@ -49,8 +49,8 @@ General scripts, snippets, and tools. The functions are meant to be lightweight,
 <summary><strong>removeHTMLTag</strong>(<em>tag</em>, <em>parElement</em>, <em>parElementIdentifier</em>, <em>replace</em>) </summary>
 
 1. <strong>tag</strong>: String or Keyword:
-  - a. String  - the tag to be removed.
-  - b. Keyword - use the keyword "this". Other arugments are then optional.
+   - a. String  - the tag to be removed.
+   - b. Keyword - use the keyword "this". Other arugments are then optional.
 2. <strong>parElement</strong>: String - the parent element by name of id, tag, class, data-attribute, or self.
 3. <strong>parElementIdentifier</strong>: String - acceptable values are:  
    - a. "id" - default   
