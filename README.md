@@ -10,7 +10,7 @@ General scripts, snippets, and tools. The functions are meant to be lightweight,
 ## To Use:
 Copy and paste below script tag into the bottom of an HTML page: <br>
 ```markdown
-<script src="https://cdn.jsdelivr.net/gh/jhauga/general/reusableJavascriptFunctions.js"></script> 
+<script src="https://cdn.jsdelivr.net/gh/isocialPractice/general/reusableJavascriptFunctions.js"></script> 
 ```
 
 ## Removing Elements [:top:](#general-purpose-javascript-functions)

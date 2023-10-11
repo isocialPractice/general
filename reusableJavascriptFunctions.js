@@ -2557,26 +2557,30 @@ function copyText(parElement, parElementIdentifier, copyWhat) {
  
  var copyTheText = function() {
   if (theParElement) {
-   if (theParElement.tagName == "textarea") {
+   if (theParElement.tagName == "textarea" || theParElement.tagName == "TEXTAREA") {    
+    theParElement.value = theParElement.innerHTML;
     theParElement.select();
     navigator.clipboard.writeText(theParElement.value);  
    } else {
     let copyTextarea = document.createElement("textarea");
     copyTextarea.style.display = "none";
+    copyTextarea.id = "temp-uFy95-unlikelyID-5TwU8";
     if (copyWhat == "text") {
      copyTextarea.value = theParElement.innerText;
     } else {
      copyTextarea.value = theParElement.innerHTML;
-    }
-
+    }  
     copyTextarea.select();
     document.body.append(copyTextarea);
-    navigator.clipboard.writeText(copyTextarea.value);
+    navigator.clipboard.writeText(copyTextarea.value);    
+    // Select and delete temp textarea.
+    let tempTextarea = document.getElementById("temp-uFy95-unlikelyID-5TwU8");
+    tempTextarea.remove();
    }
   }
  };
   
- if (useID == 1) {
+ if (useID == 1) {  
   theParElement = document.getElementById(parElement);
  }
  if (useClass == 1) {
