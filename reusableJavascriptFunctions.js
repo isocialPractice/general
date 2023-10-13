@@ -2528,7 +2528,7 @@ function outputTextFile(textFilePath, parElement, parElementIdentifier, asWhat) 
 }
 
 function copyText(parElement, parElementIdentifier, copyWhat) {
- var useID=0, useClass=0, useData=0, useTag=0;
+ var useID=0, useClass=0, useData=0, useTag=0, useVar=0;
  var theParElement, theParElementIndex = 0;
  if (parElementIdentifier == undefined) {
   parElementIdentifier = "ID"; 
@@ -2553,29 +2553,54 @@ function copyText(parElement, parElementIdentifier, copyWhat) {
    useTag = 1;
    theParElementIndex = parElementIdentifierLowCase.replace("tag", "");
   }
+  if (parElementIdentifierLowCase.indexOf("var") > -1) {
+   useVar = 1;   
+  }  
  }
  
  var copyTheText = function() {
   if (theParElement) {
-   if (theParElement.tagName == "textarea" || theParElement.tagName == "TEXTAREA") {    
-    theParElement.value = theParElement.innerHTML;
+   if (
+    theParElement.tagName == "textarea" || theParElement.tagName == "TEXTAREA" ||
+    theParElement.tagName == "input" || theParElement.tagName == "INPUT" ||
+    theParElement.tagName == "select" || theParElement.tagName == "SELECT" ||
+    theParElement.tagName == "optgroup" || theParElement.tagName == "OPTGROUP" ||
+    theParElement.tagName == "option" || theParElement.tagName == "OPTION" ||
+    theParElement.tagName == "fieldset" || theParElement.tagName == "FIELDSET" ||
+    theParElement.tagName == "legend" || theParElement.tagName == "LEGEND" ||
+    theParElement.tagName == "datalist" || theParElement.tagName == "DATALIST" ||
+    theParElement.tagName == "output" || theParElement.tagName == "OUTPUT"
+    ) {    
+    if (copyWhat == "text") {
+     theParElement.value = theParElement.innerText;
+    } else {
+     theParElement.value = theParElement.innerHTML;
+    }    
     theParElement.select();
     navigator.clipboard.writeText(theParElement.value);  
    } else {
     let copyTextarea = document.createElement("textarea");
     copyTextarea.style.display = "none";
     copyTextarea.id = "temp-uFy95-unlikelyID-5TwU8";
-    if (copyWhat == "text") {
-     copyTextarea.value = theParElement.innerText;
-    } else {
-     copyTextarea.value = theParElement.innerHTML;
-    }  
+    if (useVar == 1) {     
+     if (copyWhat == "html") {
+      theParElement = theParElement/replace(/</g, "&lt;");
+      theParElement = theParElement/replace(/>/g, "&gt;");      
+     }
+     copyTextarea.value = theParElement;
+    } else {               
+     if (copyWhat == "text") {
+      copyTextarea.value = theParElement.innerText;
+     } else {
+      copyTextarea.value = theParElement.innerHTML;
+     }  
+    }
     copyTextarea.select();
     document.body.append(copyTextarea);
     navigator.clipboard.writeText(copyTextarea.value);    
     // Select and delete temp textarea.
     let tempTextarea = document.getElementById("temp-uFy95-unlikelyID-5TwU8");
-    tempTextarea.remove();
+    tempTextarea.remove();        
    }
   }
  };
@@ -2591,8 +2616,11 @@ function copyText(parElement, parElementIdentifier, copyWhat) {
  }
  if (useTag == 1) {
   theParElement = document.getElementsByTagName(parElement)[theParElementIndex];
+ } 
+ if (useVar == 1) {
+  theParElement = parElement;
  }
- 
+ // Run copy event from configurations.
  copyTheText();
 }
 

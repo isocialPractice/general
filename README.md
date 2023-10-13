@@ -395,13 +395,16 @@ onclick="changeNextElementDisplay(this, this.nextElementSibling)"
 
 1. <strong>parElement</strong>: String - the parent element by name of id, tag, class, data-attribute, or self.
 2. <strong>parElementIdentifier</strong>: String - acceptable values are:   
-   - a. "id"   
+   - a. "id" - use the id attribute name of HTML element.   
    - b. "tag\[<em>indexNumber</em>\]" e.g. "tag2" gets the tag at index 2 as if array.   
    - c. "class\[<em>indexNumber</em>\]" e.g. "className1" gets the class at index 1 as if array.   
    - d. "data\[<em>indexNumber</em>\]" e.g. "name0" gets the data-name at index 0 as if array.   
+   - e. var - when using a JavaScript variable; not quoted.
 3. <strong>copyWhat</strong>: String - acceptable values are:   
-   - a. "text" - default | gets the parent elements "innerText" value.   
+   - a. "text" - default | gets the parent elements "innerText" value.
+      - The pasted contents will keep HTML tags intact.
    - b. "html" - gets the parent elements "innerHTML" value.  
+      - The pasted contents will change HTML tags to HTML entities.
 </details>   
 
 # 
