@@ -1371,18 +1371,22 @@ function changeToTable(colNumber, colTitles, extractTags, parElement, parElement
      curAlterInsert, curAlterCase, usedDoubleQuotes;
  var makeRowsUsingTextElements, makeRowsUsingHTMLElements;     
  var theTableCols = "", theTableRows = "", theTable = "";
+ var relocateNew, whereTableIsChangedTo;
+ var addHTMLHideCol = 0;
  { // OUTPUT
  var outPutTable = function() {
   if (relocate == 1) {
    if (relocateElementIdentifier == "id") {
     document.getElementById(relocateElement).innerHTML = theTable;
+    whereTableIsChangedTo = document.getElementById(relocateElement);
    } else {
-    theRelocateElement.innerHTML = theTable;        
+    theRelocateElement.innerHTML = theTable;
+    whereTableIsChangedTo = theRelocateElement;
    }   
   } else {
    if (relocateElement == "self") {
     if (relocateElementIdentifier == "id") {
-     theParElement.innerHTML = theTable;
+     theParElement.innerHTML = theTable;     
     } else {
      if (relocateElementIdentifier == parElementIdentifier) {
       theParElement.innerHTML = theTable;
@@ -1390,20 +1394,22 @@ function changeToTable(colNumber, colTitles, extractTags, parElement, parElement
       let skip;
      }
     }
+    whereTableIsChangedTo = theParElement;
    } else {
     if (relocateElementIdentifier == parElementIdentifier && useTag == 1) {
-     let relocateNew = document.createElement(parElement);
+     relocateNew = document.createElement(parElement);
+     
      relocateNew.innerHTML = theTable;
      theParElement.insertAdjacentElement("beforebegin", relocateNew);     
-     theParElement.remove();
+     theParElement.remove();     
     } else {
      if (relocateElementIdentifier == "tag") {
-      let relocateNew = document.createElement(relocateElement);      
+      relocateNew = document.createElement(relocateElement);      
       relocateNew.innerHTML = theTable;
       theParElement.insertAdjacentElement("beforebegin", relocateNew);
       theParElement.remove();     
      } else {
-      let relocateNew = document.createElement("div");      
+      relocateNew = document.createElement("div");      
       relocateNew.innerHTML = theTable;      
       if (relocateElement.indexOf("::") == -1) {
        relocateNew.setAttribute(relocateElementIdentifier, relocateElement);
@@ -1413,7 +1419,21 @@ function changeToTable(colNumber, colTitles, extractTags, parElement, parElement
       theParElement.insertAdjacentElement("beforebegin", relocateNew);                  
       theParElement.remove();      
      }
-    }   
+    } 
+    whereTableIsChangedTo = relocateNew;
+   }
+  }
+  // Remove any items for appending.
+  if (addHTMLHideCol == 1) {
+   let theRelocateElementInnerHTML = whereTableIsChangedTo.innerHTML;
+   let theRelocateElementTR = theRelocateElement.getElementsByTagName("tr");
+   let theRelocateElementTRLen = theRelocateElementTR.length;
+   for (i = 0; i < theRelocateElementTRLen; i++) {
+    let curRelocateElementTR = theRelocateElementTR[i];
+    if (curRelocateElementTR.children[addingWhatIndex].innerHTML.indexOf("javascript:void(0)") > -1) {     
+     curRelocateElementTR.children[addingWhatIndex].innerHTML = curRelocateElementTR.children[addingWhatIndex].innerHTML.replace("target=\"_blank\" rel=\"external\"","");     
+    }
+    curRelocateElementTR.children[addingWithWhatIndex].remove();
    }
   }
  };
@@ -1870,13 +1890,15 @@ function changeToTable(colNumber, colTitles, extractTags, parElement, parElement
     if (theColTitles[i].indexOf("_") == 0 && theColTitles[i].lastIndexOf("_") == theColTitles[i].length-1) {
      columnValueRemovedIndex = 0;
      columnValueToAddedHTML = 1; 
+     let tempColValue = theColTitles[i].substr(1);
      if (theColTitles[i][1] == ":") {
-      columnValueToAddedHTMLIsRemoved += 1;      
+      theColTitles[i] = substituteValue = "Link";
+      //columnValueToAddedHTMLIsRemoved += 1;      
       columnValueRemovedArray[columnValueRemovedIndex] = i;
       columnValueRemovedIndex++;
       columnValueRemovedWillBe = theColTitles[i].substring(2, theColTitles[i].length - 1);
-     } else {
-      let tempColValue = theColTitles[i].substr(1);
+      addHTMLHideCol = 1;
+     } else {      
       tempColValue = tempColValue.replace("_", "");
       columnValueRemovedArray[columnValueRemovedIndex] = i;
       columnValueRemovedIndex++;

@@ -323,9 +323,8 @@ Copy and paste below script tag into the bottom of an HTML page: <br>
    - c. "class\[<em>indexNumber</em>\]" e.g. "className1" relocates to the class at index 1 as if array.       
    - d. "data\[<em>indexNumber</em>\]" e.g. "name0" relocates to the data-name at index 0 as if array.   
 9. <strong>addHTML</strong>: String - following pattern where:     
-   - a. String - "html element, add items, adding where"      
-     - Example use (<em>ignore '<strong>(I)</strong>' and '<strong>(i)</strong>' marks</em>):      
-       - A. "<em><strong>(I)</strong></em>a-:-href-:-https ://site.com-:-target-:-\_blank-:-rel-:-external<strong>::</strong><em><strong>(II)</strong></em>append-:-href-:-anchor-:-innerHTML-:-lc<strong>::</strong><em><strong>(III)</strong></em>td0"      
+   - a. String - "html element, add items, adding where"           
+       - A. "a-:-href-:-https ://site.com-:-target-:-\_blank-:-rel-:-external<strong>::</strong>append-:-href-:-anchor-:-innerHTML-:-lc<strong>::</strong>td0"      
          - I. a-:-href-:-https ://site.com-:-target-:-\_blank-:-rel-:-external       
            - add/wrap "&lt;a&gt;" tag to td (<em>requires second and/or third part</em>)      
            - "href" set to "https ://site.com"      
@@ -339,7 +338,7 @@ Copy and paste below script tag into the bottom of an HTML page: <br>
          - III. td0   
            - "td" at index "0" is where html is added (<em>wrap</em>)   
            - "td" at index "0" is what value is appended   
-       - B. "<em><strong>(I)</strong></em>a-:-href-:-append-:-target-:-\_blank-:-rel-:-external::<em><strong>(II)</strong></em><em><strong>(i)</strong></em>td0\_:\_<em><strong>(ii)</strong></em>td2"      
+       - B. "a-:-href-:-append-:-target-:-\_blank-:-rel-:-external<strong>::</strong>td0\_:\_td2"      
          - I. a-:-href-:-append-:-target-:-\_blank-:-rel-:-external     
            - add/wrap "&lt;a&gt;" tag to td   
            - "href" value is "append(<em>ed</em>)" (<em>requires seconde/third part with two parameters</em>   
@@ -353,7 +352,9 @@ Copy and paste below script tag into the bottom of an HTML page: <br>
            - <strong>IMPORTANT</strong> - requires value of "\_href\_" or "\_:href\_" in one of the "colTitles". e.g. "Term, Definition, \_href\_".   
            - <em>NOTE</em> - the column will be kept if "colTitles" is "\_href\_". e.g. "Term, Definition, \_href\_".    
            - <em>NOTE</em> - the column will be removed if "colTitles" is "\_<strong>:</strong>href\_". e.g. "Term, Definition, \_<strong>:</strong>href\_".<br>
+           
 <strong>NOTE</strong> - using only <strong>changeToTable()</strong> with no arguments will also work, but additionally; <em><strong>NOTE</strong></em> that the parent element with highest length will be converted to table.
+
 </details>
 
 # 
