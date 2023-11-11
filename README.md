@@ -299,10 +299,12 @@ Copy and paste below script tag into the bottom of an HTML page: <br>
      - ii. <strong>\_:href\_</strong> - use with "addHTML" setting last item after "::" character to "td\[indexWhereAdded\]\_:\_td\[indexWhichIsAdded\]".    
        - This will remove the column at "indexWhichIsAdded", and add the attribute to "td" at index "indexWhereAdded" to value of "td" at "indexWhichIsAdded".
 3. <strong>extractTags</strong>: String - follows two patterns:
-   - a. Tag Name - the tag(s) within the parent element that nests text.   
+   - a. Tag Name - the tag(s) within the parent element that nests text. Two patterns:
+     - i. "span" - for example each span tag is new "td" distributed with rows relative to column number (first parameter).
+     - ii. "span: --" - for example each span tag is new "TR" with new "td" before all "--" in tag distributed with rows relative to column number (first parameter).
      - <strong>NOTE</strong> - Currently only accepts one tag followed by a separator that marks where a column ends for each row.  
    - b. Begins with "<strong>\_</strong>" - when using primitive text with no tag pattern begin with "\_" character followed by "w". For example:   
-     - i.  \_w:n = lines with one word will mark new table data, and lines with over one word will mark next table data. New lines mark where data is nested.   
+     - i.  \_w:n = new lines will mark new HTML table data element.
        - <em>NOTE</em> - this is best for tables that will only have two columns.   
      - ii.  \_w3:n = lines with three words or less will mark new table data, and lines with over three words will mark next table data. New lines mark where data is nested.   
      - iii. \_s:splitCharacters = characters that mark the end of each data cell.   
