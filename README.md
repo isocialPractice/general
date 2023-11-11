@@ -1,4 +1,4 @@
-# General Purpose Javascript Functions 
+# General Purpose Javascript Functions  
 <hr>
 
 [Preview JavaScript Functions](https://jhauga.github.io/htmlpreview.github.com/?https://github.com/isocialPractice/general/blob/main/index.html)
