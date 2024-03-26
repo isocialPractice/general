@@ -256,6 +256,42 @@ Copy and paste below script tag into the bottom of an HTML page: <br>
 5. <strong>wrapWords</strong>: String - Finds the matching string in parent element and wraps it with the <u>"tag"</u> argument.
 </details>
 
+#
+
+<details>
+<summary><strong>sequentialSectionRomanNumeralItems</strong>(<em>parElementIdentifier</em>, <em>parElement</em>, <em>nestedEle</em>)</summary>
+
+Function to number specific tags with preceding roman numeral.
+
+1. <strong>parElementIdentifier</strong>: String - acceptable values are:  
+   - a. "id" - the id.
+   - b. "tag" - the tag name.
+   - c. "class" - the class name.
+   - d. "attribute" - as would be used to select CSS attribute or with querySelectorAll() method.
+2. <strong>parElement</strong>: String - the id, tag, class, or attribute name that will be looped.
+3. <strong>nestedEle</strong>: String - Two conditions:
+   - a. parElementIdentifier = "id" - format as "<strong><em>nested_</em>parElementIdentifier</strong>:<strong><em>nested_</em>parElement</strong>"
+        - Similar to 1. parElementIdentifier but confined to id element selected.
+        - Similar to 2. parElement but confined to id element selected.
+   - b. parElementIdentifier != "id" - format as "<strong><em>nested_</em>tag</strong>"
+        - Tags nested in each parElement that will be appeneded with sequential roman numeral.
+</details>
+
+#
+
+<details>
+<summary><strong>sequentialSectionOrderedListItems</strong>(<em>parElementIdentifier</em>, <em>parElement</em>)</summary>
+ 
+Function to number ol items and their nested ol items.
+
+1. <strong>parElementIdentifier</strong>: String - acceptable values are:  
+   - a. "id" - the id.
+   - b. "tag" - the tag name.
+   - c. "class" - the class name.
+   - d. "attribute" - as would be used to select CSS attribute or with querySelectorAll() method.
+2. <strong>parElement</strong>: String - the id, tag, class, or attribute name that will be looped.   
+ 
+</details>
 
 <br>
 

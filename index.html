@@ -14,7 +14,8 @@
   background: black;
   color: white;
  }
- button[onclick^="toggleButtonSwitch"] {
+ button[onclick^="toggleButtonSwitch"], 
+ button.exampleButton {
   padding: 4px;
   border: 1px solid black;
   background: dimgray;
@@ -529,11 +530,423 @@
     so will the above example text. <br>
    &lt;/div&gt;
     </div>
-   </div><br>
+   </div>
+  </span>
+  <!-- sequential Section Ordered List Items -->
+  <span>
+  <h3>sequentialSectionOrderedListItems()</h3>
+  <button class="exampleButton" onclick="
+   changeNextElementDisplay(this, this.nextElementSibling);
+   if (this.innerHTML.indexOf('Run ') > -1) {
+    this.innerHTML = this.innerHTML.replace('Run', 'Hide');
+    var ORIGINAL_Terms_of_Service_and_Payment_Agreement = document.getElementById('ORIGINAL_Terms_of_Service_and_Payment_Agreement');
+    ORIGINAL_Terms_of_Service_and_Payment_Agreement.innerText = document.getElementById('Terms_of_Service_and_Payment_Agreement').innerText;          
+    sequentialSectionOrderedListItems('attribute', '[data-section=\'1\']');
+   } else {
+    this.innerHTML = this.innerHTML.replace('Hide', 'Show');
+   }   
+   ">Run sequentialSectionOrderedListItems()</button>
+  <div id="sequentialSectionOrderedListItems" style="display:none">
+   <br>
+   <div>
+    <button onclick="
+     changeNextElementDisplay(this, this.nextElementSibling);
+     ">Show Original Text</button>
+    <div id="ORIGINAL_Terms_of_Service_and_Payment_Agreement" style="display:none"></div>
+   </div>
+   <div id="Terms_of_Service_and_Payment_Agreement">
+    <div class="paymentContract">
+     <div id="removeSequentialOrderedListFunction" style="display:none">
+      <ol>
+       <li>This</li>
+       <li>Hiddend</li>
+      </ol>
+     </div>
+     <h1>
+     Terms of Service and Payment Agreement
+     </h1>
+     <hr>
+
+     <h2>
+     Terms of Service and Payment Agreement between Flint River Fuel Center and Prospective Customer
+     </h2>
+     <p>
+     This Contract for Account Setup ("Contract") is being presented to the Prospective Customer as a Customer on the current day's date, which will be recorded once the form has been successfully submitted.
+     </p>
+     <br><br>
+     <div class="contractSection" data-section="1">
+     <h3>
+     Mutuality of Obligation:
+     </h3> 
+      <ol class="contractList">
+       <li>
+       <strong>Parties:</strong>
+        <ol style="list-style-type: none">
+         <li>Company: Flint River Fuel Center, an S Corporation organized under the laws of Georgia, with its principal place of business at 2568 GA-49 Oglethorpe, GA 31068.</li>
+         <li>Customer: The party agreeing to pay Invoices, an individual/entity or representative for an individual/entity agreeing to the terms and conditions of this Contract.</li>
+        </ol>
+       </li>
+
+       <li>
+       <strong>Services:</strong>
+        <ol style="list-style-type: none">
+         <li>Company agrees to provide diesel fuel to Customer in accordance with the terms outlined in this Contract.</li>
+         <li>Customer agrees that they will stay current with weekly invoices received, paying each in a timely manner.</li>
+        </ol>
+       </li>
+
+       <li>
+       <strong>Invoicing:</strong>
+        <ol style="list-style-type: none">
+         <li>Company agrees to invoice the Customer weekly or for a set period of time, and each invoice shall specify the amount owed by Customer to Company for purchase made during prior week or a set period of time.</li>
+         <li>Customer agrees to receive weekly invoices from Company for purchases made.</li>
+        </ol>
+       </li>
+
+       <li>
+       <strong>Unpaid Amount and Overdue Charges:</strong>
+        <ol style="list-style-type: none">
+         <li>Company agrees to provide Customer with prior notice to any charges being brought against them for any outstanding amount that is over 90 days due to the Company by the Customer.</li>
+         <li>
+          Customer acknowledges and agrees that any unpaid amount exceeding $500 ("Unpaid Total") shall result in legal action taken by Company.
+           <ol style="list-style-type: none">
+            <li>Customer understands that failure to pay the Unpaid Total may result in legal action being brought against them.</li>
+           </ol>
+         </li>
+        </ol>
+       </li>
+
+       <li>
+       <strong>Credit Limit:</strong>
+        <ol style="list-style-type: none">
+         <li>Company will set a Credit Limit for the Customer that will be determined by the Customer paying each Invoice amount in a timely manner.</li>
+         <li>Customer agrees that once the Unpaid Total reaches the credit limit specified by Company, Customer's account may be suspended until payment is made.</li>
+        </ol>
+       </li>
+
+       <li>
+       <strong>Legal Responsibility:</strong>
+        <ol style="list-style-type: none">
+         <li>
+          Company is aware they are legally responsible to provide the Customer with updated and accurate information regarding the Customer's Invoice and any Overdue Amount, Unpaid Total, and Time Periods stating the sum of Unpaid Invoices for the corresponding Time Range.
+         </li>
+         <li>Customer acknowledges that they are legally responsible for the Unpaid Total and any associated charges, including but not limited to interest, legal fees, and penalties.</li>
+        </ol>
+       </li>
+
+       <li>
+       <strong>Termination:</strong>
+        <ol style="list-style-type: none">
+         <li>Either party (Company or Customer) may terminate this Contract upon notice to the other party if the terms outlined herein are violated.</li>
+        </ol>
+       </li>
+
+       <li>
+       <strong>Governing Law:</strong>
+        <ol style="list-style-type: none">
+         <li>This Contract shall be governed by and construed in accordance with the laws of Georgia.</li>
+        </ol>
+       </li>
+
+       <li>
+        <strong>Entire Agreement:</strong>
+        <ol style="list-style-type: none">
+         <li>This Contract constitutes the entire agreement between Company and Customer and supersedes any prior agreements or understandings, whether written or oral.</li>
+        </ol>
+       </li>
+
+       <li>
+       <strong>Agreements, Digital Acknowledgement, and Digital Signature:</strong>
+        <ol style="list-style-type: none">
+         <li>Company agrees to the terms of this contract by providing this contract to the Customer.</li>
+         <li>Prospective Customer's digital acknowledgement and digital signature holds them accountable as the Customer of this contract after it has been submitted, processed, and approved by the Company. 
+          <ol class="dashList" style="list-style-type: none">
+           <li>
+            By digitally acknowledging and signing this contract the Prospective Customer declares they have read, understand, and agree to be bound by the terms and conditions of this Contract as defined for the Customer layed out for a Prospective Customer.
+           </li>
+          </ol>
+         </li>
+        </ol>
+       </li>
+      </ol>
+     </div>
+
+     <br>
+
+     <div class="contractSection">
+      <h3>
+      Terms of Service and Payment:
+      </h3>  
+      <ol>
+       <li>
+        <strong>Parties:</strong>
+        <p>This agreement is made between Flint River Fuel Center, located at 2568 GA-49 Oglethorpe, GA 31068, and Prospective Customer who, once acknowledging and accepting the terms of the contract becomes a Customer as defined in contract; collectively referred to as the "Parties".</p>
+       </li>
+
+       <li>
+        <strong>Invoice:</strong>
+        <p>
+         The Company shall issue weekly invoices to the Customer for purchases made. Each invoice shall detail the amount owed by the Customer and will be accompanied by a statement that will include Time Periods, Unpaid Invoices, and the Unpaid Total.
+        </p>
+       </li>
+
+       <li>
+        <strong>Statement and Overdue Amount:</strong>
+        <p>
+        The Company shall provide a weekly Statement to the Customer, detailing the total Unpaid Amounts and Unpaid Total. The Unpaid Total shall include all outstanding Invoices. Overdue Amounts shall be categorized based on the Time Range as specified in Section 4.
+        </p>
+       </li>
+
+       <li>
+        <strong>Time Ranges and Overdue Amounts:</strong>
+        <p>The Overdue Amounts shall be categorized into the following time ranges:</p>
+         <ol class="dashList" style="list-style-type: none"> 
+          <li>1 to 30 days</li>
+          <li>31 to 60 days</li>
+          <li>61 to 90 days</li>
+          <li>Over 90 days</li>
+         </ol> 
+       </li>
+
+       <li>
+        <strong>Credit Limit and Max Amount:</strong>
+         <p>
+          The Credit Limit will start at $500 and if an unpaid amount of $500 or more is due in the Over 90 days Time Range, the Customer may be legally prosecuted, while at any amount below $500 the Customer is legally liable for the amount owed in the Over 90 days Time Range category. If the Unpaid Total exceeds the Credit Limit, the Customer shall be unable to make additional purchases until the balance is settled. The Max Amount for each time range shall be specified by the Company.
+         </p>
+       </li>
+
+       <li>
+        <strong>Legal Responsibility:</strong>
+         <p>
+          The Customer acknowledges that they are legally responsible for any Unpaid Total exceeding $500. Failure to settle the Unpaid Total within the specified time frame may result in legal action by the Company. This includes legal action being brought against the customer.
+         </p>
+       </li>
+
+       <li>
+       <strong>Legal Action:</strong>
+        <p>
+         The Customer understands that the Company reserves the right to pursue legal action against them for any Unpaid Total equal to or greater than $500 that is over 90 days due, and any Unpaid Total that is greater than $5,000. The Customer shall be notified of impending legal action before charges are filed.
+        </p>
+       </li>
+
+       <li>
+       <strong>Agreement Acknowledgement:</strong>
+        <p> 
+         By signing this agreement, the Customer acknowledges that they have read, understood, and agreed to the terms outlined herein; therefore accepting all terms and obligations of this contract as defined for the Customer and Prospective Customer.
+        </p>
+       </li>
+      </ol>
+     </div>
+    </div>
+   </div>  
+  </div>
+  </span>
+  <!-- sequentail roman numerals -->
+  <span>
+  <h3>sequentialSectionRomanNumeralItems()</h3>
+  <button class="exampleButton" onclick="
+   changeNextElementDisplay(this, this.nextElementSibling);
+   if (this.innerHTML.indexOf('Run ') > -1) {
+    this.innerHTML = this.innerHTML.replace('Run', 'Hide');
+    var ORIGINAL_II_Terms_of_Service_and_Payment_Agreement = document.getElementById('ORIGINAL_II_Terms_of_Service_and_Payment_Agreement');
+    ORIGINAL_II_Terms_of_Service_and_Payment_Agreement.innerText = document.getElementById('II_Terms_of_Service_and_Payment_Agreement').innerText;          
+    sequentialSectionRomanNumeralItems('id', 'II_Terms_of_Service_and_Payment_Agreement', 'tag:h3');
+   } else {
+    this.innerHTML = this.innerHTML.replace('Hide', 'Show');
+   }
+   ">Run sequentialSectionRomanNumeralItems()</button>
+  <div id="sequentialSectionRomanNumeralItems" style="display:none">
+   <br>
+   <div>
+    <button onclick="
+     changeNextElementDisplay(this, this.nextElementSibling);
+     ">Show Original Text</button>
+    <div id="ORIGINAL_II_Terms_of_Service_and_Payment_Agreement" style="display:none"></div>
+   </div>
+   <div id="II_Terms_of_Service_and_Payment_Agreement">
+    <div class="paymentContract">
+     <h1>
+     Terms of Service and Payment Agreement
+     </h1>
+     <hr>
+
+     <h2>
+     Terms of Service and Payment Agreement between Flint River Fuel Center and Prospective Customer
+     </h2>
+     <p>
+     This Contract for Account Setup ("Contract") is being presented to the Prospective Customer as a Customer on the current day's date, which will be recorded once the form has been successfully submitted.
+     </p>
+     <br><br>
+     <div class="contractSection">
+     <h3>
+     Mutuality of Obligation:
+     </h3> 
+      <ol class="contractList">
+       <li>
+       <strong>Parties:</strong>
+        <ol style="list-style-type: none">
+         <li>Company: Flint River Fuel Center, an S Corporation organized under the laws of Georgia, with its principal place of business at 2568 GA-49 Oglethorpe, GA 31068.</li>
+         <li>Customer: The party agreeing to pay Invoices, an individual/entity or representative for an individual/entity agreeing to the terms and conditions of this Contract.</li>
+        </ol>
+       </li>
+
+       <li>
+       <strong>Services:</strong>
+        <ol style="list-style-type: none">
+         <li>Company agrees to provide diesel fuel to Customer in accordance with the terms outlined in this Contract.</li>
+         <li>Customer agrees that they will stay current with weekly invoices received, paying each in a timely manner.</li>
+        </ol>
+       </li>
+
+       <li>
+       <strong>Invoicing:</strong>
+        <ol style="list-style-type: none">
+         <li>Company agrees to invoice the Customer weekly or for a set period of time, and each invoice shall specify the amount owed by Customer to Company for purchase made during prior week or a set period of time.</li>
+         <li>Customer agrees to receive weekly invoices from Company for purchases made.</li>
+        </ol>
+       </li>
+
+       <li>
+       <strong>Unpaid Amount and Overdue Charges:</strong>
+        <ol style="list-style-type: none">
+         <li>Company agrees to provide Customer with prior notice to any charges being brought against them for any outstanding amount that is over 90 days due to the Company by the Customer.</li>
+         <li>
+          Customer acknowledges and agrees that any unpaid amount exceeding $500 ("Unpaid Total") shall result in legal action taken by Company.
+           <ol style="list-style-type: none">
+            <li>Customer understands that failure to pay the Unpaid Total may result in legal action being brought against them.</li>
+           </ol>
+         </li>
+        </ol>
+       </li>
+
+       <li>
+       <strong>Credit Limit:</strong>
+        <ol style="list-style-type: none">
+         <li>Company will set a Credit Limit for the Customer that will be determined by the Customer paying each Invoice amount in a timely manner.</li>
+         <li>Customer agrees that once the Unpaid Total reaches the credit limit specified by Company, Customer's account may be suspended until payment is made.</li>
+        </ol>
+       </li>
+
+       <li>
+       <strong>Legal Responsibility:</strong>
+        <ol style="list-style-type: none">
+         <li>
+          Company is aware they are legally responsible to provide the Customer with updated and accurate information regarding the Customer's Invoice and any Overdue Amount, Unpaid Total, and Time Periods stating the sum of Unpaid Invoices for the corresponding Time Range.
+         </li>
+         <li>Customer acknowledges that they are legally responsible for the Unpaid Total and any associated charges, including but not limited to interest, legal fees, and penalties.</li>
+        </ol>
+       </li>
+
+       <li>
+       <strong>Termination:</strong>
+        <ol style="list-style-type: none">
+         <li>Either party (Company or Customer) may terminate this Contract upon notice to the other party if the terms outlined herein are violated.</li>
+        </ol>
+       </li>
+
+       <li>
+       <strong>Governing Law:</strong>
+        <ol style="list-style-type: none">
+         <li>This Contract shall be governed by and construed in accordance with the laws of Georgia.</li>
+        </ol>
+       </li>
+
+       <li>
+        <strong>Entire Agreement:</strong>
+        <ol style="list-style-type: none">
+         <li>This Contract constitutes the entire agreement between Company and Customer and supersedes any prior agreements or understandings, whether written or oral.</li>
+        </ol>
+       </li>
+
+       <li>
+       <strong>Agreements, Digital Acknowledgement, and Digital Signature:</strong>
+        <ol style="list-style-type: none">
+         <li>Company agrees to the terms of this contract by providing this contract to the Customer.</li>
+         <li>Prospective Customer's digital acknowledgement and digital signature holds them accountable as the Customer of this contract after it has been submitted, processed, and approved by the Company. 
+          <ol class="dashList" style="list-style-type: none">
+           <li>
+            By digitally acknowledging and signing this contract the Prospective Customer declares they have read, understand, and agree to be bound by the terms and conditions of this Contract as defined for the Customer layed out for a Prospective Customer.
+           </li>
+          </ol>
+         </li>
+        </ol>
+       </li>
+      </ol>
+     </div>
+
+     <br>
+
+     <div class="contractSection">
+      <h3>
+      Terms of Service and Payment:
+      </h3>  
+      <ol>
+       <li>
+        <strong>Parties:</strong>
+        <p>This agreement is made between Flint River Fuel Center, located at 2568 GA-49 Oglethorpe, GA 31068, and Prospective Customer who, once acknowledging and accepting the terms of the contract becomes a Customer as defined in contract; collectively referred to as the "Parties".</p>
+       </li>
+
+       <li>
+        <strong>Invoice:</strong>
+        <p>
+         The Company shall issue weekly invoices to the Customer for purchases made. Each invoice shall detail the amount owed by the Customer and will be accompanied by a statement that will include Time Periods, Unpaid Invoices, and the Unpaid Total.
+        </p>
+       </li>
+
+       <li>
+        <strong>Statement and Overdue Amount:</strong>
+        <p>
+        The Company shall provide a weekly Statement to the Customer, detailing the total Unpaid Amounts and Unpaid Total. The Unpaid Total shall include all outstanding Invoices. Overdue Amounts shall be categorized based on the Time Range as specified in Section 4.
+        </p>
+       </li>
+
+       <li>
+        <strong>Time Ranges and Overdue Amounts:</strong>
+        <p>The Overdue Amounts shall be categorized into the following time ranges:</p>
+         <ol class="dashList" style="list-style-type: none"> 
+          <li>1 to 30 days</li>
+          <li>31 to 60 days</li>
+          <li>61 to 90 days</li>
+          <li>Over 90 days</li>
+         </ol> 
+       </li>
+
+       <li>
+        <strong>Credit Limit and Max Amount:</strong>
+         <p>
+          The Credit Limit will start at $500 and if an unpaid amount of $500 or more is due in the Over 90 days Time Range, the Customer may be legally prosecuted, while at any amount below $500 the Customer is legally liable for the amount owed in the Over 90 days Time Range category. If the Unpaid Total exceeds the Credit Limit, the Customer shall be unable to make additional purchases until the balance is settled. The Max Amount for each time range shall be specified by the Company.
+         </p>
+       </li>
+
+       <li>
+        <strong>Legal Responsibility:</strong>
+         <p>
+          The Customer acknowledges that they are legally responsible for any Unpaid Total exceeding $500. Failure to settle the Unpaid Total within the specified time frame may result in legal action by the Company. This includes legal action being brought against the customer.
+         </p>
+       </li>
+
+       <li>
+       <strong>Legal Action:</strong>
+        <p>
+         The Customer understands that the Company reserves the right to pursue legal action against them for any Unpaid Total equal to or greater than $500 that is over 90 days due, and any Unpaid Total that is greater than $5,000. The Customer shall be notified of impending legal action before charges are filed.
+        </p>
+       </li>
+
+       <li>
+       <strong>Agreement Acknowledgement:</strong>
+        <p> 
+         By signing this agreement, the Customer acknowledges that they have read, understood, and agreed to the terms outlined herein; therefore accepting all terms and obligations of this contract as defined for the Customer and Prospective Customer.
+        </p>
+       </li>
+      </ol>
+     </div>
+    </div>
+   </div>  
+  </div>
   </span>
   <hr>
   </div>
-
+  
   <h4>Changing Elements Examples:</h4><hr>
   <button class="showSectioBtn" onclick="changeNextElementDisplay(this, this.nextElementSibling)">Show Changing Examples</button><br>   
   <div style="display:none">

@@ -1341,6 +1341,155 @@ function addHTMLToText(tag, parElement, parElementIdentifier, attributes, wrapWo
  }
 }
 
+function sequentialSectionRomanNumeralItems(parElementIdentifier, parElement, nestedEle) {
+  // defautl for parameter
+  if (nestedEle == undefined) {
+   nestedEle = "";   
+  }
+  // globals for function
+  var romanNumerals = [
+  "I",  "II", "III",  "IV",  "V",   "VI",   "VII",   "VIII",  "IX",  "X", 
+  "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX", 
+  "XXI", "XXII", "XXIII", "XXIV", "XXV", "XXVI", "XXVII", "XXVIII", "XXIX", "XXX",
+  "XXXI", "XXXII", "XXXIII", "XXXIV", "XXXV", "XXXVI", "XXXVII", "XXXVIII", "XXXIX", "XL", 
+  "XLI", "XLII", "XLIII", "XLIV", "XLV", "XLVI", "XLVII", "XLVIII", "XLIX", "L", 
+  "LI", "LII", "LIII", "LIV", "LV", "LVI", "LVII", "LVIII", "LIX", "LX", 
+  "LXI", "LXII", "LXIII", "LXIV", "LXV", "LXVI", "LXVII", "LXVIII", "LXIX", "LXX", 
+  "LXXI", "LXXII", "LXXIII", "LXXIV", "LXXV", "LXXVI", "LXXVII", "LXXVIII", "LXXIX", 
+  "LXXX", "LXXXI", "LXXXII", "LXXXIII", "LXXXIV", "LXXXV", "LXXXVI", "LXXXVII", "LXXXVIII", "LXXXIX", "XC", 
+  "XCI", "XCII", "XCIII", "XCIV", "XCV", "XCVI", "XCVII", "XCVIII", "XCIX", "C"];
+  var domStartingPoint, nestedElementType, nestedElement, counter;
+  // run the function on the provided ol element
+  var parentElement, parentElementLen;
+  var setParentElement = function(par_Ele, par_eleName) {
+   if (idParentElement == 0) {
+    if (nestedEle == "") {
+     nestedElementsUsed = 0;
+    } else {
+     nestedElementsUsed = 1;
+     nestedElementType = "tag";
+     nestedElement = nestedEle; 
+    }
+   } else {
+    nestedElementsUsed = 0;
+   }
+   if (par_Ele == "class") {
+    parentElement = domStartingPoint.getElementsByClassName(par_eleName);
+   }
+   if (par_Ele == "attribute") {
+    parentElement = domStartingPoint.querySelectorAll(par_eleName);
+   }  
+   if (par_Ele == "tag") {
+    parentElement = domStartingPoint.getElementsByTagName(par_eleName);
+   }
+   parentElementLen = parentElement.length;
+  };
+  // set parent element by if first argument is id or not
+  var nestedElementsUsed, idParentElement;
+  if (parElementIdentifier== "id") {
+   idParentElement = 1;
+   domStartingPoint = document.getElementById(parElement);
+   if (nestedEle != "") {
+    nestedElementType = nestedEle.substr(0, nestedEle.indexOf(":"));
+    nestedElement = nestedEle.replace(/.*:/g, "");    
+   } else {
+    nestedElementType = "tag";
+    nestedElement = "h1";
+   }
+   console.log(nestedElementType);
+   console.log(nestedElement);
+   setParentElement(nestedElementType, nestedElement);
+  } else {   
+   idParentElement = 0;
+   domStartingPoint = document;
+   setParentElement(parElementIdentifier, parElement);
+  }  
+  // loop throught items adding roman numeral to beginning
+  counter = 0;
+  for (i = 0; i < parentElementLen; i++) {   
+   let theParentElement = parentElement[i];
+   if (idParentElement == 0 && nestedElementsUsed == 1) {
+    let curNestElements = theParentElement.getElementsByTagName(nestedElement);
+    let curNestElementsLen = curNestElements.length;
+    for (ii = 0; ii < curNestElementsLen; ii++) {
+     let theCurNestElement = curNestElements[ii];
+     theCurNestElement.innerHTML = romanNumerals[counter] + ". " + theCurNestElement.innerHTML;     
+    }
+    counter++;
+   } else {    
+    theParentElement.innerHTML = romanNumerals[i] + ". " + theParentElement.innerHTML;
+   }   
+  }     
+ }
+
+function sequentialSectionOrderedListItems(parElementIdentifier, parElement) {
+  // globals for function
+  var nestedCounter, counter, doubleNest;
+  // run the function on the provided ol element
+  var parentElement, parentElementLen;
+  if (parElementIdentifier== "class") {
+   parentElement = document.getElementsByClassName(parElement);
+  }
+  if (parElementIdentifier== "attribute") {
+   parentElement = document.querySelectorAll(parElement);
+  }  
+  if (parElementIdentifier== "id") {
+   parentElement = document.getElementById(parElement);
+  }
+  if (parElementIdentifier== "tag") {
+   parentElement = document.getElementsByTagName(parElement);
+  } 
+  // function to number nested ordered list items
+  var nestedOrderedListItems = function(curList, parentNumbering = "") {
+   nestedCounter = 1;
+   let items = curList.querySelectorAll("li");
+   let numbering;
+   items.forEach(function(item) {
+    if (doubleNest == 1) {
+     numbering = counter + "." + parentNumbering + "." + nestedCounter + '.';
+    } else {
+     numbering = parentNumbering + "." + nestedCounter + '.';
+    }
+    item.innerHTML = numbering + '<br>' + item.innerHTML;
+    let nestedOl = item.querySelector("ol");
+    if (nestedOl) {
+     doubleNest = 1;
+     nestedOrderedListItems(nestedOl, nestedCounter);    
+    }
+    doubleNest = 0;
+    nestedCounter++;
+   });  
+   // reset counter
+   counter = (counter - nestedCounter) + 1;
+  };  
+  // function for topmost ordered lists
+  var numberOrderedListItems = function(olElement, parentNumbering = '') {
+   let items = olElement.querySelectorAll('li');
+   counter = 1;
+
+   items.forEach(function(item) {     
+    var numbering;
+    numbering = parentNumbering + counter + '.';
+    item.innerHTML = numbering + ' ' + item.innerHTML;
+    var nestedOl = item.querySelector('ol');     
+    if (nestedOl) {
+     nestedOrderedListItems(nestedOl, counter);    
+    }
+    counter++;
+   });
+  };  
+  if (parElementIdentifier== "id") {
+   let olElement = parentElement.querySelector("ol");
+   numberOrderedListItems(olElement);
+  } else {
+   parentElementLen = parentElement.length;
+   for (i = 0; i < parentElementLen; i++) {
+    let olElement = parentElement[i].querySelector("ol");
+    numberOrderedListItems(olElement);
+   }    
+  }    
+ }
+
 // Changing Elements
 function changeToUpperCase(variableToChange) {
  let theVariableToUpperCase = variableToChange.toUpperCase();
