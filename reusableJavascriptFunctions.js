@@ -1537,15 +1537,19 @@ function sequentialSectionOrderedListItems(parElementIdentifier, parElement) {
       doubleNest--;
      } else {
       inNestedList = 0;
-      doubleNest = 0;
+      doubleNest = 0;   
      }
     }
     if (trackNestedListItems == 0) {
+     let tempCounter = counter;
      trackCount();
+     if (tempCounter == counter) {
+      storeCounter = 0;
+     }
     } else {
      trackNestedListItems--;
     }
-   });
+   });      
   };  
   if (parElementIdentifier== "id") {
    let olElement = parentElement.querySelector("ol");
@@ -1554,6 +1558,7 @@ function sequentialSectionOrderedListItems(parElementIdentifier, parElement) {
    parentElementLen = parentElement.length;
    for (i = 0; i < parentElementLen; i++) {
     let olElement = parentElement[i].querySelector("ol");
+    storeCounter = 0;
     numberOrderedListItems(olElement);
    }    
   }    
