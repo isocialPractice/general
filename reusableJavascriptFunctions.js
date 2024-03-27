@@ -1396,8 +1396,8 @@ function sequentialSectionRomanNumeralItems(parElementIdentifier, parElement, ne
     nestedElementType = "tag";
     nestedElement = "h1";
    }
-   console.log(nestedElementType);
-   console.log(nestedElement);
+   //console.log(nestedElementType);
+   //console.log(nestedElement);
    setParentElement(nestedElementType, nestedElement);
   } else {   
    idParentElement = 0;

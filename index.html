@@ -534,13 +534,13 @@
   </span>
   <!-- sequential Section Ordered List Items -->
   <span>
-  <h3>sequentialSectionOrderedListItems()</h3>
+  <h3>sequentialSectionOrderedListItems('attribute', '[data-section="1"]')</h3>
   <button class="exampleButton" onclick="
    changeNextElementDisplay(this, this.nextElementSibling);
    if (this.innerHTML.indexOf('Run ') > -1) {
     this.innerHTML = this.innerHTML.replace('Run', 'Hide');
     var ORIGINAL_Terms_of_Service_and_Payment_Agreement = document.getElementById('ORIGINAL_Terms_of_Service_and_Payment_Agreement');
-    ORIGINAL_Terms_of_Service_and_Payment_Agreement.innerText = document.getElementById('Terms_of_Service_and_Payment_Agreement').innerText;          
+    ORIGINAL_Terms_of_Service_and_Payment_Agreement.innerText = document.getElementById('Terms_of_Service_and_Payment_Agreement').innerHTML;
     sequentialSectionOrderedListItems('attribute', '[data-section=\'1\']');
    } else {
     this.innerHTML = this.innerHTML.replace('Hide', 'Show');
@@ -555,13 +555,12 @@
     <div id="ORIGINAL_Terms_of_Service_and_Payment_Agreement" style="display:none"></div>
    </div>
    <div id="Terms_of_Service_and_Payment_Agreement">
-    <div class="paymentContract">
-     <div id="removeSequentialOrderedListFunction" style="display:none">
-      <ol>
-       <li>This</li>
-       <li>Hiddend</li>
-      </ol>
-     </div>
+   <style>
+    div.paymentContract ol, div.paymentContract ol li {
+     list-style: none !important;
+    }
+   </style>   
+    <div class="paymentContract">     
      <h1>
      Terms of Service and Payment Agreement
      </h1>
@@ -574,14 +573,14 @@
      This Contract for Account Setup ("Contract") is being presented to the Prospective Customer as a Customer on the current day's date, which will be recorded once the form has been successfully submitted.
      </p>
      <br><br>
-     <div class="contractSection" data-section="1">
+     <div data-section="1">
      <h3>
      Mutuality of Obligation:
      </h3> 
-      <ol class="contractList">
+      <ol>
        <li>
        <strong>Parties:</strong>
-        <ol style="list-style-type: none">
+        <ol>
          <li>Company: Flint River Fuel Center, an S Corporation organized under the laws of Georgia, with its principal place of business at 2568 GA-49 Oglethorpe, GA 31068.</li>
          <li>Customer: The party agreeing to pay Invoices, an individual/entity or representative for an individual/entity agreeing to the terms and conditions of this Contract.</li>
         </ol>
@@ -589,7 +588,7 @@
 
        <li>
        <strong>Services:</strong>
-        <ol style="list-style-type: none">
+        <ol>
          <li>Company agrees to provide diesel fuel to Customer in accordance with the terms outlined in this Contract.</li>
          <li>Customer agrees that they will stay current with weekly invoices received, paying each in a timely manner.</li>
         </ol>
@@ -597,7 +596,7 @@
 
        <li>
        <strong>Invoicing:</strong>
-        <ol style="list-style-type: none">
+        <ol>
          <li>Company agrees to invoice the Customer weekly or for a set period of time, and each invoice shall specify the amount owed by Customer to Company for purchase made during prior week or a set period of time.</li>
          <li>Customer agrees to receive weekly invoices from Company for purchases made.</li>
         </ol>
@@ -605,11 +604,11 @@
 
        <li>
        <strong>Unpaid Amount and Overdue Charges:</strong>
-        <ol style="list-style-type: none">
+        <ol>
          <li>Company agrees to provide Customer with prior notice to any charges being brought against them for any outstanding amount that is over 90 days due to the Company by the Customer.</li>
          <li>
           Customer acknowledges and agrees that any unpaid amount exceeding $500 ("Unpaid Total") shall result in legal action taken by Company.
-           <ol style="list-style-type: none">
+           <ol>
             <li>Customer understands that failure to pay the Unpaid Total may result in legal action being brought against them.</li>
            </ol>
          </li>
@@ -618,7 +617,7 @@
 
        <li>
        <strong>Credit Limit:</strong>
-        <ol style="list-style-type: none">
+        <ol>
          <li>Company will set a Credit Limit for the Customer that will be determined by the Customer paying each Invoice amount in a timely manner.</li>
          <li>Customer agrees that once the Unpaid Total reaches the credit limit specified by Company, Customer's account may be suspended until payment is made.</li>
         </ol>
@@ -626,7 +625,7 @@
 
        <li>
        <strong>Legal Responsibility:</strong>
-        <ol style="list-style-type: none">
+        <ol>
          <li>
           Company is aware they are legally responsible to provide the Customer with updated and accurate information regarding the Customer's Invoice and any Overdue Amount, Unpaid Total, and Time Periods stating the sum of Unpaid Invoices for the corresponding Time Range.
          </li>
@@ -636,31 +635,31 @@
 
        <li>
        <strong>Termination:</strong>
-        <ol style="list-style-type: none">
+        <ol>
          <li>Either party (Company or Customer) may terminate this Contract upon notice to the other party if the terms outlined herein are violated.</li>
         </ol>
        </li>
 
        <li>
        <strong>Governing Law:</strong>
-        <ol style="list-style-type: none">
+        <ol>
          <li>This Contract shall be governed by and construed in accordance with the laws of Georgia.</li>
         </ol>
        </li>
 
        <li>
         <strong>Entire Agreement:</strong>
-        <ol style="list-style-type: none">
+        <ol>
          <li>This Contract constitutes the entire agreement between Company and Customer and supersedes any prior agreements or understandings, whether written or oral.</li>
         </ol>
        </li>
 
        <li>
        <strong>Agreements, Digital Acknowledgement, and Digital Signature:</strong>
-        <ol style="list-style-type: none">
+        <ol>
          <li>Company agrees to the terms of this contract by providing this contract to the Customer.</li>
          <li>Prospective Customer's digital acknowledgement and digital signature holds them accountable as the Customer of this contract after it has been submitted, processed, and approved by the Company. 
-          <ol class="dashList" style="list-style-type: none">
+          <ol class="dashList">
            <li>
             By digitally acknowledging and signing this contract the Prospective Customer declares they have read, understand, and agree to be bound by the terms and conditions of this Contract as defined for the Customer layed out for a Prospective Customer.
            </li>
@@ -673,7 +672,7 @@
 
      <br>
 
-     <div class="contractSection">
+     <div data-section="1">
       <h3>
       Terms of Service and Payment:
       </h3>  
@@ -700,7 +699,7 @@
        <li>
         <strong>Time Ranges and Overdue Amounts:</strong>
         <p>The Overdue Amounts shall be categorized into the following time ranges:</p>
-         <ol class="dashList" style="list-style-type: none"> 
+         <ol class="dashList">
           <li>1 to 30 days</li>
           <li>31 to 60 days</li>
           <li>61 to 90 days</li>
@@ -743,14 +742,14 @@
   </span>
   <!-- sequentail roman numerals -->
   <span>
-  <h3>sequentialSectionRomanNumeralItems()</h3>
+  <h3>sequentialSectionRomanNumeralItems('id', 'Seq_Roman_Num_Example', 'tag:h3')</h3>
   <button class="exampleButton" onclick="
    changeNextElementDisplay(this, this.nextElementSibling);
    if (this.innerHTML.indexOf('Run ') > -1) {
     this.innerHTML = this.innerHTML.replace('Run', 'Hide');
     var ORIGINAL_II_Terms_of_Service_and_Payment_Agreement = document.getElementById('ORIGINAL_II_Terms_of_Service_and_Payment_Agreement');
-    ORIGINAL_II_Terms_of_Service_and_Payment_Agreement.innerText = document.getElementById('II_Terms_of_Service_and_Payment_Agreement').innerText;          
-    sequentialSectionRomanNumeralItems('id', 'II_Terms_of_Service_and_Payment_Agreement', 'tag:h3');
+    ORIGINAL_II_Terms_of_Service_and_Payment_Agreement.innerText = document.getElementById('II_Terms_of_Service_and_Payment_Agreement').innerHTML;
+    sequentialSectionRomanNumeralItems('id', 'Seq_Roman_Num_Example', 'tag:h3');
    } else {
     this.innerHTML = this.innerHTML.replace('Hide', 'Show');
    }
@@ -764,7 +763,7 @@
     <div id="ORIGINAL_II_Terms_of_Service_and_Payment_Agreement" style="display:none"></div>
    </div>
    <div id="II_Terms_of_Service_and_Payment_Agreement">
-    <div class="paymentContract">
+    <div id="Seq_Roman_Num_Example"> 
      <h1>
      Terms of Service and Payment Agreement
      </h1>
@@ -777,14 +776,14 @@
      This Contract for Account Setup ("Contract") is being presented to the Prospective Customer as a Customer on the current day's date, which will be recorded once the form has been successfully submitted.
      </p>
      <br><br>
-     <div class="contractSection">
+     <div>
      <h3>
      Mutuality of Obligation:
      </h3> 
-      <ol class="contractList">
+      <ol>
        <li>
        <strong>Parties:</strong>
-        <ol style="list-style-type: none">
+        <ol>
          <li>Company: Flint River Fuel Center, an S Corporation organized under the laws of Georgia, with its principal place of business at 2568 GA-49 Oglethorpe, GA 31068.</li>
          <li>Customer: The party agreeing to pay Invoices, an individual/entity or representative for an individual/entity agreeing to the terms and conditions of this Contract.</li>
         </ol>
@@ -792,7 +791,7 @@
 
        <li>
        <strong>Services:</strong>
-        <ol style="list-style-type: none">
+        <ol>
          <li>Company agrees to provide diesel fuel to Customer in accordance with the terms outlined in this Contract.</li>
          <li>Customer agrees that they will stay current with weekly invoices received, paying each in a timely manner.</li>
         </ol>
@@ -800,7 +799,7 @@
 
        <li>
        <strong>Invoicing:</strong>
-        <ol style="list-style-type: none">
+        <ol>
          <li>Company agrees to invoice the Customer weekly or for a set period of time, and each invoice shall specify the amount owed by Customer to Company for purchase made during prior week or a set period of time.</li>
          <li>Customer agrees to receive weekly invoices from Company for purchases made.</li>
         </ol>
@@ -808,11 +807,11 @@
 
        <li>
        <strong>Unpaid Amount and Overdue Charges:</strong>
-        <ol style="list-style-type: none">
+        <ol>
          <li>Company agrees to provide Customer with prior notice to any charges being brought against them for any outstanding amount that is over 90 days due to the Company by the Customer.</li>
          <li>
           Customer acknowledges and agrees that any unpaid amount exceeding $500 ("Unpaid Total") shall result in legal action taken by Company.
-           <ol style="list-style-type: none">
+           <ol>
             <li>Customer understands that failure to pay the Unpaid Total may result in legal action being brought against them.</li>
            </ol>
          </li>
@@ -821,7 +820,7 @@
 
        <li>
        <strong>Credit Limit:</strong>
-        <ol style="list-style-type: none">
+        <ol>
          <li>Company will set a Credit Limit for the Customer that will be determined by the Customer paying each Invoice amount in a timely manner.</li>
          <li>Customer agrees that once the Unpaid Total reaches the credit limit specified by Company, Customer's account may be suspended until payment is made.</li>
         </ol>
@@ -829,7 +828,7 @@
 
        <li>
        <strong>Legal Responsibility:</strong>
-        <ol style="list-style-type: none">
+        <ol>
          <li>
           Company is aware they are legally responsible to provide the Customer with updated and accurate information regarding the Customer's Invoice and any Overdue Amount, Unpaid Total, and Time Periods stating the sum of Unpaid Invoices for the corresponding Time Range.
          </li>
@@ -839,31 +838,31 @@
 
        <li>
        <strong>Termination:</strong>
-        <ol style="list-style-type: none">
+        <ol>
          <li>Either party (Company or Customer) may terminate this Contract upon notice to the other party if the terms outlined herein are violated.</li>
         </ol>
        </li>
 
        <li>
        <strong>Governing Law:</strong>
-        <ol style="list-style-type: none">
+        <ol>
          <li>This Contract shall be governed by and construed in accordance with the laws of Georgia.</li>
         </ol>
        </li>
 
        <li>
         <strong>Entire Agreement:</strong>
-        <ol style="list-style-type: none">
+        <ol>
          <li>This Contract constitutes the entire agreement between Company and Customer and supersedes any prior agreements or understandings, whether written or oral.</li>
         </ol>
        </li>
 
        <li>
        <strong>Agreements, Digital Acknowledgement, and Digital Signature:</strong>
-        <ol style="list-style-type: none">
+        <ol>
          <li>Company agrees to the terms of this contract by providing this contract to the Customer.</li>
          <li>Prospective Customer's digital acknowledgement and digital signature holds them accountable as the Customer of this contract after it has been submitted, processed, and approved by the Company. 
-          <ol class="dashList" style="list-style-type: none">
+          <ol class="dashList">
            <li>
             By digitally acknowledging and signing this contract the Prospective Customer declares they have read, understand, and agree to be bound by the terms and conditions of this Contract as defined for the Customer layed out for a Prospective Customer.
            </li>
@@ -876,7 +875,7 @@
 
      <br>
 
-     <div class="contractSection">
+     <div>
       <h3>
       Terms of Service and Payment:
       </h3>  
@@ -903,7 +902,7 @@
        <li>
         <strong>Time Ranges and Overdue Amounts:</strong>
         <p>The Overdue Amounts shall be categorized into the following time ranges:</p>
-         <ol class="dashList" style="list-style-type: none"> 
+         <ol class="dashList">
           <li>1 to 30 days</li>
           <li>31 to 60 days</li>
           <li>61 to 90 days</li>
