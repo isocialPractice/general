@@ -1,4 +1,16 @@
 # General Purpose Javascript Functions  
+
+<details>
+ <summary>Table of Contents</summary>
+ 
+ 1. [Removing Elements](#removing-elements-top)
+ 2. [Replacing Elements](#replacing-elements-top)
+ 4. [Appending/Prepending/Add Elements](#appendingprependingadd-elements-top)
+ 4. [Changing Elements](#changing-elements-top)
+ 5. [Miscellaneous](#miscellaneous-top)
+ 
+</details>
+
 <hr>
 
 [Preview JavaScript Functions](https://jhauga.github.io/htmlpreview.github.com/?https://github.com/isocialPractice/general/blob/main/index.html)
@@ -281,8 +293,105 @@ Function to number specific tags with preceding roman numeral.
 
 <details>
 <summary><strong>sequentialSectionOrderedListItems</strong>(<em>parElementIdentifier</em>, <em>parElement</em>)</summary>
- 
-Function to number ol items and their nested ol items.
+
+<strong>IMPORTANT</strong> - best to keep nesting simple. See [Issue #1](https://github.com/isocialPractice/general/issues/1).
+
+<details>
+<summary>Click to See Use Example:</summary>
+
+CALLED WITH - ` sequentialSectionOrderedListItems("tag", "div"); `
+
+<details>
+<summary>Click to Show HTML</summary>
+
+```
+<div>
+ <ol>
+  SOME HEADING  
+  <li>item</li>
+  <li>item
+   <ol>
+    <li>item</li>
+    <li>item</li>
+   </ol>
+   <li>item</li>
+  </li>  
+  <li> TERM
+  <ol>
+   <li>item</li>
+   <li>item</li>
+  </ol>  
+  </li>
+ </ol>
+</div>
+
+<div> 
+ <ol>
+  SOME HEADING
+  <li>item</li>
+  <li>
+  item
+  <ol>
+   <li>item</li>
+   <li>item</li>
+  </ol>
+  </li>
+  <li>item</li>
+  <li>item
+   <ol>
+    <li>item</li>
+   </ol>
+  </li>
+  <li>item</li>
+ </ol>
+</div>
+```
+
+</details>
+
+<hr>
+
+<details>
+
+<summary>Show Sample Output</summary>
+
+```
+SOME HEADING
+1. item
+2. item
+ 2.1.
+ item
+ 2.2.
+ item
+3. item
+4. TERM
+ 4.1.
+ item
+ 4.2.
+ item
+
+SOME HEADING
+1. item
+2. item
+ 2.1.
+ item
+ 2.2.
+ item
+3. item
+4. item
+ 4.1.
+ item
+5. item
+
+```
+
+</details>
+
+<hr><hr>
+
+</details>
+
+Function to number first ol item and their nested ol items for each parent html element.
 
 1. <strong>parElementIdentifier</strong>: String - acceptable values are:  
    - a. "id" - the id.
