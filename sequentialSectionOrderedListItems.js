@@ -21,7 +21,9 @@ Function to number ol items and their nested ol items
 
 function sequentialSectionOrderedListItems(parElementIdentifier, parElement) {
   // globals for function
-  var nestedCounter, counter, doubleNest;
+  var numbering, counter, nestedCounter, doubleNest = 0, trackNestedListItems = 0, lastNestItem = 0;
+  var inNestedList, nestItemLength, checkNumberingLength;
+  var storeCounter = 0;
   // run the function on the provided ol element
   var parentElement, parentElementLen;
   if (parElementIdentifier== "class") {
@@ -36,43 +38,110 @@ function sequentialSectionOrderedListItems(parElementIdentifier, parElement) {
   if (parElementIdentifier== "tag") {
    parentElement = document.getElementsByTagName(parElement);
   } 
+  // function to keep count
+  var trackCount = function() {
+   if (storeCounter == 0) {
+    counter++;
+   } else {
+    counter = storeCounter + 1;
+   }
+  };  
+  // function to count the number of occurrences of a specific character in a string
+  var countNestedSection = function(str, char) {
+   // split the string by the specified character and count the number of resulting elements
+   return str.split(char).length;
+  };      
   // function to number nested ordered list items
-  var nestedOrderedListItems = function(curList, parentNumbering = "") {
-   nestedCounter = 1;
-   let items = curList.querySelectorAll("li");
-   let numbering;
+  var nestedOrderedListItems = function(curList, parentNumbering) {   
+   if (lastNestItem == 0) {
+    nestedCounter = 1;
+   } 
+   let items = curList.querySelectorAll("li");   
    items.forEach(function(item) {
-    if (doubleNest == 1) {
-     numbering = counter + "." + parentNumbering + "." + nestedCounter + '.';
-    } else {
-     numbering = parentNumbering + "." + nestedCounter + '.';
+    if (inNestedList == 1) {
+     trackNestedListItems = items.length;      
     }
+    if (doubleNest >= 1) {
+     numbering = counter + "." + parentNumbering + "." + nestedCounter + '.';
+     checkNumberingLength = Number(countNestedSection(numbering, "."));    
+     if (nestItemLength == 1 && checkNumberingLength > 3) {
+      // If list item is after nested items.            
+      lastNestItem = 1;   
+      if (doubleNest < 2) { 
+       doubleNest = 0; 
+      } 
+      if ( // IF CONDITION
+       typeof parentNumbering == "string" && parentNumbering.indexOf(".") > -1 || 
+       Math.floor(parentNumbering) < parentNumbering
+      ) {
+       let nestedCounterArr = parentNumbering.split(".");
+       nestedCounter = Math.floor(nestedCounterArr[nestedCounterArr.length-1]);   
+      }              
+     } else {      
+       lastNestItem = 0;
+       nestItemLength--;
+     }
+    } else {
+     numbering = parentNumbering + "." + nestedCounter + '.';     
+     lastNestItem = 0;   
+     nestItemLength--;
+    }
+    //nestItemLength--;
+    //nestItemLength--;
     item.innerHTML = numbering + '<br>' + item.innerHTML;
     let nestedOl = item.querySelector("ol");
     if (nestedOl) {
-     doubleNest = 1;
+     if (doubleNest == 0) {
+       doubleNest = 1;                   
+     } else if (doubleNest >= 1 ) {
+      if (nestItemLength >= 1) {
+       doubleNest++;
+       nestedCounter = doubleNest + "." + nestedCounter;       
+      }
+     }
+     //nestedCounter = nestedCounter;
+     nestItemLength = nestedOl.querySelectorAll("li").length;     
      nestedOrderedListItems(nestedOl, nestedCounter);    
     }
-    doubleNest = 0;
-    nestedCounter++;
+    trackNestedListItems--;     
+    if (lastNestItem != 0) {
+     let skip;
+     lastNestItem = 0;
+     //nestedCounter++;
+    } else {
+     nestedCounter++;
+    }
    });  
    // reset counter
-   counter = (counter - nestedCounter) + 1;
+   //counter = (counter - nestedCounter) + 1;
   };  
   // function for topmost ordered lists
   var numberOrderedListItems = function(olElement, parentNumbering = '') {
    let items = olElement.querySelectorAll('li');
    counter = 1;
 
-   items.forEach(function(item) {     
-    var numbering;
-    numbering = parentNumbering + counter + '.';
+   items.forEach(function(item) {
+    numbering = parentNumbering + counter + '. ';
     item.innerHTML = numbering + ' ' + item.innerHTML;
     var nestedOl = item.querySelector('ol');     
     if (nestedOl) {
-     nestedOrderedListItems(nestedOl, counter);    
+     inNestedList = 1;
+     storeCounter = counter;
+     nestItemLength = nestedOl.querySelectorAll("li").length;     
+     nestedOrderedListItems(nestedOl, counter);
+    } else {
+     if (doubleNest > 0) {
+      doubleNest--;
+     } else {
+      inNestedList = 0;
+      doubleNest = 0;
+     }
     }
-    counter++;
+    if (trackNestedListItems == 0) {
+     trackCount();
+    } else {
+     trackNestedListItems--;
+    }
    });
   };  
   if (parElementIdentifier== "id") {
