@@ -646,3 +646,15 @@ onmouseover="showTermTitleWithLink(this, this.dataset, this.dataset.title)" titl
   ) ()"     
 </pre>
 </details>
+
+#
+
+<details>
+<summary><strong>makeRandomSequence</strong>(<em>randomLength</em>, <em>randomData</em>)  </summary>
+
+1. <strong>randomLength</strong>: optional -  integer
+  - default is 8.
+2. <strong>randomData</strong>: optional - array
+  - default is \["digits", "lowerCaseCharacters", "upperCaseCharacters"\]
+
+</details>

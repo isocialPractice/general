@@ -1666,6 +1666,25 @@
 
    </div><br>
   </span>
+  <!-- makeRandomSequence -->
+  <span>
+   <p><strong>makeRandomSequence(randomLength, randomData)</strong></p>
+   <button onclick="toggleButtonSwitch(this);
+   let makeRandomSequenceVar = makeRandomSequence();
+   let makeRandomSequenceID = document.getElementById('makeRandomSequence');   
+    if (this.dataset.togglebuttonswitch == 1) { 
+     makeRandomSequenceID.innerHTML = makeRandomSequenceVar;   
+     this.innerHTML = this.innerHTML.replace('Run', 'Reset'); 
+    }
+    if (this.dataset.togglebuttonswitch == 0) { 
+     makeRandomSequenceID.innerHTML = '';   
+     this.innerHTML = this.innerHTML.replace('Reset', 'Run'); 
+    }
+   " 
+   data-togglebuttonswitch="0">Run makeRandomSequence() Function</button><br>   
+  <div id="makeRandomSequence">
+  </div>
+  </span>
    <hr>
   </div>
   <br>

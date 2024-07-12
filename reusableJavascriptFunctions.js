@@ -3226,3 +3226,24 @@ function toggleButtonSwitch(cur, curRun) {
   cur.click();
  }
 }
+
+function makeRandomSequence(randomLength = 8, randomData = ["digits", "lowerCaseCharacters", "upperCaseCharacters"]) {
+  let randomObject = {
+   "digits": "0123456789",
+   "lowerCaseCharacters": "abcdefghijklmnopqrstuvwxyz",
+   "upperCaseCharacters": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"  
+  };  
+  let randomCharacters = "";
+  for (i = 0; i < randomLength; i++) {
+   let randomDataType = // 0 to 2, or 0 to lenth of parameter randomData
+    Math.floor(Math.random() * randomData.length);
+    
+   let randomDigit    = // random integer from length of randomObject property
+    Math.floor(Math.random() * randomObject[randomData[randomDataType]].length);
+                            // [ object ]  [ array    [ index ]   in   ^ ------ ]
+    
+   randomCharacters  += // use above elements to append each random character
+    randomObject[randomData[randomDataType]][randomDigit];
+  }
+ return randomCharacters;
+ }
